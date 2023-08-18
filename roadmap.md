@@ -1,62 +1,102 @@
-﻿Chenilles Roadmap:
-________________
-Scalable, Interoperable and Programmable State Channel Network
-A project by Mutual Knowledge Systems, May 2023
-https://bit.ly/ChenillesRoadmap2023
-TODO:
-* Rewrite everything below!
-* Merge with the Filecoin version at https://github.com/filecoin-project/devgrants/issues/1449
+﻿---
+Date:	May 2023 (Latest update August 17th 2023)
+URL:	https://chenilles-network.github.io/roadmap.html
+Author:	François-René Rideau <f@mukn.com>
+Company:	Mutual Knowledge Systems, Inc. < https://mukn.com >
+Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
+---
+# Chenilles Roadmap: a Scalable, Interoperable and Programmable State Channel Network
+
+### TODO
+
+  * Rewrite everything below!
+
+  * Merge with the Filecoin version at https://github.com/filecoin-project/devgrants/issues/1449
+
+  * Include feedback from https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585 and https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585/discussions
 
 
+### Abstract
+
+We propose a roadmap to design, build and market
+the [*Chenilles* Network](https://chenilles-network.github.io/),
+a new payment network that can transmit value across blockchains and currencies,
+safely, at scale, with a direct connection to on-ramp and off-ramp solutions.
+*Chenilles* will remove the main hurdles that prevent cryptocurrencies
+from “going to the Moon”: scalability, safety and usability.
+
+*Chenilles* is a next-generation Network of Generalized State Channels,
+that embraces and extends the [Bitcoin Lightning Network](https://lightning.network/).
+Like the Lightning Network and its first-generation copycats,
+*Chenilles* is made of _State Channels_,
+self-custodial “Layer 2” solutions that can off-load transactions from
+a “Layer 1” blockchain and bring scalability without sacrificing safety.
+Like the Lightning Network,
+*Chenilles* enables atomic “path payments” from one participant to another
+through a series of intermediaries using State Channels.
+Unlike the Lightning Network and its first-generation copycats,
+*Chenilles* can run on many blockchains,
+potentially all of them (that feature scripting no worse than Bitcoin),
+and it notably supports transfer of value from one cryptocurrency to the other,
+from one blockchain to the other, and even
+from on-ramp and to off-ramp solutions.
+Unlike the Lightning Network and its first-generation copycats,
+*Chenilles* also supports arbitrary smart contracts to be used by participants
+while interacting with each other using State Channels.
+
+Our roadmap emphasizes the early release of
+partial but already useful and marketable products
+as “low-hanging fruits” on the road to delivering a complete working product.
+We will keep building along this roadmap, revising it based on market feedback.
+As for what Layer 1 networks to support, we will prioritize
+supporting the most liquid markets, which these days mean Ethereum and Bitcoin;
+but we will also seek funding from various blockchain
+foundations, companies and communities for *Chenilles*
+to support their blockchains earlier and better.
+
+## Introduction
+
+### A Network of Generalized State Channels
+
+We presented in the
+[Chenilles Glow whitepaper](https://chenilles-network.github.io/whitepaper.html)
+our cross-blockchain Network of Generalized State Channels,
+its overall vision, its capabilities, and how it will solve the main issues
+that currently block cryptocurrencies 
 
 
+State Channels were invented in 2015 by Joseph Poon and Thaddeus Dryja
+as the basic block of the Bitcoin Lightning Network, enabling fast, affordable
+and private micropayments as a “Layer 2” on top of Bitcoin’s “Layer 1”,
+when the Layer 1 (posting transactions directly on the blockchain)
+may be simpler and safer but slow, expensive and public.
+Remarkably, for a payment to be confirmed using a State Channel
+does not require any trust assumption beside
+(a) trusting the underlying Blockchain, and
+(b) trusting one’s own computing infrastructure,
+both of which are already prerequisites
+for exchanging digital assets on that Blockchain.
 
+In the very first version of *Chenilles*, we will implement State Channels
+by following the same principles as for the Bitcoin Lightning Network:
+we will demonstrate micropayments between two participants
+on a single “Layer 1 to 2” State Channel (L12).
 
-We design and propose to implement a variant of State Channels for Laconic that will not only (a) enable scalable off-chain payments on a “Layer 2”, but also (b) allow for many simultaneous on-going conditional payments on a “Layer 3”.
-Furthermore, in the future, the very same State Channels can also (c) enable atomic payments between users mediated by the Network, (d) partake in a wider “Ethereum Lightning Network” of State Channels, and even (e) interoperate with the Bitcoin Lightning Network itself. Finally, (f) enable the safe, fast, and private deployment of arbitrary “closed” contracts between a user and the Network, and in particular (g) enforce the rules that members of the Network must follow, and at some point later (h) enable arbitrary contracts between multiple users as mediated by the Network.
-For the initial version of the Laconic Network, we will only fully implement and productize features (a) and (b), but we will have enough provisions in the contract to implement the subsequent features by upgrading client code without having to upgrade the contract itself.
+### Path Payments with a Hub-and-Spoke Architecture
 
+In a second version of *Chenilles*, We will support conditional payments through an HTLC,
+     allowing for trustless atomic transactions from user to user,
+     with some technical Intermediary
+     who need not be trusted for safety (though indeed for liveness).
 
-Introduction        2
-Scaling Transactions without Extra Trust Assumptions        2
-Connecting Laconic and other State Channel Network        2
-Generalized State Channels        3
-Plan Summary        4
-Underlying Concepts        4
-State Channels        4
-Nested State Channels        5
-Lightning Network        5
-Payment Routing        6
-Interoperation Between Blockchains        7
-Open vs Closed Interactions        7
-Closed Interactions over Generalized State Channels        8
-Channels with More Than Two Participants        9
-Off-Chain Code        10
-Action Plan        10
-Step 1: Simple State Channels        10
-Step 2: Nested State Channels        10
-Step 3: Payments with Intermediary        11
-Step 4: Productizing the Network        11
-Project Summary        11
-Future Work        11
-Audit        12
-Maintenance        12
-Productization of a Decentralized Layer 2  Network        12
-Contracts on top of State Channels        13
-Bibliography        13
-Introduction
-Scaling Transactions without Extra Trust Assumptions
-State Channels were invented in 2015 by Joseph Poon and Thaddeus Dryja as the basic block of the Bitcoin Lightning Network, enabling fast, affordable and private micropayments as a layer 2 on top of Bitcoin’s layer 1, when the layer 1 (posting transactions directly on the blockchain) may be simpler and safer but slow, expensive and public. Remarkably, for a payment to be confirmed using a state channel does not require any trust assumption beside (a) trusting the underlying Blockchain, and (b) trusting one’s own computing infrastructure, both of which are already prerequisites for exchanging digital assets on that Blockchain.
+  3. We will demonstrate multiple nested “Layer 2 to 3” State Channels (L23)
+     inside a single L12 State Channel,
+     allowing for many independent transactions at the same time.
 
+At that point, we will have a simple yet robust Hub-and-Spoke payment network.
+with the configured Intermediary as the Hub.
 
-In the first version of Laconic, we will implement State Channels by following the same principles as for the Bitcoin Lightning Network.
-1. We will demonstrate micropayments between a user and the Network on a single “Layer 1 to 2” State Channel (L12). 
-2. We will support conditional payments through an HTLC, allowing for trustless atomic transactions from user to user, with the Network as an untrusted technical intermediary.
-3. We will demonstrate multiple nested “Layer 2 to 3” State Channels (L23) inside a single L12 State Channel, allowing for many independent transactions at the same time.
-
-
-At that point, we will have a simple yet robust hub-and-spoke payment network with the Network as the hub.
-Connecting Laconic and other State Channel Network
+### Connecting *Chenilles* and other State Channel Network
 In a future version of Laconic, the payment network we are creating can interoperate with other State Channel Networks, by using compatible HTLC conditions:
 * On Ethereum, Kchannels, the Raiden Network, Connext, Perun, Celer,  StateChannels.org, etc.
 * On Bitcoin, the Bitcoin Lightning Network itself.
@@ -300,3 +340,274 @@ https://github.com/lightningnetwork/lnd
 
 https://celer.network/
 https://perun.network/
+
+
+
+
+## Project Description
+
+*Chenilles* is a next-generation cross-blockchain State Channel Network.
+We, at [*Mutual Knowledge Systems*](https://mukn.io/),
+a.k.a. MuKn (pronounced “Moon” — the K is silent),
+have already started building *Chenilles*, on Ethereum.
+
+### Benefits of State Channels in General
+
+With *Chenilles* as with all State Channels:
+
+- Two participants in a channel can send tokens to each other safely, cheaply, quickly and *privately*, scaling far beyond what Layer 1 supports.
+- Participants can safely, cheaply, quickly, atomically and privately send fungible tokens along a circuit of State Channels of sufficient liquidity, in network such as the Bitcoin Lightning Network.
+
+### Innovative Extra Benefits of *Chenilles* Network
+
+Beyond what other State Channel networks do:
+
+- The *Chenilles* Network enables participants to send tokens *across blockchains*, so you can send FIL and the recipient would get ETH, or vice versa.
+- The *Chenilles* Network can potentially interoperate with any other State Channel Network, including the Bitcoin Lightning Network itself.
+- *Chenilles* allows not just two participants, but tens of participants, on a same State Channel, as long as they all keep cooperating in a timely manner.
+- *Chenilles* allows not just one kind of token (e.g. FIL, ETH or BTC) on a State Channel, but any number of token kinds including NFTs (e.g. FIL, some ERC20s and some ERC721s).
+- *Chenilles* can scale not just payments, but arbitrary contracts, between its participants (e.g. swaps, futures, market making, insurance, auctions, poker games, etc.)
+- *Chenilles* can multiplex many nested State Channels within an existing State Channel, such that many concurrent conditional transactions can be executed at the same time on a single State Channel.
+- *Chenilles* allows contracts to be written once in a single language, *Glow*, that is safe, concise and portable, when other Networks require contracts to be written identically in two or three unsafe languages (e.g. Solidity, Go and JS for contracts on Celer) wherein any issue in any of the three variants and any discrepancy between them may cause asset loss.
+- *Chenilles* with *Glow* will support compiling contracts to zk-SNARKs using Lurk, such that terms of the contract remain private even in case of timeout and non-cooperative exit from the State Channel.
+- *Chenilles* enables use of blockchain-specific capabilities, such that State Channel contracts on Filecoin can invoke payment conditions based on the data stored on network.
+
+### Value
+
+The technical capabilities of *Chenilles* set it far ahead of current State Channel technology. Therefore the value generated by adding liquidity to the *Chenilles* Network will be vastly superior to that of adding it to existing networks. By funding the development of *Chenilles* through a grant:
+
+1. Filecoin will increase the scalability and privacy of transactions on the Filecoin network, thereby creating utility for Filecoin users, and increasing the value of the network and its token.
+2. Filecoin will interoperate with other blockchains in a safe and efficient way, increasing the value both of Filecoin and of those other blockchains.
+3. Filecoin will become an early adopter of the *Chenilles* network and of *Glow* and capture a larger part of their mindshare than the other blockchains that will only be supported later.
+4. Filecoin will create synergies with Filecoin’s Lurk platform (that we at MuKn are also working on), wherein by combining a Lurk contract and a State Channel, the Lurk contract interactions can be made to scale whereas the contractual conditions attached to the State Channel will remain private even in case of non-cooperative exit.
+
+The *Chenilles* network can be an extremely valuable addition to the Filecoin ecosystem. At the same time, Filecoin can better foster the appearance of such a network by funding this addition through a grant to a blockchain-agnostic entity like MuKn than by building it in-house. Indeed, an entity tied to a specific blockchain might cause some other blockchains to fear giving an advantage to whichever rival appears as the leader, whereas a blockchain-agnostic entity will reassure them that they will get a fair treatment in a cross-chain network that benefits all participants.
+
+## Deliverables
+
+### Low-hanging Fruits in a Tall Tree
+
+Our complete plan for *Chenilles* goes all the way from implementing single State Channels to building a payment and smart-contract network that interoperates with other State Channel networks such as the Bitcoin Lightning Network, as well as a financial settlement system that leverages this technical infrastructure. However, we divided this plan in shorter phases such that each phase produces a deliverable that noticeably enhances the value of the Filecoin network, with compounded effects as the deliverables build upon each other. Thus, however far Filecoin is willing to fund this project, it will reap super-linearly increasing benefits from its investment.
+
+Filecoin does not have to commit to the entire plan initially. Morever, however much Filecoin puts on the table, it will pay in monthly installments and keep the option to terminate the project at any time (with one month notice) should MuKn not demonstrate satisfactory progress. Nevertheless, earmarking funds for a larger development will allow MuKn to staff the project with a more stable permanent team that can be completely focused on the project. An even larger earmark may also allow to parallelize those efforts that can be parallelized, leading to earlier delivery of a complete product than a trickle that can only afford a smaller team at a time.
+
+Should Filecoin be only willing to fund part of the project at first, we can complete the project later based on further grants from Filecoin after the initial deliverables have been evaluated, or by finding investors who see the financial potential of *Chenilles* as a cross-chain payment and smart-contract network. However big or small the initial grant, discussions for further funding would ideally start early enough that development could continue uninterrupted, whether funded by grants or by investment.
+
+### Overview of Deliverables
+
+Here is a short description of each of the successive phases of development that we have planned, and what deliverables or increasing functionality will be built at each stage. We omit the many subphases in each phase and their individual deliverables:
+
+1. **Simple State Channels**
+This phase will create the building block of *Chenilles*, the simplest of State Channels, implemented on top of Filecoin’s FVM. The deliverable will enable scalable micropayments between two participants on Filecoin.
+2. **State Channel Paths**
+This phase will enable participants with a series of connected State Channels to build a *path* along which payments can be safely made from a sender to a recipient through a series of intermediaries. The deliverable will enable scalable routing of micropayments with explicit paths (a la Bitnet).
+3. **State Channel Network**
+This phase will enable participants who are not directly connected by a State Channel to dynamically discover and use paths of intermediaries to route conditional payments. The deliverable will enable scalable routing of micropayments with implicit paths (a la Internet).
+4. **Cross-Chain State Channel Paths**
+This phase will enable participants to use paths that cross blockchain boundaries to effect payments between Filecoin, Ethereum and Bitcoin. The deliverable will enable scalable routing of micropayments across blockchains with explicit chain crossings.
+5. **Cross-Chain State Channel Network**
+This phase will enable participants to discover and use intermediaries to effect payments across blockchains between Filecoin, Ethereum and Bitcoin. The deliverable will enable scalable routing of micropayments across blockchains with implicit chain crossings.
+6. **Smart Contract Enhancements**
+This phase will enhance the *Chenilles* Network so as to enable arbitrary smart contracts between a small number of participants to be conducted through State Channels. This will put our State Channel Network far ahead of existing networks, that in practice support no such thing, though some do in theory. At each step, we will enhance our language *Glow* to implement the additional features through State Channels. The deliverable will be a rich contract system on top of *Chenilles*.
+7. **Privacy Enhancements**
+This phase will enhance the *Chenilles* Network so as to make its transactions completely opaque to non-participants, including the presence of the State Channels themselves. The deliverable will reinforce the privacy of payments over State Channels.
+8. **Financial Layer**
+Once the technical layer is sufficiently advanced (which can start right after phase 2), we will contact people with liquidity and get them to add liquidity on *Chenilles* by prioritizing the development of the features they most want, including which financial contracts we should first support (e.g. futures, auctions, etc.). The deliverable will be a financial network that uses the technical infrastructure of *Chenilles*.
+
+## Development Roadmap
+
+Our development will include the following phases.
+
+We estimate costs in abstract units of developer-week (or *dvwk* for short), which represents one week of work by one developer assigned full-time on the project, but which also accounts for technical leadership costs, management costs, administrative costs, consulting costs (for when the main assigned developer needs help from another expert), ancillary costs, amortized software and hardware costs, etc.
+
+To account for the above, we estimate a monetary cost of $5000/dvwk for a short-term grant. This cost can decrease if Filecoin is willing to commit to a long term development grant and/or to shoulder the risk of cost overrun.
+
+Actual delivery time for any step may be shorter than the estimated number of developer-weeks (if work is somewhat parallelizable between multiple developers, within the limits of Amdahl’s Law), but will likely longer (due to various delays, sickness, vacations, etc.). On the other hand, given sufficient budget, some phases can be executed wholly in parallel with other phases by distinct developers (e.g. phases 6 to 8 vs other phases between 3 and 8).
+
+### Phase 1: ***Simple State Channels***
+
+This phase will create the building block of *Chenilles*, the simplest of State Channels, implemented on top of Filecoin’s FVM, that enables micropayments between two participants. It will be subdivided in steps as follows:
+
+1. A study of how best to implement State Channels on Filecoin: what interfaces to use, amend or add—helping better estimate development costs. (6 dvwk)
+2. The simplest implementation of State Channels, including both a smart contract for the FVM and client code capable of communicating with it—enabling micropayments. (6 dvwk)
+3. A robustization of the above, making for State Channels that can be trusted with actual tokens, rather than a mere demonstration that assumes favorable conditions. (12 dvwk)
+4. Integration of State Channels with the standard Filecoin wallet—allowing for micropayments by regular Filecoin users rather than merely by programmers familiar with a command-line. (12 dvwk)
+5. Documentation for all the above, including a live recorded demonstration, and addressing issues found while documenting. (18 dvwk)
+
+As with every phase of our plan, it is conceivable to stop at the end of any step and have made measurable progress towards improving the value of Filecoin, but we recommend going all the way to the end of a phase for this progress to generate tangible value to end-users of the Filecoin network. Thus for $30,000 we could stop at the study; for $60,000 we could have a working demo; for $120,000 we could have a robust prototype; for $180,000 the prototype can be integrated with a standard Filecoin wallet, and for $270,000 the entire thing can be documented and debugged such that regular users can use it.
+
+Furthermore, if payment of each step is made conditional on the previous step, then development will take an entire year by a single developer. However, if the entire phase is authorized in advance and paid in larger monthly installments, 2 to 3 developers can work together in parallel and make it happen in 6 to 9 months.
+
+Below are details on each of the steps.
+
+**Discovery**: We will start with a study in which we will examine in depth how our existing *Chenilles* technology does or doesn’t fit in the Filecoin ecosystem: what facilities we can reuse of *Chenilles* and of Filecoin, what functionality we must custom-build for Filecoin vs other blockchains, which interfaces we must hook into (e.g. wallets), what features the interested parties in the Filecoin community deem more important, etc. Detailed plans will be written to determine exactly which features will be implemented in each of the subsequent phases. While this step limits its deliverable to specifications, documentation, and requirements for future steps and phases, it is fundamental to a successful phased roll-out of the system. Questions we will answer will include:
+
+- What will the FVM contract generally look like? What implementation strategies will we follow?
+- Does the FVM presently have all the capabilities required to efficiently implement State Channels? Either way, how precisely will which of its capabilities be used or amended?
+- Same questions for the Filecoin client (or server) APIs we will use or amend.
+- Which multisignature algorithm(s) should we support at first for the “happy” consensual case? (e.g. ECDSA, Schnorr, BLS).
+- Which parts of our Ethereum contract and client infrastructure can we reuse as is, versus which must be generalized, and which must be reimplemented in the new particular setting?
+- How should the client persistent storage fit with the Filecoin ecosystem?
+- How should or shouldn’t we integrate with authentication systems or “wallets” commonly used within the Filecoin community, to handle participant identities and funds under automatic management of DApps?
+- Do our designs as pertain to the Filecoin ecosystem pass a preliminary review from a competent cryptographer?
+
+We estimate this initial study to cost about 5 developer-weeks. From the study will also come a better estimate for the costs of the following steps and phases.
+
+**Prototype**: We will implement the simplest kind of State Channels for Filecoin, according to the plan established during Discovery, reusing as much as possible of our State Channels for Ethereum. These State Channels may have a minimal set of features: only two participants, only one single token kind, no conditional payment, no nested channels, no interface beside the command-line, no wallet integration, no persistence of session information. But they will support non-cooperative as well as cooperative exit. As a proof of concept, the prototype will be focused on demonstrating feasibility, rather than making a complete product. Reasonable effort will be made so the prototype should be secure, but corners may be cut as long as they are well-documented.
+
+**Robustization**: Once the prototype establishes the feasability of the endeavor, we will turn it into a robust product. We will add all the missing security checks and handle all the corner cases. However, we will not add any feature beside what is required for security. In particular, we will stick to a developer-friendly but end-user-unfriendly command-line interface, and we will not attempt to integrate with existing Filecoin wallets (which we will do in the following step). We will not add support for more than two participants, or more than one token kind (e.g. FIL, ERC20, etc.), nested state channels, or any other functionality. We will just turn the prototype into something robust.
+
+**Integration**: After we have a robust implementation of those minimal State Channels for Filecoin, we will integrate them with the most relevant Filecoin wallet, so that end-users of Filecoin may actually use them for micropayments. As above, we will otherwise stick to a minimal set of features.
+
+**Documentation**: We will write a tutorial explaining on how to use our State Channels, as well as some internal architectural description of how they work underneath. We will record a demonstration and a tutorial for opening a State Channel on Filecoin, making back and forth micropayments, and closing the Channel cooperatively, or closing it non-cooperatively. Together with documentation come some additional debugging and simplifications for issues that only become apparent as we actively try to make the product user-friendly.
+
+Not that emphatically not included in the above is an independent security audit of the product, that must be conducted by a third party. We can help connect Filecoin with such auditors if desired.
+
+### Phase 2: ***State Channel Paths***
+
+This phase will enable participants with a series of connected State Channels to build a *path* along which payments can be safely made from a sender to a recipient through a series of intermediaries.
+
+This phase can be divided in the steps, each with its own value-adding deliverable. In turn each of these steps could be divided into sub-steps of study, prototype, robustization, user-interface and documentation, though with a quicker development cycle thanks to building on previous code. Once again, development can be achieved cheaper and/or faster if committing in advance to larger phases or steps rather smaller steps or sub-steps, hiring larger teams working in parallel (though with increasing communication overhead as the teams grow), and starting each phase or step as soon as the strictly necessary previous steps are working without waiting for all previous steps to be complete and reviewed.
+
+The steps are as follows:
+
+1. Nested and Generalized State Channels, enabling multiple conditional payments at a time over a single State Channel. (18 dvwk)
+2. The simplest Hashed TimeLock Contract (HTLC) as a payment condition—enabling safe payments with a timeout to unlock funds in case one party fails to cooperate to the end. (12 dvwk)
+3. An off-chain communication protocol based on libp2p, so network participants who already know each other and their intermediaries can coordinate their multi-hop transactions. (18 dvwk)
+4. The combination of the above, so a sender may drive a series of payments, along a path of State Channels, through identified intermediaries, to a recipient. (12 dvwk)
+5. A demonstration of micropayments along a path of multiple State Channels on Filecoin. (6 dvwk)
+6. As a useful application, a simple hub-and-spoke network can route payments from any participant to any other participant via a single common intermediary, centralized yet non-custodial. This isn’t the desired decentralized network (to be built in the next phase), but can illustrate the technology so far, make it readily usable even before the full network is ready, and can serve as the financial seed to the decentralized network to come. (18 dvwk)
+
+### Phase 3: ***State Channel Network***
+
+This phase will enable participants who are not directly connected by a State Channel to dynamically discover and use paths of intermediaries to route conditional payments.
+
+Note: our estimates for this phase and the subsequent phases are not fleshed out, and could be 2x or 3x too large or too small, but we believe remain of the correct indication of the order of magnitude. The time required also depends on the team we will be able to hire which depends on the budget allotted and whether it is committed in advance.
+
+1. An off-chain protocol to announce and discover the nodes in a State Channel Network. (18 dvwk)
+2. An algorithm to discover paths along which to route payments in a known graph of nodes. (18 dvwk)
+3. A protocol to negotiate payment along a planned path. (18 dvwk)
+4. A protocol combining the above to automatically route payments on the Network. (18 dvwk)
+5. A protocol to rate and blacklist uncooperative nodes in the State Channel Network. (18 dvwk)
+6. A protocol to split a payment along several paths. (18 dvwk)
+
+### Phase 4: ***Cross-Chain State Channel Paths***
+
+This phase will enable participants to use paths that cross blockchain boundaries to effect payments between Filecoin, Ethereum and Bitcoin.
+
+1. A modification of the HTLC contract to account for currency exchange rates and their volatility, and the issue of a State Channel payment being an *option* for the sender. (18 dvwk)
+2. An extension to the off-chain *Chenilles* communication protocols so payments can be made along a path that involves State Channels on both Filecoin and Ethereum at some agreed exchange rate, properly compensating the party doing the exchange. (18 dvwk)
+3. A variant of HTLC that can interoperate with the Bitcoin Lightning Network—enabling *Chenilles* on Filecoin to connect to the liquidity already available on Bitcoin, with proper handling of exchange rate volatility and payment option issues whether sending or receiving Bitcoin, despite Bitcoin itself having a very limited scripting language so that any complex logic must be on the Filecoin side. (18 dvwk)
+4. An extension to the off-chain *Chenilles* communication protocol so it can interoperate with paths on the Bitcoin Lightning Network at some agreed exchange rate. (18 dvwk)
+5. A demonstration of micropayments not just along a path on the Filecoin *Chenilles* Network, but also along a path that involves State Channels on the Bitcoin Lightning Network. (18 dvwk)
+6. A variant of *Chenilles* that can transmit wrapped Bitcoin or wrapped Ethereum on State Channels on Filecoin, which can displace the exchange rate issue so it’s fully handled on Filecoin. (18 dvwk)
+
+### Phase 5: ***Cross-Chain State Channel Network***
+
+This phase will enable participants to discover and use intermediaries to effect payments across blockchains between Filecoin, Ethereum and Bitcoin.
+
+1. An extension to the off-chain *Chenilles* routing protocols so it can discover intermediaries and negotiate exchange rates between the Filecoin *Chenilles* Network and the Ethereum *Chenilles* Network. (18 dvwk)
+2. An extension to the off-chain *Chenilles* routing protocols so it can discover intermediaries and negotiate exchange rates between the Filecoin *Chenilles* Network and the Bitcoin Lightning Network. (18 dvwk)
+3. Demonstrating payments across blockchains. (18 dvwk)
+4. Extend the *Chenilles* Network with counterparts for each and every feature that the Bitcoin Lightning Network possesses, to ensure complete interoperability. (18 dvwk)
+5. Similarly, ensure that *Chenilles* have feature parity and interoperability with Celer or any other relevant State Channel Network already established. (18 dvwk)
+
+### Phase 6: ***Smart Contract Enhancements***
+
+This phase will enhance the *Chenilles* Network so as to enable arbitrary smart contracts between a small number of participants to be conducted through State Channels. This will put our State Channel Network far ahead of existing networks, that in practice support no such thing, though some do in theory. At each step, we will enhance our language *Glow* to implement the additional features through State Channels.
+
+1. State Channels that can transfer more than one kind of asset. Example: FIL and ERC20s including wrapped Ethereum or wrapped Bitcoin. (18 dvwk)
+2. State Channels with a complex interaction but without external data sources. Example: rock paper scissors. (18 dvwk)
+3. State Channels with a complex interaction using external data sources. Example: a futures contract that relies on a price oracle. (18 dvwk)
+4. State Channels with more than two participants. Example: a four-way card game. (18 dvwk)
+5. Using State Channels as conditional payment for a public contract. Example: an auction with private bids over State Channels. (18 dvwk)
+6. Using State Channel paths for exchange between more than two parties. Example: a three-way atomic swap between three assets across triangular payment paths. (18 dvwk)
+
+### Phase 7: ***Privacy Enhancements***
+
+This phase enhance the *Chenilles* Network so as to make its transactions completely opaque to non-participants, including the presence of the State Channels themselves. This phase could be done largely in parallel with phases 3 to 5.
+
+1. Use of a Schnorr multisig contract as a gateway protecting a State Channel, enhancing both the efficiency of the network and its privacy. (18 dvwk)
+2. Use of zk-SNARKs via Lurk to add privacy to payment conditions even when closing channels without the full cooperation of all members. (18 dvwk)
+3. Modification of the off-chain communication protocols to allow for private State Channels. (18 dvwk)
+4. Add a store-and-forward relay service to the off-chain communication network for asynchronous communications between parties, and/or support encrypted email (e.g. via protonmail or tutanota) as a medium for exchanging messages. (18 dvwk)
+5. Demonstration of completely opaque State Channel payments on Filecoin. (18 dvwk)
+
+### Phase 8: ***Financial Layer***
+
+Once the technical layer is sufficiently advanced (which can start right after phase 2), contact people with liquidity and convince them to make some available on *Chenilles*, and/or ask them which features we should prioritize to get them to add liquidity on *Chenilles*, including which financial contracts (e.g. auctions, futures, etc.) we should first support.
+
+1. Contact liquidity providers, starting as early as we have a working system, and increasing exponentially as we ramp up the features. (18 dvwk)
+2. Prioritize and implement whichever features they most need. (18 dvwk)
+3. Implement a service for paid-for watch towers. (18 dvwk)
+
+## Total Budget Requested
+
+We propose that to start with, Filecoin would fund the initial study and prototype, at a cost of $60,000.00, with a 2-month estimated duration and a 3-month hard deadline.
+
+Assuming that the Filecoin Foundation is happy with this initial proposal, we would further extend or renew the proposal so that Filecoin complete phase 1 (a further cost of $210,000.00), yielding a robust and documented implementation of simple State Channels well integrated with the Filecoin ecosystem.
+
+We would then convene to determine who would invest how much towards the completion of the rest of the project. Presumably, a first funding round of about $500K would allow us to complete Phase 2, wherein Filecoin would have robust and practical payment network, allowing micropayments across known paths, and in particular in an initial hub-and-spoke network. A second round of about $2M to $5M would allow us to complete the technical development of the network. A third round would bootstrap the liquidity on the network and fund its business development as a payment platform serving a lot of users.
+
+## Team
+
+### Contact Info
+
+`fare@mukn.io`
+
+### Team Members
+
+- François-René Rideau, President & Chief Scientist
+- Alexander Smart, Chief Executive Officer
+- Peter Hubshman, Chief Financial Officer
+- Zoe Braiterman, Chief Information Officer
+- Gauthier Lamothe, Chief Communication Officer
+- Alex Hochberger, Chief Product Officer & Chief Technology Officer
+- Marcin Grzybowski, Vice President of Formal Methods
+- Donald Fisk, Senior Scientist
+
+### Team Member LinkedIn Profiles
+
+- [https://linkedin.com/in/fahree](https://linkedin.com/in/fahree)
+- [https://linkedin.com/in/alexandersmart](https://linkedin.com/in/alexandersmart)
+- [https://www.linkedin.com/in/peterhubshman/](https://www.linkedin.com/in/peterhubshman/)
+- [https://www.linkedin.com/in/zoebraiterman/](https://www.linkedin.com/in/zoebraiterman/)
+- [https://linkedin.com/in/gauthier-lamothe](https://linkedin.com/in/gauthier-lamothe)
+- [https://www.linkedin.com/in/alexhochberger/](https://www.linkedin.com/in/alexhochberger/)
+
+### Team Website
+
+[https://mukn.io](https://mukn.io/)
+
+### Relevant Experience
+
+Relevant previous work by our contributors are listed in the Wiki for our *Glow* language:
+
+[https://github.com/Glow-lang/glow/wiki/Bibliography-Glow](https://github.com/Glow-lang/glow/wiki/Bibliography-Glow)
+
+We also have successfully worked with Filecoin in a past grant: [*Glow* on Lurk](https://github.com/filecoin-project/devgrants/issues/405)
+
+### Team code repositories
+
+Our *Glow* programming language: [https://github.com/Glow-Lang/glow](https://github.com/Glow-Lang/glow)
+
+The State Channel network we have started building, presently on top of Ethereum only, though the design is portable: [https://github.com/MuKnSys/Chenilles](https://github.com/MuKnSys/Chenilles)
+
+More repositories of code we built at [https://github.com/MuKnSys](https://github.com/MuKnSys)
+
+## Additional Information
+
+MuKn is already a partner of Filecoin, as a contributor to the Lurk project: we have implemented a prototype backend of our smart contract language *Glow* on top of Lurk, and have been working on the formalization of Lurk, for which we have submitted another proposal.
+
+MuKn is also a member of the Laconic Network, another partner of Filecoin.
+
+
+
+
+
+XXX
+We will start by only offering a simple hand-written demonstration of one simple contract on top of our infrastructure, to illustrate an application that is possible with (Generalized) State Channels on Filecoin, but impossible on Bitcoin. Later on, we will develop a complete, safe and affordable programming environment for contracts on top of our Generalized State Channel infrastructure.
+
+At that point, parties who already know each other and their intermediaries can make payments. To complete the *Chenilles* Network, we need a protocol whereby parties can find the intermediaries for their transactions. Happily, we can build upon the work already done by the Bitcoin Lightning Network. Unhappily, a lot of that work is Bitcoin-specific and will have to be ported or generalized, enhanced or fixed, to work with Filecoin and *Chenilles*. We will build:
+
+Even then, there are a lot of features that Filecoin may or may not want to fund as part of the third and fourth stages of development, and we will negotiate the precise feature set that Filecoin is willing to fund before we reach the point of implementing each feature.
