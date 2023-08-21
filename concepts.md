@@ -7,7 +7,34 @@ Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Concepts Underlying the *Chenilles* Network
 
-TODO: add all information from previous documents on the topic
+  - [State Channels: Safe, Scalable, Private Payments](#state-channels:-safe,-scalable,-private-payments)
+    - [State Channels](#state-channels)
+    - [Layer 2](#layer-2)
+    - [Trust Assumptions](#trust-assumptions)
+    - [Number of Participants](#number-of-participants)
+    - [Assets Under Control](#assets-under-control)
+    - [Opportunity Costs of State Channels](#opportunity-costs-of-state-channels)
+    - [How a State Channel Works](#how-a-state-channel-works)
+    - [Watching the Blockchain](#watching-the-blockchain)
+    - [Scaling Transactions](#scaling-transactions)
+    - [More Than Two Participants](#more-than-two-participants)
+    - [State Channels are Side-Chains](#state-channels-are-side-chains)
+    - [Extra Privacy through Extra Cryptography](#extra-privacy-through-extra-cryptography)
+  - [State Channels Networks: Payments At Scale](#state-channels-networks:-payments-at-scale)
+    - [Network Payments](#network-payments)
+    - [Layer 2 Transaction Fees](#layer-2-transaction-fees)
+    - [Payment Atomicity](#payment-atomicity)
+    - [Interrupted Routes](#interrupted-routes)
+    - [Mitigations for Route Interruptions](#mitigations-for-route-interruptions)
+    - [Payment Routing](#payment-routing)
+    - [Mapping the Network](#mapping-the-network)
+  - [Generalized State Channels: Smart Contracts on State Channels](#generalized-state-channels:-smart-contracts-on-state-channels)
+    - [The Possibility of Generalized State Channels](#the-possibility-of-generalized-state-channels)
+    - [The Challenge of Generalized State Channels](#the-challenge-of-generalized-state-channels)
+    - [Making Generalized State Channel Contracts Feasible](#making-generalized-state-channel-contracts-feasible)
+  - [Additional Links](#additional-links)
+    - [The Bitcoin Lightning Network](#the-bitcoin-lightning-network)
+    - [Other notable State Channel Networks](#other-notable-state-channel-networks)
 
 ## State Channels: Safe, Scalable, Private Payments
 

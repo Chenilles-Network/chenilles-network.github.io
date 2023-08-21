@@ -7,7 +7,6 @@ Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Chenilles Glow Whitepaper
 
-
 ### Abstract
 
 We present the [*Chenilles* Network](https://chenilles-network.github.io/), a
@@ -50,6 +49,42 @@ is developing *Chenilles* and *Glow* as Open Source platforms,
 with an ambitious business model to become the company that
 connects all decentralized applications together.
 
+### Table of Contents
+
+    - [Abstract](#abstract)
+    - [Table of Contents](#table-of-contents)
+  - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
+    - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
+    - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)
+    - [*Chenilles*, an Overlay Network to Solve Issues with Current Networks](#*chenilles*,-an-overlay-network-to-solve-issues-with-current-networks)
+  - [Existing Issues with Decentralized Networks](#existing-issues-with-decentralized-networks)
+    - [Layer 1 Blockchains](#layer-1-blockchains)
+    - [Layer 2 Side-Chains](#layer-2-side-chains)
+    - [Layer 2 State Channels](#layer-2-state-channels)
+  - [*Chenilles*: Next Generation State Channels with Unique Capabilities](#*chenilles*:-next-generation-state-channels-with-unique-capabilities)
+    - [Smart Contracts using *Glow*](#smart-contracts-using-*glow*)
+    - [Multi-Token](#multi-token)
+    - [Multi-Chain](#multi-chain)
+    - [Multi-Participant](#multi-participant)
+    - [Improved Privacy with Hidden Channels](#improved-privacy-with-hidden-channels)
+    - [Further Improved Privacy with zk-SNARKs](#further-improved-privacy-with-zk-snarks)
+    - [Nestability](#nestability)
+    - [Advanced Smart Contracts](#advanced-smart-contracts)
+  - [Applications enabled by *Chenilles*](#applications-enabled-by-*chenilles*)
+    - [Payments with automatic currency conversion](#payments-with-automatic-currency-conversion)
+    - [Micropayments for metered decentralized utilities](#micropayments-for-metered-decentralized-utilities)
+    - [Decentralized Banking](#decentralized-banking)
+    - [Private Smart Contracts](#private-smart-contracts)
+  - [Business Model For MuKn](#business-model-for-mukn)
+    - [Big Picture: A layer above blockchains](#big-picture:-a-layer-above-blockchains)
+    - [Fees on Channel Creation](#fees-on-channel-creation)
+    - [Commissions on Network Payments](#commissions-on-network-payments)
+    - [Issuing Value Add Tokens](#issuing-value-add-tokens)
+    - [Controlling the Default Client](#controlling-the-default-client)
+    - [Decentralized Application Development](#decentralized-application-development)
+    - [Steering an Ecosystem](#steering-an-ecosystem)
+  - [Conclusion: Invest in the Future of DeFi and DeCo](#conclusion:-invest-in-the-future-of-defi-and-deco)
+  - [References and Bibliography](#references-and-bibliography)
 
 ## Motivation: Unlocking Cross-Chain DeFi & DeCo
 
@@ -941,6 +976,10 @@ Contact us at `contact@mukn.com` for further information.
 ## References and Bibliography
 
 *Chenilles* website: https://chenilles-network.github.io
+
+*Chenilles* concepts: https://chenilles-network.github.io/concepts.html
+
+*Chenilles* roadmap: https://chenilles-network.github.io/roadmap.html
 
 *Glow* website: https://glow-lang.org
 

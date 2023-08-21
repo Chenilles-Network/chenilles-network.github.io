@@ -1,19 +1,21 @@
+---
+Date:	May 2023 (Latest update August 21st 2023)
+URL:	https://chenilles-network.github.io/
+Author:	François-René Rideau <f@mukn.com>
+Company:	Mutual Knowledge Systems, Inc. < https://mukn.com >
+Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
+---
 # The Chenilles Network
 
-In [our whitepaper](whitepaper.md),
-we presents the overall vision for the *Chenilles* Network,
-how it can solve the issues that currently prevent cryptocurrencies
-from “going to the moon”,
-what are the capabilities and limits of its Generalized State Channels
-compared to other decentralized solutions,
-the new applications enabled by the network,
-and what business model can sustain its development and operation.
+In our [**whitepaper**](whitepaper.md),
+we present the business vision for how the *Chenilles* Network
+will solve current issues with cryptocurrencies and make them
+“go to the moon”.
 
-In [our concepts](concepts.md) document we explain how State Channels work,
-and expound the main underlying technical concepts,
-as well as provide a bit of historical information.
+In our [**concepts**](concepts.md) document,
+we expound the technical and economic concepts underlying *Chenilles*
+and explain how its Generalized State Channels work.
 
-In [our roadmap](roadmap.md) we explain our detailed plan
-to build and market the *Chenilles* Network,
-the intermediate milestones along the way,
+In our [**roadmap**](roadmap.md),
+we explain our detailed plan to build and market the *Chenilles* Network
 and the new applications enabled by each milestone.
