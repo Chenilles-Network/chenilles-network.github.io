@@ -1022,7 +1022,7 @@ IOHK Summit, 2019.
 Hackernoon, 2019.
 
 **François-René Rideau**,
-[“Binding Blockchains Together With Accountability Through Computability Logic”]((http://github.com/alacrisio/lavbda),
+[“Binding Blockchains Together With Accountability Through Computability Logic”](http://github.com/alacrisio/lavbda),
 LambdaConf 2018.
 
 **François-René Rideau**,
