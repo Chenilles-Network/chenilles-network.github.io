@@ -51,8 +51,8 @@ connects all decentralized applications together.
 
 ### Table of Contents
 
-    - [Abstract](#abstract)
-    - [Table of Contents](#table-of-contents)
+  - [Abstract](#abstract)
+  - [Table of Contents](#table-of-contents)
   - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
     - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
     - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)
