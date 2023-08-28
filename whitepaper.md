@@ -2,7 +2,7 @@
 Date:	April 2023 (Latest update August 17th 2023)
 URL:	https://chenilles-network.github.io/whitepaper.html
 Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. < https://mukn.com >
+Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
 Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Chenilles Glow Whitepaper
@@ -975,17 +975,17 @@ Contact us at `contact@mukn.com` for further information.
 
 ## References and Bibliography
 
-*Chenilles* website: https://chenilles-network.github.io
+*Chenilles* website: <https://chenilles-network.github.io>
 
-*Chenilles* concepts: https://chenilles-network.github.io/concepts.html
+*Chenilles* concepts: <https://chenilles-network.github.io/concepts.html>
 
-*Chenilles* roadmap: https://chenilles-network.github.io/roadmap.html
+*Chenilles* roadmap: <https://chenilles-network.github.io/roadmap.html>
 
-*Glow* website: https://glow-lang.org
+*Glow* website: <https://glow-lang.org>
 
-*Glow* whitepaper: https://bit.ly/GlowWhitepaper2020
+*Glow* whitepaper: <https://bit.ly/GlowWhitepaper2020>
 
-*Glow* GitHub repository: https://github.com/Glow-Lang/glow
+*Glow* GitHub repository: <https://github.com/Glow-Lang/glow>
 
 Here is a list of relevant scientific publications
 by past and present direct contributors to our language (in bold),
