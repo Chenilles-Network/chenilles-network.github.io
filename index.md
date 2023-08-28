@@ -19,3 +19,5 @@ and explain how its Generalized State Channels work.
 In our [**roadmap**](roadmap.md),
 we explain our detailed plan to build and market the *Chenilles* Network
 and the new applications enabled by each milestone.
+
+Meet our [**team**](team.md).

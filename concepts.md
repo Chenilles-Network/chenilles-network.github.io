@@ -7,6 +7,10 @@ Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Concepts Underlying the *Chenilles* Network
 
+In this document, we expound the technical and economic concepts
+underlying the *Chenilles* Network,
+and explain how its Generalized State Channels work.
+
   - [State Channels: Safe, Scalable, Private Payments](#state-channels:-safe,-scalable,-private-payments)
     - [State Channels](#state-channels)
     - [Layer 2](#layer-2)
@@ -491,9 +495,9 @@ there is no guaranteed way of measuring whether a route will work
 except to try to use it and see if it succeeds.
 A transfer may involve many failed attempts before a working route is found.
 
-## Generalized State Channels: Smart Contracts on State Channels
+## Generalized State Channels: Beyond Payments, Smart Contracts
 
-### The Possibility of Generalized State Channels
+### Smart Contracts on State Channels
 
 On Ethereum and other smart-contract capable blockchains
 State Channels can be used not merely for payments,
@@ -515,7 +519,7 @@ much cheaper to add this functionality earlier than later.
 Thus we propose that any future State Channels should indeed be
 Generalized State Channels from the get go.
 
-### The Challenge of Generalized State Channels
+### The Challenge of Exactly Matching Code
 
 Now, it is extremely difficult to offer a programming environment that
 makes it safe and affordable to develop contracts on top of State Channels.
@@ -535,7 +539,7 @@ and sometimes also Go or some other server-side language for a redundant off-cha
 
 Moreover most of the on-chain code is meant never to be run
 during in the normal usage of a State Channel.
-Only in exceptional situations will small bits of it being will be invoked,
+Only in exceptional situations will small bits of it be invoked,
 a different little bit in each situation.
 That code thus requires careful design and systematic testing
 quite unlike any code that anyone usually writes or tests.
@@ -550,7 +554,7 @@ All these constraints combine into making the task of writing
 Smart Contracts over State Channels an extremely complex challenge,
 that is not affordably feasible using the current technology.
 
-### Making Generalized State Channel Contracts Feasible
+### Code Generation to the Rescue
 
 With a language such as [*Glow*](https://glow-lang.org),
 that from a smart contract specification can simultaneously generate
@@ -567,6 +571,112 @@ including across currency and across blockchains.
 
 See [our whitepaper](https://chenilles-network.github.io/whitepaper.html)
 and the earlier [Glow Whitepaper](https://bit.ly/GlowWhitepaper2020).
+
+### Token Swaps with or without Trusted Third Parties
+
+Thanks to Smart Contracts, it becomes possible for State Channels to support
+payments from one currency to another. Multiple methods are possible,
+each with different advantages and inconvenients:
+
+  1. Participants can agree to amounts in both currencies based on some rate
+     determined by consulting off-chain data sources. Then, the participant
+     initiating the transfer has a limited time to complete the transaction;
+     he inevitably has an implicit option to either complete or fail to.
+     This option is priced in the agreed upon rate based on the the time window
+     and volatility. Confirmation is achieved by posting of a witness,
+     either (i) always (with a short window), or (ii) in a challenge period
+     after failure to cooperate within tight bounds (can be cheaper but
+     requires managing reputation of the other participant), or (iii) after
+     a full exit challenge period plus publishing period (works on Bitcoin
+     unlike the other options, but adds so much latency that the volatility
+     makes the entire transaction too expensive to be desirable).
+     Posting can be done (a) in a blockchain transaction (expensive), (b) in a
+     shared rollup transaction (somewhat cheaper but potentially less reliable),
+     or (c) on a mutually trusted off-chain data availability engine (cheaper
+     and faster, but it requires both participants to trust a third party
+     committee).
+
+  2. Participants can agree to an amount in one currency and
+     to an Automatic Market Maker (AMM) to use to do the conversion.
+     This is safe assuming there is enough liquidity in the AMM
+     that it won’t be manipulated into giving a bad rate.
+
+  3. Participants can agree on a mutually trusted Price Oracle to give
+     the timestamped rate that will be used within a time window,
+     with an automated adjustment for the implicit option as above.
+     The Oracle can be called on-line as part of the verifying transaction
+     on-chain (if any), or can sign a witness
+     off-line that allows for predictable results off-chain as well as on-chain.
+     As they initially negociate the terms off-chain, the participants agree on
+     how to pay for the implicit option as well as for how much collateral
+     should be kept to face on either or both sides to adapt to volatility
+     in the exchange rate across the trade window.
+
+Any variant of token swap contract found in the literature or in production
+could be used here. What more, no actual on-chain transaction is required
+as long as the participants expect each other to keep cooperating, such that
+they can afford methods that if verified on-chain would consume a somewhat
+higher amount of gas than participants would be willing to afford if they
+had to systematically verify.
+
+### Cross-Currency Network Payments
+
+Token swap contracts as above can be modified for
+cross-currency Network Payments:
+the initiator, after identifying a suitable route including a token exchanger,
+creates a series of conditional payment contracts along the route,
+and possibly pays transfer fees and an exchange fee.
+Then, the intermediaries all commit their complete collateral for the conditional exchange.
+The triggering event is confirmed either happening or not happening within a short deadline.
+Finally, the chain of interlocked transfers all either happen or are canceled in sequence.
+
+Compared to same-currency network payments, cross-currency network payments
+always involve extra fees to cover for volatility.
+Furthermore, extra delay for confirmation implies extra volatility hence extra fees.
+There are ways around it, but only with extra trust assumption:
+
+  * If the user trusts the reputation of a liquidity provider, the provider can
+    demand an advance deposit of a high fee covering the worst case scenario
+    where the confirmation takes a long time, and reimburse the deposit
+    when the liquidity user completes the transaction very fast.
+    There is no way the blockchain can attribute blame when unanimity breaks
+    and the two participants point fingers at each other, so one has to trust
+    the other not to steal the fee deposit. At least, the principal amount
+    being transfered remains safe even if the trust is misplaced.
+    A well-identified liquidity provider with a bad reputation
+    will lose customers to those with a good reputation.
+
+  * If both parties trust a fast enough data availability engine
+    that their blockchain(s) can check, can use it as source of truth for
+    whether a transaction is confirmed to have happened.
+    On a blockchain like Ethereum, a shared rollup service can be used as
+    a somewhat affordable but not particularly fast such
+    data availability engine.
+
+  * If both parties trust the signed timestamped quotes of a same Oracle,
+    they can commit in advance to the price that will be known after the
+    transaction is agreed upon (within the limits of the collateral deposited),
+    at which point neither participant can control delay to select a better rate,
+    and the price is confirmed quickly. However, the lack of control on
+    the exact rate may displease both parties.
+
+### Cross-Chain Network Payments
+
+Once we have Cross-Currency Network Payments, we can also do Cross-Chain Network Payments:
+Cross-Chain Network Payments are “just” network payments where some State Channels are
+layered on top on one blockchain and some layered on top of another.
+
+The key difficulty in Cross-Chain Network Payments is that
+the native tokens of one chain is not that of the other, and
+the triggering / confirmation events enforceable on one chain
+are not usually easy to verify on another chain.
+Either or both difficulties can be solved with a *bridge*.
+But they can also be solved with a trusted price oracle or
+data availability engine that provides signatures verifiable on both chains.
+
+On the other hand, a simple HTLC as used by the Lightning Network will not do,
+because its worst case involves too long a delay which compounded with the
+volatility of cryptocurrency generates too much friction and high fees.
 
 ## Additional Links
 
