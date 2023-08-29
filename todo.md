@@ -1,18 +1,37 @@
-# TODO
+# TODO for this Website
 
 Stuff cut from other documents, to include into these pages.
 
-See also:
+## Other things to integrate into the website
 
   * The Filecoin grant proposal at https://github.com/filecoin-project/devgrants/issues/1449
 
   * Feedback from the MINA zkignite program: https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585 and https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585/discussions
 
--------------------------------------------------------------------------------
+## Changes to import into whitepaper
 
-## State Channels Networks: Payments At Scale
+### Update Business Model
 
-### An Overlay Network above a Blockchain
+Organize around tiers of revenues,
+from shorter term and less capital-intensive
+to longer run and more capital-intensive:
+
+  * Financial Institutions and large DeFi businesses who seek
+    a fast private real-time decentralized settlement layer
+
+  * DeFi "degens" who want a non-custodial DEX,
+    and the liquidity providers who will sell them access.
+
+  * End-users who seek a decentralized alternative to traditional bank
+    for a reliable payment system that can't censor, inflate or confiscate.
+
+  * Developers who seek a platform for their DApps.
+
+## Update Concepts Document
+
+### State Channels Networks: Payments At Scale
+
+#### An Overlay Network above a Blockchain
 
 Network payments from one participant to the next
 along a path of state channels potentially enable anyone to reach anyone else
@@ -26,7 +45,7 @@ is always simpler and safer than any Layer 2;
 but the Layer 2 of State Channels allows for more transactions,
 cheaper, faster, and more privately, than is possible on the Layer 1.
 
-## Connecting *Chenilles* with other State Channel Network
+#### Connecting *Chenilles* with other State Channel Network
 
 With suitable developments, the payment network we are creating can interoperate with other State Channel Networks, by using compatible HTLC conditions.
 
@@ -42,18 +61,15 @@ A complete implementation of a Mother-of-All State Channel Network capable of in
 
 We will not do any of that in the first version of our State Channels in phase 1, but we will keep our desire for compatibility somewhat in mind even when designing this initial version.
 
+### Generalized State Channels: Smart Contracts
 
-
-## Generalized State Channels: Smart Contracts
-
-
-### Nested State Channels
+#### Nested State Channels
 
 State Channel that only supports one interaction at once is limited in what it can accomplish. When the only interactions are one-way payments that are very fast, as in the Bitcoin Lightning Network, this might be good enough. But when using Generalized State Channels, or even things as simple as swaps, or when handling a lot of simultaneous incomplete transactions, it becomes necessary for a channel to support multiple interactions at the same time. For that purpose, a simple solution is for State Channels to have built in support for nested State Channels. One channel may therefore contain multiple sub-channels. In an adversarial claim, each of them could be one of the outputs of the settlement or state update, at least if some kind of UTXO model is used for such adversarial outputs. In an account-based system, either the same behavior could apply with new accounts created for each sub-channel as the result of an unchallenged claim, or the claims could be recursively handled with a small gas overhead at each level of nesting.
 
 In the first version of *Chenilles*, we will fully implement support for Nested State Channels in our on-chain contracts.
 
-### Interoperation Between Blockchains
+#### Interoperation Between Blockchains
 
 It is possible for State Channel Networks to interoperate with other State Channel Networks on other blockchains. For instance, participant A could send 1 BTC to participant B using a State Channel on Bitcoin, and B could then send 3000 FIL to participant C on Filecoin, or whatever amount corresponds to the mutually agreed upon exchange rate. A and C would presumably pay a fee to B for providing the liquidity, but would otherwise be able to each use their preferred token on their preferred network as part of a same transaction with mutually agreeable amounts. Longer routes are possible across multiple blockchains, but in practice, participants will usually want to minimize the number of expensive currency exchanges along the route.
 
@@ -61,7 +77,7 @@ For interoperability, we will implement on top of *Chenilles* State Channels a H
 
 In the first version of *Chenilles*, however, we will not work on interoperation between State Channel Networks.
 
-### Open vs Closed Interactions
+#### Open vs Closed Interactions
 
 Many Blockchains, after Ethereum, allow for arbitrary “smart contracts” to be written, binding their participants to follow any algorithmically verifiable rules as they interact with each other. These “smart contracts” enable participants to interact with each other in a way that *aligns their interests*—they are in many ways similar to legal contracts, but they are cheaper, faster and more predictable, though also more limited and more rigid.
 
@@ -73,7 +89,7 @@ Generalized State Channels can help scale closed interactions, and the closed in
 
 In the first version of *Chenilles*, we will include and test minimal contract support for closed interactions conducted over a Generalized State Channel, for future use. We will not implement anything beyond this minimal support, and a fortiori we won’t implement a mix between open and closed interactions.
 
-### Closed Interactions over Generalized State Channels
+#### Closed Interactions over Generalized State Channels
 
 The state updates of a simple State Channel divide the assets under control between participants in fixed amounts known in advance. For the lightning network, part of these amounts may be subject to a condition ensuring atomicity of transfers (see HTLC above). In a  Generalized State Channel, the state updates can carry arbitrary code and data. Some states clearly indicate that some assets may be claimed by some participants, and an agreed upon algorithm validates which state transitions are allowed for a participant to make even without the cooperation of others.
 
@@ -85,7 +101,7 @@ Given a Generalized Lightning Network, two participants could also interact with
 
 In the first version of *Chenilles*, we will implement and demonstrate a simple closed interaction over a Generalized State Channel. We will not implement interactions via intermediaries, which would be the topic of a further contract.
 
-### Off-Chain Code
+#### Off-Chain Code
 
 When using State Channels, most of the interaction occurs between participants using their respective off-chain code that runs on their individual computers. In the normal expected case of sustained cooperation, no on-chain contract code is ever invoked, except to open the state channel, close it, and possibly to deposit additional assets into the channel or withdraw assets from it through mutually agreed partial settlements. The participants’ off-chain code is also what drives the posting or non-posting of on-chain transactions when it is necessary for a participant to either make a claim or challenge a claim.
 
@@ -93,27 +109,79 @@ Off-chain code is essential for the proper operation of State Channels. It is al
 
 In the first version of *Chenilles*, we will only write off-chain code for the base cases that we demonstrate: payment, payment through one intermediary, payment in nested channels, and the simple closed interaction we choose. We will not be writing more general off-chain code to handle a complete Filecoin Lightning Network, and especially not be writing a DSL compiler targeting Generalized State Channels, though these could be the topic of future projects.
 
-### Interaction Persistence
+### System Robustness
 
-State Channels are *active* or “hot” rather than *passive* or “cold”, in that each participant must continuously run some service that will cooperate with other participants to complete in a timely fashion transactions that can be initiated by either side at any moment. Thus you cannot start a State Channel and forget about it.
+#### Surviving the Devil vs Surviving Nature
 
-As previously mentioned you can still delegate to a third party called a “Watch Tower” the posting of the latest state of a state channel, such that the other participants cannot steal tokens from you by initiating a non-cooperative exit with an older state while you are unable to actively participate. However, inasmuch as your private keys are required to actively participate in issuing new states, you cannot delegate active participation without trusting a third party with your keys.
+State Channels, like all decentralized systems,
+need the underlying software implementation to be robust.
+Criminals will quickly turn any fragility into a security vulnerability
+that they use it to steal assets from users, or
+to hold users for ransom under threat of vandalizing them.
 
-Therefore, each participant must make sure *persist* the state of each interaction that he is part of, even in case his computer or data center crashes or is stolen or destroyed. Otherwise, they run the risk of losing any asset they have at stake in an active interaction on a State Channels. For instance, if they are playing poker and lose their interaction state, the other participant will successfully claim that they folded and collect the table stakes.
+The larger the assets under control of some system,
+the larger the incentives for criminals to attack the system.
+The more complex a system, the larger the “attack surface”
+for criminals to leverage in their nefarious activities.
+Thus, State Channels need more robustness than simpler decentralized systems
+and Decentralized Applications that build upon State Channels
+need even more robustness than simpler State Channels.
+
+Many of the robustness concerns faced by decentralized systems
+are shared by all software on the Internet.
+To ensure their security, decentralized systems can then rely
+on the same technologies that are already being developed and deployed
+by big Internet companies.
+It’s then “just” a matter for decentralized users and developers to keep up
+with the latest security developments by following the progress spearheaded
+by other players in the industry, and staying ahead of the bad guys
+by impelementing best practices early.
+
+But many robustness concerns faced by decentralized systems
+are especially acute in ways that don’t affect other software as much.
+In particular, it is too late to fix a decentralized system
+after criminals have eloped with stolen assets:
+you might fix the code for future users to prevent future theft, but
+not recover the already stolen assets and make the victims whole.
+Thus decentralized systems require robustness in much more proactive and
+airtight ways than other systems, and depend on technologies that
+others won’t afford and haven’t been fully developed yet.
+
+#### Interaction Persistence
+
+In a Decentralized Application that takes more than one step, each participant
+must make sure to *persist* the state of each interaction that he is part of.
+Otherwise, they run the risk of losing any asset at stake in the interaction.
+
+Here, “persist” means that the interaction must survive even in case the
+participant’s computer crashes or is stolen, or the data center is destroyed,
+or any adverse event that can be anticipated to happen.
+With suitable software infrastructure, participants can avoid
+losing their digital assets in addition to whatever negative effects
+they may otherwise experience from
+accidents, mishaps, aggressions, natural disasters, wars and other catastrophes.
+Without suitable software infrastructure, these negative effects
+will be compounded in ways that could have been prevented;
+what more, without suitable software infrastructure,
+participants open themselves to deliberate attacks by criminals
+who would purposefully cause the mishaps to happen to take advantage of them.
+
+Decentralized Systems
+
+interaction on a State Channels. For instance, if they are playing poker and lose their interaction state, the other participant will successfully claim that they folded and collect the table stakes.
 
 Persistence of interactions requires participants to commit any new state of all their asset-managing processes to encrypted remote replicas *before* they publish signatures of that state to other participants.
 
-In the first version of *Chenilles*, we will implement just the minimum amount of persistence required, saving data to a local database, without remote replication, and only for the simple interactions that we initially support. In further versions of *Chenilles*, we will implement more elaborate persistence, with remote copies (e.g. using IPFS), and for a generalized class of interactions supporting arbitrary smart contracts.
+
+## Chenilles Systems Layer
 
 ### Fooey
-
 
 Indeed, all the participants in a State Channel have to sign each and every state update. Whenever one participant stops cooperating, for whatever reason (accidental or adversarial, technical or legal, physical or virtual, etc.), all the other participants will waste time and have their capital immobilized while they exercise the adversarial claim and challenge option to expel the non-cooperating participant. In the worst case scenario, if multiple participants stop cooperating, the remaining participants will have to go through the claim and challenge process once per non-cooperating participant. This quickly becomes onerous as the number of participants grows.
 
 A circuit involving the same N participants can, using sophisticated interlocking contracts at each channel, manage complex interactions. However, a channel with N participants is faster and more capital efficient; it allows transfers of assets not possible with circuits, and in particular, unlike circuits, it supports non-fungible tokens. A channel with N participants requires no additional trust assumption compared to a circuit with the same participants. The only downside is that once an interaction is over, the two-participant channels of a circuit could be re-organized to partake in new circuits, whereas a N-participant channel must be settled when any participant wants out.
 
 In the first version of *Chenilles*, we will only implement a simple interaction between two parties via a single generalized state channel without intermediaries. We will implement neither state channels with more than two participants nor interactions between many participants via a circuit. These more advanced constructions would be the matter for future projects.
-
 
 ### XXX
 
@@ -125,9 +193,8 @@ the associated liquidity thus made unavailable.
 In the first version of *Chenilles*, we will implement HTLC support and demonstrate transfer with the Network as a single intermediary. We may decide initially not to implement general support for transfer with many intermediaries, which is not conceptually harder but is more work than necessary for our value demonstration purposes.
 
 
-
-(who may control multiple addresses) 
- (that may be hidden in various ways)
+(who may control multiple addresses)
+(that may be hidden in various ways)
 
 
 
@@ -615,3 +682,70 @@ We propose that to start with, Filecoin would fund the initial study and prototy
 Assuming that the Filecoin Foundation is happy with this initial proposal, we would further extend or renew the proposal so that Filecoin complete phase 1 (a further cost of $210,000.00), yielding a robust and documented implementation of simple State Channels well integrated with the Filecoin ecosystem.
 
 We would then convene to determine who would invest how much towards the completion of the rest of the project. Presumably, a first funding round of about $500K would allow us to complete Phase 2, wherein Filecoin would have robust and practical payment network, allowing micropayments across known paths, and in particular in an initial hub-and-spoke network. A second round of about $2M to $5M would allow us to complete the technical development of the network. A third round would bootstrap the liquidity on the network and fund its business development as a payment platform serving a lot of users.
+
+## Roadmap
+
+## Minimal State Channel Prototype
+
+### Initial State Channel Demo
+
+  - Payments only, between two participants only.
+  - Incomplete handling of adversarial case.
+  - A minimal command-line only client.
+  - Off-chain communications through an ad hoc centralized relay.
+  - No persistence beyond logs.
+
+  2. Simplest State Channels: complete but minimal implementation.
+     - Still payments only, between two participants only.
+     - Complete handling of adversarial case.
+     - Still minimal command-line only client.
+     - Off-chain communications using libp2p or some such.
+     - Still no persistence beyond logs.
+
+  3. Simplest State Channels:
+  2. Simplest State Channels: complete but minimal implementation.
+     - Still payments only, between two participants only.
+     - Complete handling of adversarial case.
+     - Still minimal command-line only client.
+     - Off-chain communications using libp2p or some such.
+     - Still no persistence beyond logs.
+
+3. Payments with one intermediary: simple payments between two participants
+     with a single Intermediary; routing payments between many participants
+     using a hub-and-spoke network. Web interface connected to a local server.
+
+  4. Network Payments: simple payments in a network, with a simple routing
+     algorithm, and a gossip network to announce changes, following the
+     principles of the Lightning Network.
+
+  4. Smart Contracts for Token Swaps: simple token swaps as usable for
+     Network Payments, using smart contracts over Generalized State Channels.
+
+  5. 
+
+
+
+host connected to peer network
+persistent name (for the duration of its sometimes short life)
+dapp has many end-points, in a group
+dapp description must be agreed upon in advance by many participants
+participants find each other on broadcast / gossip network
+participants negotiate exact agreement off-chain
+persistent process for a group: ?
+peer subscribe to uids of processes it owns /
+peer listens to messages sent to public keys for which it has secret keys
+virtual machines (simulated or physical) have public and private keys
+a state channel is a group with a fixed finite list of participants
+problem: be able to predict the name of the channel/process before the agreement is reached
+petnames and intentnames -- user-subjective short names to identify what process is talking to what other in a meaningful way
+globalnames and extentnames -- universal long names uniquely identifying a process
+process log -- at the socket level (bytes), channel level (data structures), high-level message (user-visible calls) level?
+subscribe & fetch: polling vs interruption when listening
+app: main.ss, etc. The micropayment app is a simple app on top of the infrastructure
+observability: "ls" on processes, etc. (sometimes requires secret key)
+ability to write debug scripts -- including single step for message processing
+
+
+## Roadmap: Persistence
+
+In the first version of *Chenilles*, we will implement just the minimum amount of persistence required, saving data to a local database, without remote replication, and only for the simple interactions that we initially support. In further versions of *Chenilles*, we will implement more elaborate persistence, with remote copies (e.g. using IPFS), and for a generalized class of interactions supporting arbitrary smart contracts.

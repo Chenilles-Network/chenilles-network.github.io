@@ -2,7 +2,7 @@
 Date:	May 2023 (Latest update August 21st 2023)
 URL:	https://chenilles-network.github.io/concepts.html
 Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. < https://mukn.com >
+Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
 Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Concepts Underlying the *Chenilles* Network
@@ -678,6 +678,72 @@ On the other hand, a simple HTLC as used by the Lightning Network will not do,
 because its worst case involves too long a delay which compounded with the
 volatility of cryptocurrency generates too much friction and high fees.
 
+## System Robustness
+
+### “Non-Functional” Aspects of Software
+
+Software Systems have a lot of “functional” aspects that describe
+to the normal behavior of the system when participants and their computers
+act in mutually desired or at least normally expected ways.
+But Software Systems also have a lot of “non-functional” aspects that
+describe the behavior of the system when subjected to stress because
+participants or their computers act in undesired, unexpected, erratic,
+or at times actively hostile ways.
+
+In the case of Decentralized systems handling digital assets,
+a large class of criminals are incentivized to deliberately break
+software systems by causing maximum mayhem so as to steal or vandalize
+other people's digital assets.
+Non-functional aspects, that for most software are often
+“nice to have” options that can be provided on a “best effort” basis,
+for Decentralized systems quickly become essential features that
+must be provided on a must-always-work-or-else basis.
+
+We explain in more details in our [Chenilles System Layer](system.md) document
+the system architecture that enables the robustness of our systems
+against entire classes of issues that we can anticipate to be experienced
+due to natural or artificial stress.
+
+Below we merely discuss the most salient aspects
+for which Decentralized systems require extra robustness
+compared with what is provided by the operating systems used by most people.
+
+### System Security
+
+State Channels are *active* or “hot” rather than *passive* or “cold”,
+in that each participant must continuously run some service that will cooperate
+with other participants to complete in a timely fashion transactions
+that can be initiated by either side at any moment.
+Thus a participant cannot start a State Channel and forget about it:
+the computer systems acting as the participant's agents *must* keep running and
+partaking in this active cooperation until the channel is eventually closed.
+Participation is active, and the computer systems that have the “hot” keys
+are particularly juicy targets for all criminals.
+A breach in system security can thus result in criminals getting ahold of
+the “hot” secret keys and the assets they protect.
+
+An end-user participant who only spends and never receives,
+needs not actively participate while not spending.
+If the participant only receives small infrequently and
+in relatively small amounts, then it is enough to only be
+available for active participation at those times, and to
+entrust the watching of the blockchain against adversarial exits
+to some third party “Watch Towers” that will ensure the other participant
+may not cannot steal tokens from them with an older State Channel state.
+Security requirements may be slightly relaxed for these casual users,
+and the better end-user operating systems
+(Android, iOS, Chromebook, Web browsers) *might* be enough to host
+their participation in such limited State Channels—until they won’t be.
+
+But in the general case, a participant cannot fully delegate participation
+to a technically more proficient third party without trusting that third party
+with their keys—at which point the trusted third party is the actual
+participant, though acting as trusted agent for the nominal participant.
+A first-class participant must ultimately take responsibility for
+the security of their systems and the secrecy of their keys.
+The buck has to stop somewhere. And wherever that is,
+active participation requires more secure systems than most people use today.
+
 ## Additional Links
 
 ### The Bitcoin Lightning Network
@@ -698,10 +764,10 @@ and [Eclair](https://github.com/ACINQ/eclair) (Scala).
 
 ### Other notable State Channel Networks
 
-[CELER](https://celer.network/) started as a State Channel network on Ethereum,
+[Celer](https://celer.network/) started as a State Channel network on Ethereum,
 but pivoted into a validator network for “watchtowers” then for bridges.
 It was programmable in theory, but apparently not in practice.
 
-[PERUN](https://perun.network/) was another State Channel network on Ethereum.
+[Perun](https://perun.network/) was another State Channel network on Ethereum.
 
 Many other implementations existed, but none seems to have gained much traction.

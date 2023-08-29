@@ -971,7 +971,7 @@ an everyday payment and contracting tool for everyone.
 
 MuKn is seeking investment to bring *Chenilles* to market
 and grow it to its full potential in the shortest possible delays.
-Contact us at `contact@mukn.com` for further information.
+Contact us at <contact@mukn.com> for further information.
 
 ## References and Bibliography
 
@@ -1012,6 +1012,9 @@ EthCC[3], 2020.
 **Jay McCarthy and François-René Rideau**,
 [“Alacrity: A DSL for Simple, Formally-Verified DApps”](https://github.com/AlacrisIO/alacrity/blob/master/docs/paper.md),
 DevCon5, 2019.
+
+**François-René Rideau**,
+[What do Formal Methods actually Guarantee?](https://medium.com/alacris/what-do-formal-methods-actually-guarantee-d94ae8802be2), 2018
 
 **François-René Rideau**,
 [Language Abstraction for [V]erifiable Blockchain Distributed Applications](http://github.com/alacrisio/lavbda),

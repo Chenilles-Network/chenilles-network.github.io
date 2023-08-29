@@ -2,7 +2,7 @@
 Date:	May 2023 (Latest update August 17th 2023)
 URL:	https://chenilles-network.github.io/roadmap.html
 Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. < https://mukn.com >
+Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
 Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Chenilles Roadmap: a Scalable, Interoperable and Programmable State Channel Network
@@ -47,27 +47,65 @@ and technical means, and will focus on presenting
 a plan to implement those goals using those means, that
 maximizes earlier returns on lower investments.
 
-### Plan Summary
+### Plan Overview
+
+We divide our plan in multiple parallel tracks,
+one part with the user-visible features that handle assets,
+one part with the user-invisible features that keep the system safe.
+Each track will include a series of milestones
+each enabling more business use cases.
 
 We understand that time is of the essence in launching our Network.
 Therefore, we will start by implementing the smallest necessary subset of
 the Network features, then will keep adding features to the working system.
-The major milestones will be as follows:
+We also understand that the Network safety measures must increase to match
+its functionality least users fall prey to increasingly motivated attackers.
+Therefore, we will ramp up robustness features in synch
+with user-visible functionality.
 
-  1. Simple State Channels: payments only, between two participants only.
-     A minimal command-line only client that uses a centralized service
-     for off-chain communications. No persistence beyond logs.
-     This will be our zero-to-one prototype.
+### User-Visible Functionality Milestones
 
-  2. Payments with one intermediary: simple payments between two participants
-     with a single Intermediary; routing payments between many participants
-     using a hub-and-spoke network. Web interface connected to a local server.
+The major milestones for user-visible functionality will be as follows:
 
-  3. Network Payments: simple payments in a network, with a simple routing
-     algorithm, and a gossip network to announce changes, following the
-     principles of the Lightning Network.
+  - Minimal *State Channel* prototype: our zero-to-one implementation.
 
-  4. Smart Contracts for Token Swaps: simple token swaps as usable for
-     Network Payments, using smart contracts over Generalized State Channels.
+  - Minimal State Channel *Network* prototype: payments with intermediary.
 
-  5. 
+  - Minimal *Generalized* State Channel prototype: simple DApp atop State Channels.
+
+  - Simple Cross-Currency Payments
+
+  - Simple Cross-Chain Payments
+
+  - Simple Routing on par with Lightning Network
+
+  - Simple Fast Confirmation with Rollup Service
+
+  - Interoperation with Lightning Network
+
+  - Interoperation with On-Ramp / Off-Ramp Solutions
+
+  - Interoperation with Bridges and Oracles
+
+  - Interoperation with KYC solutions
+
+  - Advanced Cross-Currency Payments
+
+  - Advanced Routing
+
+  - Advanced Smart Contracts over State Channels
+
+  - Self-Custodial DEX
+
+### Robustness Enhancement Milestones
+
+The major milestones for robustness enhancements will be as follows:
+
+  - Local Encrypted Persistence
+
+  - Remote Encrypted Persistence via IPFS
+
+  - Integration of payments with common cryptocurrency Wallets
+
+  - Integration of DApps with common cryptocurrency Wallets
+
