@@ -1,11 +1,19 @@
 ﻿---
-Date:	April 2023 (Latest update August 17th 2023)
+Date:	April 2023 (Latest update August 31st 2023)
 URL:	https://chenilles-network.github.io/whitepaper.html
 Author:	François-René Rideau <f@mukn.com>
 Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
 Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Chenilles Glow Whitepaper
+
+This document explains the overall business vision for how *Chenilles*
+can unlock the potential of blockchains and make them go to the Moon,
+i.e. be usable by everyone, and used by everyone.
+For an in depth technical description see our [concepts](concepts.md) document.
+See also our detailed [roadmap](roadmap.md) for our plan to get there.
+
+## Abstract
 
 We present the [*Chenilles* Network](https://chenilles-network.github.io/), a
 new payment network that can transmit value across blockchains and currencies,
@@ -47,6 +55,10 @@ is developing *Chenilles* and *Glow* as Open Source platforms,
 with an ambitious business model to become the company that
 connects all decentralized applications together.
 
+### Table of Contents
+
+  - [Abstract](#abstract)
+    - [Table of Contents](#table-of-contents)
   - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
     - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
     - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)

@@ -1,5 +1,5 @@
 ---
-Date:	May 2023 (Latest update August 21st 2023)
+Date:	May 2023 (Latest update August 31st 2023)
 URL:	https://chenilles-network.github.io/concepts.html
 Author:	François-René Rideau <f@mukn.com>
 Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
@@ -303,12 +303,41 @@ unable or unwilling to cooperate,
 leaving the others to use the non-cooperative exit
 while their funds are locked for the duration of a challenge.
 
+Indeed, all the participants in a State Channel have to sign each and every
+state update. Whenever one participant stops cooperating, for whatever reason
+(accidental or adversarial, technical or legal, physical or virtual, etc.),
+all the other participants will waste time and have their capital immobilized
+while they undergo the non-cooperative exit process to recover their assets.
+In the worst case scenario, if they try multiple times to recreate
+a State Channel with their assets between the remaining participants whom
+they still erroneously trust to keep cooperating, yet each time another
+participant stops cooperating, the over-trusting victims will have to go
+through one non-cooperative exit process per bad participant.
+This quickly becomes onerous as the number of participants grows.
+
+A circuit involving the same N participants can, using sophisticated
+interlocking contracts at each State Channel, manage complex interactions.
+However, a State Channel with N participants is faster and
+more capital efficient: it allows direct transfers of assets
+not possible with circuits, and in particular, unlike circuits,
+it directly supports non-fungible tokens.
+A State Channel with N participants requires no additional trust assumption
+compared to a circuit with the same participants.
+The only downside is that once an interaction is over, the two-participant
+State Channels of a circuit could be re-organized to partake in new circuits,
+whereas a N-participant State Channel must be settled
+whenever any participant wants out. If all participants actively participate
+it is still cheaper and faster to do those settlements
+than to open many channels.
+But that can be a big If depending on the participants.
+
 State Channels with more than two participants should thus be done only
 by dedicated people, whether professionals or enlightened amateur,
-who generally trust each other with keeping their systems
-online and available for other participants to interact with and sign transactions.
-Definitely not something to do with random anonymous people with no reputation.
-And even then, only a few tens of them, possibly a few hundred,
+who trust each other with keeping their systems online and available
+for other participants to interact with and sign transactions.
+They are definitely not something to do between random anonymous people
+with no reputation.
+And even then, only a few tens of participants, possibly a few hundred,
 may feasibly partake in the protocol before it becomes horribly inefficient.
 
 ### State Channels are Side-Chains
@@ -552,17 +581,44 @@ whether for interested reasons (propping up a rival network,
 centralized or decentralized, government or private),
 for the Schadenfreude (cheaply wasting other people's time),
 or out of sheer incompetence and irresponsibility.
-Some system of reputation and vetting is required to fend off the vandals.
+Some system of reputation and vetting is required to fend off the vandals,
+as well as spam-avoiding measures such as proof-of-work or proof-of-stake.
 Yet any fully automated public reputation system is subject to gaming,
 so it is likely that some any actual solution will be dynamic and evolving,
-partly manual, partly secret, somewhat decentralized system, and yet
-possibly reusing centralized systems
+partly manual, partly secret, somewhat decentralized, and yet possibly
+also reusing centralized systems
 (and optionally using zk proofs to preserve privacy).
 
 Thus, in practice, the Network map is somewhat unreliable, and
 there is no guaranteed way of measuring whether a route will work
 except to try to use it and see if it succeeds.
 A transfer may involve many failed attempts before a working route is found.
+
+### State Channel Gossip Network
+
+State Channel Network participants will advertise their available liquidity
+on a Gossip Network. Listeners of that Network can then draw an approximate Map
+of the Network based on which they may make routing decisions.
+End-users would typically leave the routing decisions to the hub
+they are connected to, who unlike the end-users would be a full participant
+in the Gossip Network.
+
+There are many questions regarding how to maintain and update the Network Map.
+How do you identify the nodes (participants) and the arcs (State Channels) of
+the Network, when each participant uses many addresses, and most State Channels
+are hidden from direct view on the Layer 1 Blockchain?
+How to avoid bad actors from poisoning the dataset?
+How do you minimize how much spying intermediaries can do?
+How do you minimize the risks of dealing with bad actors who stop cooperating?
+How do you minimize the amount of data you have to reveal to allow routing?
+How do you balance speed, safety, cost and privacy?
+
+The Bitcoin Lightning Network has answers to all these questions.
+Many of these answers could probably be reused
+for a Generalized State Channel Network, with some adaptations.
+Other answers will have to be developed
+to improve on speed, safety, cost and privacy.
+zk-SNARKs in particular may help with privacy.
 
 ## Generalized State Channels: Beyond Single-Blockchain Payments
 
@@ -1275,6 +1331,64 @@ A first-class participant must ultimately take responsibility for
 the security of their systems and the secrecy of their and their users’ keys.
 The buck has to stop somewhere. And wherever that is, active participation
 is required, and with it, more secure systems than most people use today.
+
+### Persistence
+
+In a DApp that takes more than one step, each participant must make sure to
+*persist* the precise state of each interaction that he is part of.
+Otherwise, they run the risk of losing track of where they are in those
+interactions, and lose any asset at stake. They will be unable to recover
+the assets from the DApp, and adversaries may deliberately induce failures
+in the participant’s computer systems to steal the participant’s assets.
+
+Here, “persist” means that the interaction must survive even in case the
+participant’s computations are interrupted:
+some software or harder crashes;
+a computer loses power, is broken or stolen;
+a cosmic ray, disk failure or bad memory chip causes data corruption;
+a data center is burned down by accident, bombed out or raided by enemies;
+hackers take over the system, encrypt its contents and hold them for ransom;
+some adverse event causes the participant’s computation to somehow stop,
+its data to be lost or corrupted.
+In the end, the precise reason for why the computation stops may or may not
+be anticipated: accidents, mishaps, aggressions, natural disasters, wars and
+other catastrophes—who knows?
+But the eventuality of any specific computation’s demise can be predicted
+with 100% accuracy: yes, that computation will absolutely die.
+“This too shall pass.”
+
+Now, with suitable software infrastructure, participants can avoid losing
+their digital assets in addition to whatever negative effects they may
+otherwise experience from the demise of their computers and computations.
+But without suitable software infrastructure, these negative effects will be
+compounded in ways that could have been prevented. What more,
+without suitable software infrastructure, participants open themselves to
+deliberate attacks by criminals who will purposefully cause the mishaps
+so as to hold participants hostages or steal their assets
+while their defenses are down.
+For instance, if they are playing poker and the other participant can
+make them lose their interaction state by cutting their power supply,
+then the other participant may successfully claim that they folded and
+collect the table stakes.
+
+Persistent data and durable computations are thus essential to
+the safe operation of Decentralized Applications.
+Participants must make sure to commit any new state of all their
+asset-managing interactions to a suitably safe persistent store
+*before* they publish signatures of that state to other participants.
+
+Persistence and durability comes in an Arms Race of increasing sophistication.
+From local persistence of data against simple software crash,
+to redundant durability of multi-party computations split between
+many replicated in secure enclaves across many backup data centers
+around the globe, operated by independent trustworthy providers
+whose systems will self-destruct if an intrusion is detected,
+in several rival jurisdictions that won’t cooperate in attacking you.
+The rich and paranoid will launch their own private satellites in orbit
+as some of their backups, in addition to deeply buried installations,
+to resist both asteroid strikes and solar flares.
+It is up to each participant to find what level of persistence
+and durability they will afford for the computations they care about.
 
 ## Additional Links
 

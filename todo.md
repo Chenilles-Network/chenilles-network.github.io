@@ -11,112 +11,18 @@ Stuff cut from other documents, to include into these pages.
 
 -------------------------------------------------------------------------------
 
-# Update Concepts Document
-
-#### Interaction Persistence
-
-In a Decentralized Application that takes more than one step, each participant
-must make sure to *persist* the state of each interaction that he is part of.
-Otherwise, they run the risk of losing any asset at stake in the interaction.
-
-Here, “persist” means that the interaction must survive even in case the
-participant’s computer crashes or is stolen, or the data center is destroyed,
-or any adverse event that can be anticipated to happen.  With suitable
-software infrastructure, participants can avoid losing their digital assets in
-addition to whatever negative effects they may otherwise experience from
-accidents, mishaps, aggressions, natural disasters, wars and other
-catastrophes.  Without suitable software infrastructure, these negative
-effects will be compounded in ways that could have been prevented; what more,
-without suitable software infrastructure, participants open themselves to
-deliberate attacks by criminals who would purposefully cause the mishaps to
-happen to take advantage of them.
-
-### Decentralized Systems
-
-interaction on a State Channels. For instance, if they are playing poker and
-lose their interaction state, the other participant will successfully claim
-that they folded and collect the table stakes.
-
-Persistence of interactions requires participants to commit any new state of
-all their asset-managing processes to encrypted remote replicas *before* they
-publish signatures of that state to other participants.
-
--------------------------------------------------------------------------------
-
 # Chenilles Systems Layer
 
-Indeed, all the participants in a State Channel have to sign each and every
-state update. Whenever one participant stops cooperating, for whatever reason
-(accidental or adversarial, technical or legal, physical or virtual, etc.),
-all the other participants will waste time and have their capital immobilized
-while they exercise the adversarial claim and challenge option to expel the
-non-cooperating participant. In the worst case scenario, if multiple
-participants stop cooperating, the remaining participants will have to go
-through the claim and challenge process once per non-cooperating
-participant. This quickly becomes onerous as the number of participants grows.
-
-A circuit involving the same N participants can, using sophisticated
-interlocking contracts at each channel, manage complex interactions. However,
-a channel with N participants is faster and more capital efficient; it allows
-transfers of assets not possible with circuits, and in particular, unlike
-circuits, it supports non-fungible tokens. A channel with N participants
-requires no additional trust assumption compared to a circuit with the same
-participants. The only downside is that once an interaction is over, the
-two-participant channels of a circuit could be re-organized to partake in new
-circuits, whereas a N-participant channel must be settled when any participant
-wants out.
-
-In the first version of *Chenilles*, we will only implement a simple
-interaction between two parties via a single generalized state channel without
-intermediaries. We will implement neither state channels with more than two
-participants nor interactions between many participants via a circuit. These
-more advanced constructions would be the matter for future projects.
-
-## XXX
-
-all the other participants have to pay fees to make a claim to close their
-channels and reopen new ones, their funds being blocked until timeout (for a
-week), the associated liquidity thus made unavailable.
-
-In the first version of *Chenilles*, we will implement HTLC support and
-demonstrate transfer with the Network as a single intermediary. We may decide
-initially not to implement general support for transfer with many
-intermediaries, which is not conceptually harder but is more work than
-necessary for our value demonstration purposes.
-
-(who may control multiple addresses) (that may be hidden in various ways)
-
-that may be more or less expected to successfully do its job, where each State
-Channel is an arc joining two nodes, where the current state of each State
-Channel describes the capacity of the arc in each direction, and each
-direction of each arc has a documented fee structure, well-known algorithms
-can find an optimal circuit or set of circuits to transfer a given amount from
-point A to point B while minimizing fees, maximizing expectation of success,
-or any given performance metric. Now, how is this map to be obtained, to begin
-with? Some service discovery mechanism is required. Then there are questions
-regarding how to keep this map up-to-date, how to avoid bad actors from
-poisoning the dataset, or from spying on the participants, how to maintain
-privacy with a routing algorithm that requires less of a map or one that
-reveals less data, etc.
-
-The Bitcoin Lightning Network has answers to all these questions. These
-answers could probably be largely reused for an Ethereum Lightning Network,
-with some small adaptations. But to demonstrate as much value as possible with
-as little upfront investment as possible, we can restrict ourselves to a
-solution that works in the simplest of cases: payment through a single
-centralized intermediary. The sender and recipient can simply tell each other
-which of many intermediaries they support, in decreasing order of preference,
-until they find a suitable one; then they initiate a payment using this single
-intermediary. A network where every participant is connected to the same
-intermediary is called a “hub and spokes” network in reference to a bicycle
-wheel.
-
-In the very first version of *Chenilles*, we will only implement routing in a
-very simple hub-and-spokes network with a single centralized intermediary. We
-will implement neither decentralized discovery of a network nor general
-routing in an arbitrary network: they are neither conceptually novel nor
-specific to Filecoin, and are thus unnecessary for our value demonstration
-purposes.
+To demonstrate as much value as possible with as little upfront investment
+as possible, we can restrict ourselves to a solution
+that works in the simplest of cases:
+payment through a single centralized intermediary.
+The sender and recipient can simply tell each other
+which of many intermediaries they support,
+in decreasing order of preference, until they find a suitable one;
+then they initiate a payment using this single intermediary.
+A network where every participant is connected to the same intermediary
+is called a “hub and spokes” network in reference to a bicycle wheel.
 
 XXX We will start by only offering a simple hand-written demonstration of one
 simple contract on top of our infrastructure, to illustrate an application
@@ -198,11 +104,6 @@ affordable programming environment for contracts on top of our Generalized
 State Channel infrastructure.
 
 -------------------------------------------------------------------------------
-
-Each of these features will be demonstrated, then productized.
-
-See below the section on Future Work for further features we propose to build
-for State Channels on Laconic.
 
 ## Underlying Concepts
 
@@ -512,6 +413,8 @@ will not be writing more general off-chain code to handle a complete Ethereum
 Lightning Network, and especially not be writing a DSL compiler targeting
 Generalized State Channels, though these could be the topic of future
 projects.
+
+-------------------------------------------------------------------------------
 
 ### Action Plan Step 1: Simple State Channels We will write a set of contracts
 that implement State Channels, together with a client that can use them for
@@ -1177,4 +1080,23 @@ above.  It will involve an Ethereum variant of each of the 11 steps of the
 Bitcoin Lightning BOLT specifications, plus additional steps and further
 generalizations so as to accommodate seamless interoperation between State
 Channel networks.
+
+In the first version of *Chenilles*, we will only implement a simple
+interaction between two parties via a single generalized state channel without
+intermediaries. We will implement neither state channels with more than two
+participants nor interactions between many participants via a circuit. These
+more advanced constructions would be the matter for future projects.
+
+In the first version of *Chenilles*, we will implement HTLC support and
+demonstrate transfer with the Network as a single intermediary. We may decide
+initially not to implement general support for transfer with many
+intermediaries, which is not conceptually harder but is more work than
+necessary for our value demonstration purposes.
+
+In the very first version of *Chenilles*, we will only implement routing in a
+very simple hub-and-spokes network with a single centralized intermediary. We
+will implement neither decentralized discovery of a network nor general
+routing in an arbitrary network: they are neither conceptually novel nor
+specific to Filecoin, and are thus unnecessary for our value demonstration
+purposes.
 

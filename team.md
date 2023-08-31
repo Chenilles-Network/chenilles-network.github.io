@@ -2,14 +2,14 @@
 
 ## Our Company
 
-Chenilles, LLC.
+[Chenilles, LLC.](https://chenilles-network.github.io)
 
 ## Our Development Team
 
 - [François-René Rideau, Chief Scientist and CEO](https://linkedin.com/in/fahree)
 - Marcin Grzybowski, Vice President of Formal Methods
-- Donald Fisk, Senior Scientist
 - Henri Lesourd, Senior Scientist
+- Donald Fisk, Senior Scientist
 
 Incubated by [Mutual Knowledge Systems, Inc.](https://mukn.com/)
 
