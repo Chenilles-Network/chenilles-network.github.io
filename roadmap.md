@@ -101,6 +101,8 @@ The major milestones for user-visible functionality will be as follows:
 
 The major milestones for robustness enhancements will be as follows:
 
+  - Minimal persistence to local database, for simple data only
+
   - Local Encrypted Persistence
 
   - Remote Encrypted Persistence via IPFS
@@ -109,3 +111,8 @@ The major milestones for robustness enhancements will be as follows:
 
   - Integration of DApps with common cryptocurrency Wallets
 
+
+
+## Persistence
+
+In the first version of *Chenilles*, we will implement just the minimum amount of persistence required, saving data to a local database, without remote replication, and only for the simple interactions that we initially support. In further versions of *Chenilles*, we will implement more elaborate persistence, with remote copies (e.g. using IPFS), and for a generalized class of interactions supporting arbitrary smart contracts.

@@ -19,23 +19,32 @@ and explain how its Generalized State Channels work.
     - [Assets Under Control](#assets-under-control)
     - [Opportunity Costs of State Channels](#opportunity-costs-of-state-channels)
     - [How a State Channel Works](#how-a-state-channel-works)
-    - [Watching the Blockchain](#watching-the-blockchain)
+    - [Watching the Blockchain vs One-Way State-Channels](#watching-the-blockchain-vs-one-way-state-channels)
     - [Scaling Transactions](#scaling-transactions)
     - [More Than Two Participants](#more-than-two-participants)
     - [State Channels are Side-Chains](#state-channels-are-side-chains)
     - [Extra Privacy through Extra Cryptography](#extra-privacy-through-extra-cryptography)
   - [State Channels Networks: Payments At Scale](#state-channels-networks:-payments-at-scale)
-    - [Network Payments](#network-payments)
-    - [Layer 2 Transaction Fees](#layer-2-transaction-fees)
+    - [Payment Routes](#payment-routes)
+    - [An Overlay Network above a Blockchain](#an-overlay-network-above-a-blockchain)
+    - [Transaction Fees, Intermediaries and End-Users](#transaction-fees,-intermediaries-and-end-users)
     - [Payment Atomicity](#payment-atomicity)
     - [Interrupted Routes](#interrupted-routes)
     - [Mitigations for Route Interruptions](#mitigations-for-route-interruptions)
     - [Payment Routing](#payment-routing)
     - [Mapping the Network](#mapping-the-network)
-  - [Generalized State Channels: Smart Contracts on State Channels](#generalized-state-channels:-smart-contracts-on-state-channels)
-    - [The Possibility of Generalized State Channels](#the-possibility-of-generalized-state-channels)
-    - [The Challenge of Generalized State Channels](#the-challenge-of-generalized-state-channels)
-    - [Making Generalized State Channel Contracts Feasible](#making-generalized-state-channel-contracts-feasible)
+  - [Generalized State Channels: Beyond Single-Blockchain Payments](#generalized-state-channels:-beyond-single-blockchain-payments)
+    - [Extending and Embracing Previous State Channels Networks](#extending-and-embracing-previous-state-channels-networks)
+    - [Smart Contracts on State Channels](#smart-contracts-on-state-channels)
+    - [The Challenge of Exactly Matching Code](#the-challenge-of-exactly-matching-code)
+    - [Code Generation to the Rescue](#code-generation-to-the-rescue)
+    - [Token Swaps with or without Trusted Third Parties](#token-swaps-with-or-without-trusted-third-parties)
+    - [Cross-Currency Network Payments](#cross-currency-network-payments)
+    - [Cross-Chain Network Payments](#cross-chain-network-payments)
+    - [Embracing and Extending Existing State Channel Network](#embracing-and-extending-existing-state-channel-network)
+  - [System Robustness](#system-robustness)
+    - [“Non-Functional” Aspects of Software](#“non-functional”-aspects-of-software)
+    - [System Security](#system-security)
   - [Additional Links](#additional-links)
     - [The Bitcoin Lightning Network](#the-bitcoin-lightning-network)
     - [Other notable State Channel Networks](#other-notable-state-channel-networks)
@@ -62,10 +71,15 @@ A State Channel is structured as a “Layer 2” protocol,
 layered on top of a “Layer 1” blockchain.
 Its behavior regulated by a “smart contract” running on said blockchain;
 but most of the protocol actually happens “off-chain”,
-directly between the participants, outside of the blockchain proper,
-which is what enables the speed, low-cost, safety and privacy.
+directly between the participants, outside of the blockchain proper.
 
-While Bitcoin does not support general-purpose smart contracts,
+The Layer 1, i.e. posting transactions directly on the blockchain,
+is always simpler and safer than any Layer 2.
+But the Layer 2 of State Channels allows for more transactions,
+cheaper, faster, and more privately, than is possible on the Layer 1;
+and if done right, it will still be safe.
+
+Note that while Bitcoin does not support general-purpose smart contracts,
 State Channels only require extremely simple smart contracts,
 and the Bitcoin Script was specially extended to support them.
 
@@ -194,7 +208,7 @@ instead kept private until needed, if ever. That transaction itself contains
 the transaction distributing the State Channel assets
 according to the current state, but only after validation through a challenge.
 
-### Watching the Blockchain
+### Watching the Blockchain vs One-Way State-Channels
 
 As long as your computer can watch the blockchain
 for a possible adversarial claim with an old unfavorable state update
@@ -219,10 +233,14 @@ In particular there is no risk to you
 if all you did since channel creation was spend;
 if you mostly spend but occasionally receive small amounts
 then the risk is limited to how much you recently received.
+An “end-user” having a one-way State Channel for payments only can thus
+skip the watching of the blockchain.
 
-If on the other hand you receive significant assets through the State Channel,
-you should make sure to watch the blockchain carefully, and
-have multiple watchtowers, either in-house or hired contractors,
+Now, if you receive significant assets through the State Channel,
+whether you are on the receiving side of a One-Way State Channel,
+or are a participant in a State Channel that sees traffic both ways,
+then you must make sure to be watch the blockchain carefully.
+You should have multiple watchtowers, either in-house or hired contractors,
 in remote redundant data centers, to do the job should your main systems
 come to crumble under attack or otherwise fail.
 
@@ -327,45 +345,85 @@ can be made undistinguishable from any other zk-SNARK based contract invocation.
 
 ## State Channels Networks: Payments At Scale
 
-### Network Payments
+### Payment Routes
 
-Given a network of State Channels, where each participant has one or more
-channels open with as many other participants, it becomes possible
-for one participant in the network to send tokens to another participant
-through intermediaries. For instance,
-participant A sends 5 tokens to participant B,
-who sends 5 tokens to participant C, etc., until
-participant Z receives 5 tokens from participant Y.
+Given a series of participant, such that each participant has a State Channel
+open with the next participant (except for the last participant, for which
+there is no next participant), it is possible for the first participant to send
+tokens to the last participant by passing them from one participant to the next
+through those State Channels.
+
+For instance, participant A sends 5 tokens to participant B, who sends 5 tokens
+to participant C, etc., until participant Y sends the 5 tokens to participant Z.
 As long as tokens are fungible, and there is a “route” of channels from A to Z,
-each with sufficient liquidity to cover the 5 tokens in the correct direction,
+through a series of willing intermediaries, each channel having sufficient
+capacity to cover the tokens being sent in the correct direction,
 then a transfer is possible.
 
-Thus, even though a given participant may only have a single State Channel open
-with only one other participant, they will be able to transact with any other
-participant in the entire network that they are indirectly connected to.
+Of course, there are some issues with intermediaries: How to prevent them from
+just keep the tokens after they receive them, or how to reassure them that they
+can send the tokens before they receive them? With suitable smart contracts.
+How to incentivize them to participate in the payment at all? With usage fees.
+There are technical solutions to these issues that we will discuss below.
 
-Such “network payments” enable very fast and cheap, private transactions
-between all participants in a large network layered on top of about any Blockchain,
-over amounts as small or as big as participants are willing to add liquidity for.
+Once these issues solved, these “payment routes” enable fast, cheap and private
+transactions from one State Channel participant to another, as long as
+a suitable route of State Channels can be found between them.
+A State Channel thus enables more than just direct payments between its direct
+participants; it potentially enables indirect payments between all participants
+of all State Channels on a blockchain—and, we’ll see, beyond.
 
-### Layer 2 Transaction Fees
+### An Overlay Network above a Blockchain
+
+Now we may consider all the State Channels on a Blockchain as
+the arcs of a graph, of which the Participants are the nodes.
+This graph constitutes a Network that enables payments along any route
+in the network wherein each arc has sufficient capacity in the given direction.
+This State Channel Network is thus an Overlay Network (Layer 2)
+on top of the underlying Blockchain (Layer 1).
+
+Interestingly, Layer 2 participants can but need not be participants
+in the Layer 1 network as miners or nodes or owners of UTXO.
+Instead, the State Channels, that are arcs of the Layer 2 Network,
+appear on the Layer 1 as UTXOs the lock scripts of which are akin
+to Layer 1 Network participants.
+
+The two Networks are thus quite distinct and separate,
+though they are related via the deposits and withdrawals that are
+State Channel creation and destruction.
+
+### Transaction Fees, Intermediaries and End-Users
 
 The costs involved in a Network Payment are tiny.
 Each intermediary may charge a fee to cover their part,
 yet the fees may be small enough that even after adding all the fees
-from all the intermediaries, the overall Network Payment will still be
+from all the intermediaries, the overall Payment will still be
 much cheaper than a direct transaction on the underlying Layer 1 blockchain.
 
 Specialized intermediaries may thus profitably maintain many State Channels open
 with plenty of end-users and multiple other such specialized intermediaries,
-providing a “hub” in the Network, and charging a small fee at each transaction.
+providing a “hub” in the Network, and charging a small fee at each transaction,
+negotiated as per as well-determined Network rules.
+The graph of those intermediaries constitutes the core of the Network.
+
+By contrast, at the edge of the Network, many end-users may be participants with
+only a single State Channel open, with a specialized intermediary,
+who serves as their entry hub into the Network.
+They may even use their State Channel One-Way for payments only, or mostly so,
+and not bother being active participants or watching the blockchain.
+
+Meanwhile, other State Channels may exist between participants who are not
+connected to the rest of the Network and will not advertise their presence.
+Instead they will exchange tokens privately in their own secret network,
+sometimes reduced to a single State Channel.
+They can set and follow their own rules for transaction fees or lack thereof.
 
 ### Payment Atomicity
 
-For security purposes, each intermediate transaction along the route
-will be made conditional on some triggering event, such that
-either all transfers happen, or none of them do—a
-property known as “atomicity”.
+To prevent intermediaries either cheating or being cheated,
+each intermediate transaction along the route will be made conditional
+on some triggering event, such that either all transfers happen,
+or none of them do—a property known as “atomicity”.
 
 Thus, no intermediary may run away with the tokens he received
 while failing to send the agreed upon tokens, or in the opposite case,
@@ -495,7 +553,20 @@ there is no guaranteed way of measuring whether a route will work
 except to try to use it and see if it succeeds.
 A transfer may involve many failed attempts before a working route is found.
 
-## Generalized State Channels: Beyond Payments, Smart Contracts
+## Generalized State Channels: Beyond Single-Blockchain Payments
+
+### Extending and Embracing Previous State Channels Networks
+
+So far the concepts we have explained are those underlying all State Channels,
+including the Bitcoin Lightning Network and its many copycats
+on other blockchains.
+But better more powerful State Channels are possible, that have been imagined
+already, though none have been successfully implemented so far.
+Let us now explain the concepts behind these Generalized State Channels:
+how State Channels can be extended to effectively support Smart Contracts,
+and with them, to enable asset swaps, payments across currencies,
+payments across blockchains, self-custodial decentralized exchanges,
+and much more.
 
 ### Smart Contracts on State Channels
 
@@ -509,7 +580,8 @@ Smart-contract capable blockchains include Ethereum, and after it
 Cardano, Solana, PolkaDot, Avalanche, Cosmos, Filecoin, Internet Computer,
 Aptos, Algorand, Tezos, MINA, Nervos,
 and their respective forks and clones (list not exhaustive).
-But they emphatically do not include Bitcoin, Ripple, Monero, Stellar, Zcash,
+But they emphatically do not (as of 2023 at least) include
+Bitcoin, Ripple, Monero, Stellar, Zcash,
 and their respective forks and clones (list not exhaustive).
 
 It is quite easy on smart-contract capable blockchains
@@ -662,9 +734,11 @@ There are ways around it, but only with extra trust assumption:
 
 ### Cross-Chain Network Payments
 
-Once we have Cross-Currency Network Payments, we can also do Cross-Chain Network Payments:
-Cross-Chain Network Payments are “just” network payments where some State Channels are
-layered on top on one blockchain and some layered on top of another.
+Once we have Cross-Currency Network Payments,
+we can also do Cross-Chain Network Payments:
+Cross-Chain Network Payments are “just” network payments
+where some State Channels are layered on top on one blockchain
+and some layered on top of another.
 
 The key difficulty in Cross-Chain Network Payments is that
 the native tokens of one chain is not that of the other, and
@@ -677,6 +751,119 @@ data availability engine that provides signatures verifiable on both chains.
 On the other hand, a simple HTLC as used by the Lightning Network will not do,
 because its worst case involves too long a delay which compounded with the
 volatility of cryptocurrency generates too much friction and high fees.
+Still, assuming the participants both trust a same bridge, they can use
+the usual HTLC to send bridge-wrapped Bitcoins to a smart contract on
+a suitable blockchain (such as Ethereum) as a first transaction,
+in a second transaction, the smart contract there can handle the business logic
+that couldn’t be expressed on Bitcoin.
+This solution, however, supposes that key participants already have
+a suitable State Channel open on the other Network, or is willing to create one,
+which involves a Layer 1 transaction.
+
+### Interoperating with Existing State Channel Network
+
+With suitable developments, Generalized State Channels can interoperate
+with other existing (and future) State Channel Networks, by using
+the same payment triggering conditions that they use for routed payments,
+whether HTLC (as with the Bitcoin Lightning Network) or otherwise.
+
+The first preexisting network that any Generalized State Channel Network
+would want to interface with is probably the Bitcoin Lightning Network itself:
+it is the most expansive, with the most available liquidity,
+on the most valuable blockchain.
+
+There are or have been many other existing State Channel networks on Ethereum
+(such as Kchannels, Raiden, Connext, Perun, Celer,
+[StateChannels.org](http://statechannels.org/), etc.), and
+possibly on other blockchains, too.
+They may or may not be worth interoperating with at some point.
+
+Interoperation means having on-chain smart contracts
+that can suitably complete a payment route. But it also means
+having routing algorithms that can find a suitable payment routes
+in the joined pair of Networks, which is more difficult.
+More generally, it will involve Generalized variants of each of
+the Bitcoin Lightning BOLT specifications or the equivalent for
+each State Channel Network, plus whatever further generalizations
+are required so as to accommodate seamless interoperation
+between the two or more State Channel networks.
+
+### A Mother-of-All State Channel Network
+
+Once interoperation is achieved between all relevant State Channel Networks
+on all relevant Layer 1 Blockchains, the result will be
+a Mother-of-All State Channel Network, an Overnet.
+
+End-Users will be able to hold their favorite tokens on their favorite
+blockchain in a self-custodial State Channel with a hub participant;
+and using this Mother-of-All State Channel Network, they can pay their
+suppliers in any token the suppliers prefer on the supplier’s preferred
+blockchain, in an atomic transaction that if everyone cooperates will take
+a fraction of second, and even if someone doesn’t cooperate, will be safe
+and involve a temporary inconvenience for the non-cooperative exit delay
+(typically about one week).
+Each participant could further keep their accounting
+in whichever currency their are required to use, which may differ
+from each other and from the two actual kind of tokens used.
+
+Thus, one user may keep some FIL tokens on Filecoin, and pay a supplier
+who wants DAI stable coins on Ethereum, or another who wants BTC on Bitcoin,
+while keeping their legal accounting in USD, while the others keep theirs
+in EUR or ARS. Furthermore, using an on-ramp trusted by the payer, and/or
+an off-ramp trusted by the payee, they can also use
+the Mother-of-All State Channel Network to transfer funds from any currency
+fiat or crypto to any currency fiat or crypto with fast settlement and low fees.
+(Presumably, however, if both parties want to hold fiat currency rather than
+cryptocurrency tokens or blockchain-hosted stable coins, they may be better off
+using a traditional centralized service rather than a decentralized protocol,
+whether using State Channels or not—unless the direct fiat payment is otherwise
+made impossible for regulatory reasons.)
+
+While it is possible for a State Channel payment to cross several currencies
+or several blockchains, in practice it will be too costly and too risky to
+make more crossings than strictly necessary: none if the participants want
+to hold the same token on the same network, two crossings if the participants
+want to hold different tokens on different networks neither of which supports
+arbitrary smart contracts so they have to use a smart-contract-capable
+blockchain as an intermediary, and one in the more general case.
+
+### Nested State Channels
+
+Most existing State Channels only support one interaction at once.
+When the only interactions are one-way payments
+that are meant to be completed very fast,
+as in the Bitcoin Lightning Network, this might be good enough.
+Even then, it can cause a lot of liquidity to become unavailable
+when a payment suddenly fails and one or multiple channels
+undergo non-cooperative exits.
+Now, when handling transactions that are not all supposed to complete very fast
+it becomes wasteful to lock the entire channel liquidity while waiting for each
+small transaction to complete.
+The solution is Nested State Channels.
+
+Nested State Channels allow for many simultaneous incomplete transactions:
+a State Channel can handle multiple transactions at a time; and some of
+these transactions can themselves involve nested state channels
+that can each contain more transactions and nested state channels.
+Thus, a State Channel can thus handle an arbitrary number of ongoing
+transactions, whatever the Layer 1 size limits on a single transaction.
+
+There are however two limits to Nested State Channels,
+that hit in case one party stops cooperating and unanimity breaks:
+First, the deeper a transaction is nested, the longer the overall delay
+involved in its non-cooperative exit, since each Nested State Channel must wait
+for its outer State Channel to have completed its non-cooperative exit process
+before it may start its own non-cooperative exit process.
+Second, the number of supported nested transactions grows exponentially with
+the depth of the nesting, but the Layer 1 blockchain has a limited capacity
+to support those transactions.
+Therefore, there is no point in nesting transactions past a small depth limit.
+
+Note that Nested State Channels do not require the Layer 1 blockchain
+to support arbitrary smart contracts, only the ability for a transaction
+to have more than two UTXOs, which exists even on Bitcoin.
+They are nevertheless a generalization compared to what previous State Channels
+otherwise allowed.
 
 ## System Robustness
 

@@ -7,8 +7,6 @@ Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # Chenilles Glow Whitepaper
 
-### Abstract
-
 We present the [*Chenilles* Network](https://chenilles-network.github.io/), a
 new payment network that can transmit value across blockchains and currencies,
 safely, at scale, with a direct connection to on-ramp and off-ramp solutions.
@@ -49,10 +47,6 @@ is developing *Chenilles* and *Glow* as Open Source platforms,
 with an ambitious business model to become the company that
 connects all decentralized applications together.
 
-### Table of Contents
-
-  - [Abstract](#abstract)
-  - [Table of Contents](#table-of-contents)
   - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
     - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
     - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)
@@ -83,6 +77,7 @@ connects all decentralized applications together.
     - [Controlling the Default Client](#controlling-the-default-client)
     - [Decentralized Application Development](#decentralized-application-development)
     - [Steering an Ecosystem](#steering-an-ecosystem)
+    - [Bootstrapping the Business](#bootstrapping-the-business)
   - [Conclusion: Invest in the Future of DeFi and DeCo](#conclusion:-invest-in-the-future-of-defi-and-deco)
   - [References and Bibliography](#references-and-bibliography)
 
@@ -766,8 +761,8 @@ There are many ways for MuKn to monetize the *Chenilles* Network.
 First, let us make it clear that using or operating *Chenilles*
 does not require introducing a new token, and that this is a great advantage.
 
-*Chenilles* is blockchain-agnostic—it can work
-with any blockchain that has scripts or contracts.
+*Chenilles* is blockchain-agnostic:
+it can work with any blockchain that has scripts or contracts.
 We are building a layer above existing and future blockchains and side-chains,
 rather than yet another blockchain or side-chain.
 We can thus connect these blockchains without being impeded
@@ -958,6 +953,37 @@ with its operating systems and commoditized the hardware vendors.
 The possibilities are endless, and MuKn will be
 the Microsoft of Decentralization, the King of anti-Monopoly.
 
+### Bootstrapping the Business
+
+While we identified many potential revenue sources
+for a business around the *Chenilles* Network,
+getting the business off the ground will require prioritizing those activities
+that at any moment maximize the return on investment
+given the constraints of the available runway.
+In the shorter term we will start with less capital-intensive activities,
+and as we grow we can move to more capital-intensive in the long run:
+
+  * First, we will build private real-time decentralized settlement solutions
+    for large users of cryptocurrency, whether part of traditional Financial
+    Institutions, or newcomers specialized in Decentralized Finance.
+    This is a pure service offering.
+
+  * Second, we will target DeFi enthusiasts who seek a non-custodial DEX,
+    and the liquidity providers who will sell them access. We will solve
+    their issue with having to choose between fast centralized exchanges
+    with counterparty risk, or the slowness of decentralized exchanges.
+
+  * Third, we will target end-users who seek a reliable payment system that
+    can't censor, inflate or confiscate, offering a decentralized alternative
+    to traditional banking.
+
+  * Along the way, and increasingly, we will create a platform for developers
+    to build DApps. Eventually, we will target these developers with products
+    and services that can enhance both their development experience and the
+    software they create on our platform.
+
+  * Issuing tokens will be done at strategic moments that will maximize value.
+
 ## Conclusion: Invest in the Future of DeFi and DeCo
 
 Mutual Knowledge Systems (MuKn) is building the *Chenilles* Network,
@@ -999,7 +1025,7 @@ amenable to formal verification.
 whitepaper, 2022.
 
 **François-René Rideau**,
-[“Durabo: Unstoppable Message Feeds, 2021”](https://j.mp/Durabo2021),
+[“Durabo: Unstoppable Message Feeds, 2021”](https://bit.ly/Durabo2021),
 whitepaper, 2021.
 
 **François-René Rideau**,
