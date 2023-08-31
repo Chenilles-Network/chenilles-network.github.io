@@ -36,14 +36,25 @@ and explain how its Generalized State Channels work.
   - [Generalized State Channels: Beyond Single-Blockchain Payments](#generalized-state-channels:-beyond-single-blockchain-payments)
     - [Extending and Embracing Previous State Channels Networks](#extending-and-embracing-previous-state-channels-networks)
     - [Smart Contracts on State Channels](#smart-contracts-on-state-channels)
+    - [Concurrent Transactions](#concurrent-transactions)
+    - [Nested State Channels](#nested-state-channels)
+    - [Open vs Closed Interactions](#open-vs-closed-interactions)
+    - [Closed Interactions over Generalized State Channels](#closed-interactions-over-generalized-state-channels)
+    - [Generalized State Channels Embody “Code As Law”](#generalized-state-channels-embody-“code-as-law”)
+    - [On-Chain and Off-Chain Code](#on-chain-and-off-chain-code)
+    - [The Need for Exactly Matching Code](#the-need-for-exactly-matching-code)
     - [The Challenge of Exactly Matching Code](#the-challenge-of-exactly-matching-code)
     - [Code Generation to the Rescue](#code-generation-to-the-rescue)
     - [Token Swaps with or without Trusted Third Parties](#token-swaps-with-or-without-trusted-third-parties)
     - [Cross-Currency Network Payments](#cross-currency-network-payments)
     - [Cross-Chain Network Payments](#cross-chain-network-payments)
-    - [Embracing and Extending Existing State Channel Network](#embracing-and-extending-existing-state-channel-network)
+    - [Interoperating with Existing State Channel Network](#interoperating-with-existing-state-channel-network)
+    - [A Mother-of-All State Channel Network](#a-mother-of-all-state-channel-network)
   - [System Robustness](#system-robustness)
     - [“Non-Functional” Aspects of Software](#“non-functional”-aspects-of-software)
+    - [The Most Adversarial Environment](#the-most-adversarial-environment)
+    - [Arms Race to Robustness or Bust](#arms-race-to-robustness-or-bust)
+  - [The Need for New Technologies](#the-need-for-new-technologies)
     - [System Security](#system-security)
   - [Additional Links](#additional-links)
     - [The Bitcoin Lightning Network](#the-bitcoin-lightning-network)
@@ -749,8 +760,7 @@ to get their assets back in case of dispute.
 
 ### On-Chain and Off-Chain Code
 
-When using a Decentralized Application on top of State Channels,
-most of the interaction occurs between participants
+Most of an interaction over a State Channel occurs between participants
 using their respective off-chain code that runs on their individual computers.
 In the normal expected case of sustained cooperation, no on-chain contract code
 on the Layer 1 Blockchain is ever invoked for regular Layer 2 transactions.
@@ -758,6 +768,10 @@ That’s the entire point of a Layer 2 protocol.
 There are still Layer 1 transactions involved in normal operations, but only
 to open and close a State Channel, and possibly to deposit additional assets
 into the channel or withdraw assets from it, through partial settlements.
+This is clear evidence that in general a Decentralized Application (DApp)
+is much more than a smart contract, which is only the on-chain part.
+The many people in the industry who are focused on the sole “smart contracts”
+are utterly missing the point.
 
 Each participant’s off-chain code responsible for all these normal operations,
 most of them off-chain. But the off-chain code is also responsible for handling
@@ -1106,14 +1120,134 @@ Below we merely discuss the most salient aspects
 for which Decentralized systems require extra robustness
 compared with what is provided by the operating systems used by most people.
 
+### The Most Adversarial Environment
+
+Decentralized Applications (including State Channels)
+require much more robustness than any other kind of applications,
+even the most security-sensitive Internet-facing applications,
+even military applications.
+
+Indeed, most applications only face natural accident, mistakes,
+an occasional amateur vandal or hacker, or mindless spam;
+even the biggest information leak scandals led to few consequences
+for the victimized corporations and their executives;
+even faked payment transactions can usually be reverted;
+beneficiaries of physical stolen goods can usually be traced, whereas
+there is limited actual loss if at all for “theft” of “intellectual property”.
+By contrast, Decentralized Applications face active adversaries,
+highly motivated by billions of dollars worth of stolen assets each year,
+professionalized, disciplined and backed by organized crime including
+sometimes by big government agencies.
+
+Only military systems face adversaries as tough as Decentralized Applications.
+But unlike Decentralized Applications, the military can keep
+most of their systems offline, cut or firewalled from the Internet;
+their code can be secret;
+they can threaten and actually enact harsh retaliation against their attackers.
+Decentralized Applications can use none of these defense strategies:
+By design, Decentralized Applications must be connected to the Internet,
+the on-chain parts available at all times for interaction by anyone,
+and the off-chain parts available for connection whenever they are active.
+The code of Decentralized Applications is by necessity known to all parties,
+so that they may have it audited and trust it
+(otherwise, the application is actually centralized),
+which means the Adversaries can also at all times use
+the most advanced experts and tools to analyze the code and find flaws in it.
+The owners of assets on Decentralized Applications lack any means of
+retaliation against their enemies, if they could even be identified.
+
+What more, once a Decentralized Application is broken at the assets it managed
+are stolen, it is too late to fix the application, for the assets are gone.
+Even the military don’t have to face such an irreversible fragility of their
+systems with total defeat at stake, except in the heat of an active war—at
+which point they are not waiting passively for the attacker but
+actively shelling them in return and in anticipation.
+
+Therefore, Decentralized Applications are truly
+the Most Difficult Applications to Write in the entire world, ever.
+That is why they also require the most advanced technology,
+to get the code perfectly right on the first time,
+and keep their operational discipline perfect at all times.
+Said otherwise,
+whereas developers of regular applications only have to fight Nature,
+developers of Decentralized Applications have to fight the Devil.
+
+### Arms Race to Robustness or Bust
+
+While large successful Decentralized Applications (DApps) will face
+these teams of well-funded professional government spies,
+small starting DApps will only face amateur hackers willing
+to spend time to run attack on a small target.
+The amount of adversity faced by a DApp will increase with its success.
+The larger the assets under control of the DApp, the larger the incentives
+for criminals to attack it.
+Meanwhile, the more complex the DApp, the larger the “attack surface”
+for criminals to leverage in their nefarious activities.
+
+This means that to a point, a DApp may be launched while still somewhat fragile
+and improve its robustness as it grows, such that at any point,
+the cost of breaking the DApp is greater than the benefit from breaking it.
+In a way, security is an Arms Race between the defenders and the attackers.
+However, it’s a race where the attackers tend to survive their failed attacks
+and get to learn along the way, whereas defenders tend to go bankrupt after
+their failed defenses, and do not get to learn from their own experience
+(unlike developers of regular applications).
+DApp developers must thus learn from Other People’s Experience (OPE) and
+proactively use the correct designs and tools, disciplines and practices,
+that other defenders developed during the Arms Race,
+without the benefit of personal experience.
+
+Furthermore, even though the attacker incentives rise sharply
+with the success of a DApp, the DApp defenses can only evolve slowly.
+There are many costs and delays involved improving the security
+of a piece of software: audits and fixes take time, redesigns even more so.
+If the software wasn’t designed with security in mind to begin with,
+it might be cheaper and faster to rewrite it right—which will still
+take a lot of time. By the time the next level of attackers are coming,
+it is too late to improve the defenses to their level.
+Therefore, the defenders must always stay at least one step ahead
+in terms of defenses. And for that they must pay in advance the cost to
+fortify the most likely angles of potential attacks—knowing that the attack
+will therefore likely come from whichever angle they have neglected to defend.
+
+In the end, the defenders may or may not be safe—they will never be certain
+unless and until they know they have been defeated.
+To avoid this fate, they must forever keep fortifying their defenses;
+they can never afford to stop improving for any prolonged period;
+and can only be certain but that they have done their best—if they have.
+
+## The Need for New Technologies
+
+Many of the robustness concerns faced by DApps are shared by all software
+on the Internet. To ensure their security, DApps can then rely on
+the same technologies that are already being developed and deployed
+by big Internet companies. It’s then “just” a matter for DApp users and
+developers to keep up with the latest security developments,
+by following the progress spearheaded by other players in the industry,
+and staying ahead of the bad guys by adopting the best practices early.
+
+But many robustness concerns faced by DApps are especially acute in ways
+that don’t affect other software as much. In particular, it is too late
+to fix a DApp after criminals have eloped with stolen assets:
+you might fix the code for future users to prevent future theft
+(assuming users still trust you to build and deploy DApps);
+but you will not be able to recover the already stolen assets.
+To make your users whole, you will have to find the funds in your own pockets,
+assuming they are deep enough compared to the amounts stolen.
+
+Thus decentralized systems require robustness in much more proactive
+and airtight ways than other systems care to achieve. For that purpose,
+they will have to develop and use technologies that others won’t afford
+and that often haven’t been fully developed yet.
+
 ### System Security
 
 State Channels are *active* or “hot” rather than *passive* or “cold”,
 in that each participant must continuously run some service that will cooperate
-with other participants to complete in a timely fashion transactions
-that can be initiated by either side at any moment.
+with other participants to complete in a timely fashion
+the transactions that can be initiated by either side at any moment.
 Thus a participant cannot start a State Channel and forget about it:
-the computer systems acting as the participant's agents *must* keep running and
+the computer systems acting as the participant’s agents *must* keep running and
 partaking in this active cooperation until the channel is eventually closed.
 Participation is active, and the computer systems that have the “hot” keys
 are particularly juicy targets for all criminals.
@@ -1138,9 +1272,9 @@ to a technically more proficient third party without trusting that third party
 with their keys—at which point the trusted third party is the actual
 participant, though acting as trusted agent for the nominal participant.
 A first-class participant must ultimately take responsibility for
-the security of their systems and the secrecy of their keys.
-The buck has to stop somewhere. And wherever that is,
-active participation requires more secure systems than most people use today.
+the security of their systems and the secrecy of their and their users’ keys.
+The buck has to stop somewhere. And wherever that is, active participation
+is required, and with it, more secure systems than most people use today.
 
 ## Additional Links
 

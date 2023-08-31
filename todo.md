@@ -9,41 +9,9 @@ Stuff cut from other documents, to include into these pages.
     and
     https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585/discussions
 
-## Update Concepts Document
+-------------------------------------------------------------------------------
 
-### System Robustness
-
-#### Surviving the Devil vs Surviving Nature
-
-State Channels, like all decentralized systems, need the underlying software
-implementation to be robust. Criminals will quickly turn any fragility into a
-security vulnerability that they use it to steal assets from users, or to hold
-users for ransom under threat of vandalizing them.
-
-The larger the assets under control of some system, the larger the incentives
-for criminals to attack the system.  The more complex a system, the larger the
-“attack surface” for criminals to leverage in their nefarious activities.
-Thus, State Channels need more robustness than simpler decentralized systems
-and Decentralized Applications that build upon State Channels need even more
-robustness than simpler State Channels.
-
-Many of the robustness concerns faced by decentralized systems are shared by
-all software on the Internet.  To ensure their security, decentralized systems
-can then rely on the same technologies that are already being developed and
-deployed by big Internet companies.  It’s then “just” a matter for
-decentralized users and developers to keep up with the latest security
-developments by following the progress spearheaded by other players in the
-industry, and staying ahead of the bad guys by impelementing best practices
-early.
-
-But many robustness concerns faced by decentralized systems are especially
-acute in ways that don’t affect other software as much.  In particular, it is
-too late to fix a decentralized system after criminals have eloped with stolen
-assets: you might fix the code for future users to prevent future theft, but
-not recover the already stolen assets and make the victims whole.  Thus
-decentralized systems require robustness in much more proactive and airtight
-ways than other systems, and depend on technologies that others won’t afford
-and haven’t been fully developed yet.
+# Update Concepts Document
 
 #### Interaction Persistence
 
@@ -63,7 +31,7 @@ without suitable software infrastructure, participants open themselves to
 deliberate attacks by criminals who would purposefully cause the mishaps to
 happen to take advantage of them.
 
-Decentralized Systems
+### Decentralized Systems
 
 interaction on a State Channels. For instance, if they are playing poker and
 lose their interaction state, the other participant will successfully claim
@@ -73,7 +41,9 @@ Persistence of interactions requires participants to commit any new state of
 all their asset-managing processes to encrypted remote replicas *before* they
 publish signatures of that state to other participants.
 
-## Chenilles Systems Layer
+-------------------------------------------------------------------------------
+
+# Chenilles Systems Layer
 
 Indeed, all the participants in a State Channel have to sign each and every
 state update. Whenever one participant stops cooperating, for whatever reason
@@ -102,7 +72,7 @@ intermediaries. We will implement neither state channels with more than two
 participants nor interactions between many participants via a circuit. These
 more advanced constructions would be the matter for future projects.
 
-### XXX
+## XXX
 
 all the other participants have to pay fees to make a claim to close their
 channels and reopen new ones, their funds being blocked until timeout (for a
@@ -175,7 +145,7 @@ communities for *Chenilles* to support their blockchains earlier and better.
 
 -------------------------------------------------------------------------------
 
-### Path Payments with a Hub-and-Spoke Architecture
+## Payment Routes with a Hub-and-Spoke Architecture
 
 In a second version of *Chenilles*, We will support conditional payments
      through an HTLC, allowing for trustless atomic transactions from user to
@@ -190,26 +160,6 @@ At that point, we will have a simple yet robust Hub-and-Spoke payment network.
 with the configured Intermediary as the Hub.
 
 ### Connecting *Chenilles* and other State Channel Network
-
-In a future version of *Chenilles*, the payment network we are creating will
-interoperate with other State Channel Networks, by using compatible HTLC
-conditions:
-* On Ethereum, Kchannels, the Raiden Network, Connext, Perun, Celer,
-  [StateChannels.org](https://StateChannels.org), etc.
-* On Bitcoin, the Bitcoin Lightning Network itself.
-* On Cosmos, some state channel system using IBC.
-* Any State Channel Network on any Blockchain with suitable HTLC contracts.
-
-We would start by picking whichever are the easiest and the most popular State
-Channel Networks that we can work with, and demonstrate interoperability, then
-productize the result.
-
-*Chenilles* will eventually include a complete implementation of a
-Mother-of-All State Channel Network capable of interoperating with all the
-above.  It will involve an Ethereum variant of each of the 11 steps of the
-Bitcoin Lightning BOLT specifications, plus additional steps and further
-generalizations so as to accommodate seamless interoperation between State
-Channel networks.
 
 But even before then, it can be used for more special purpose payments, for
 web3 utilities, for limited hub-and-spoke network with a semi-trusted
@@ -1220,3 +1170,11 @@ future version of *Chenilles*—if only so that users can get better guarantees
 regarding the behavior of providers and/or members.  This support would also
 come naturally as a feature of a Mother-of-All State Channel Network that can
 connect with other State Channels on Ethereum and beyond.
+
+*Chenilles* will eventually include a complete implementation of a
+Mother-of-All State Channel Network capable of interoperating with all the
+above.  It will involve an Ethereum variant of each of the 11 steps of the
+Bitcoin Lightning BOLT specifications, plus additional steps and further
+generalizations so as to accommodate seamless interoperation between State
+Channel networks.
+
