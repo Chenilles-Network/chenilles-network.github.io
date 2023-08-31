@@ -11,131 +11,12 @@ Stuff cut from other documents, to include into these pages.
 
 ## Update Concepts Document
 
-### Generalized State Channels: Smart Contracts
-
-#### Open vs Closed Interactions
-
-Many Blockchains, after Ethereum, allow for arbitrary “smart contracts” to be
-written, binding their participants to follow any algorithmically verifiable
-rules as they interact with each other. These “smart contracts” enable
-participants to interact with each other in a way that *aligns their
-interests*—they are in many ways similar to legal contracts, but they are
-cheaper, faster and more predictable, though also more limited and more rigid.
-
-We can distinguish between two kinds of interactions that can be mediated by a
-smart contract: open vs closed. A closed interaction takes place between a
-small finite number of participants who are all interested in the interaction
-making progress. An asset swap, a futures contract, a multisig contract, an
-inheritance contract, are closed interactions. An open interaction is one that
-isn’t closed: it can involve a changing set of participants; some may become
-interested after the interaction started and join; some may leave and cease to
-be interested in the interaction. A fungible token contract, a DAO, a yield
-farming contract, an AMM, are open interactions.
-
-Often, an open interaction can be divided into many closed interactions
-connected by a part that is resolutely open. For example, an auction could be
-seen as many conditional payments by bidders in case they win in exchange for
-the auctioned goods—plus the publishing of bids and determination of the
-winner, which is resolutely open. An exchange order book could similarly be
-seen as a continuous double-auction that could also be divided in payments and
-matching.
-
-Generalized State Channels can help scale closed interactions, and the closed
-interaction parts of larger open interactions. They cannot help with the
-resolutely open part of open interactions.
-
-In the first version of *Chenilles*, we will include and test minimal contract
-support for closed interactions conducted over a Generalized State Channel,
-for future use. We will not implement anything beyond this minimal support,
-and a fortiori we won’t implement a mix between open and closed interactions.
-
-#### Closed Interactions over Generalized State Channels
-
-The state updates of a simple State Channel divide the assets under control
-between participants in fixed amounts known in advance. For the lightning
-network, part of these amounts may be subject to a condition ensuring
-atomicity of transfers (see HTLC above). In a  Generalized State Channel, the
-state updates can carry arbitrary code and data. Some states clearly indicate
-that some assets may be claimed by some participants, and an agreed upon
-algorithm validates which state transitions are allowed for a participant to
-make even without the cooperation of others.
-
-Thus, for instance, two participants may agree to a future swap contract,
-according to the price specified by some oracle. When the contract reaches
-maturity, and even if the other party fails to cooperate, an active
-participant can use the claim and challenge mechanism: he will reveal the
-latest state update, that contains the future swap contract; then he will
-reveal the state transition that executes the swap, given the oracle-provided
-price at the maturity date; finally he will wait for the end of the challenge
-period to get his assets out. Or then again, hopefully the other party gets
-their act together, resumes cooperation, and together they sign a settlement.
-
-Closed interactions over Generalized State Channels embodies the analogy of
-“code as law”, wherein the blockchain consensus acts like a court system, and
-a good smart contract binds its signatories but only uses the consensus as a
-fallback in case something wrong happens. As long as the parties do as
-prescribed by the contract, the consensus is never invoked, except in the
-beginning to bind them, at the end to close the contract with a settlement,
-and potentially with intermediate settlements if any amendments are
-required. The adversarial part of the contract is only involved if one party
-(or more) stops cooperating, at which point the interaction becomes slow and
-onerous—and in the end it’s the party at fault who pays, if identified.
-
-Given a Generalized Lightning Network, two participants could also interact
-with each other via a number of intermediaries, as long as there is enough
-collateral for the interaction at each step along the circuit. Special care is
-required to properly handle adversarial state transitions and collateral in
-presence of intermediaries.
-
-In the first version of *Chenilles*, we will implement and demonstrate a
-simple closed interaction over a Generalized State Channel. We will not
-implement interactions via intermediaries, which would be the topic of a
-further contract.
-
-#### Off-Chain Code
-
-When using State Channels, most of the interaction occurs between participants
-using their respective off-chain code that runs on their individual
-computers. In the normal expected case of sustained cooperation, no on-chain
-contract code is ever invoked, except to open the state channel, close it, and
-possibly to deposit additional assets into the channel or withdraw assets from
-it through mutually agreed partial settlements. The participants’ off-chain
-code is also what drives the posting or non-posting of on-chain transactions
-when it is necessary for a participant to either make a claim or challenge a
-claim.
-
-Off-chain code is essential for the proper operation of State Channels. It is
-also essential that the behavior of the off-chain code should exactly match
-the behavior of the on-chain code—otherwise, one or both of the participants
-is liable to lose their assets. Yet, the on-chain and off-chain code are
-typically written in totally different languages (e.g. JavaScript for
-off-chain code vs a special variant of Rust for on-chain code), and the
-off-chain code often needs several subtly different versions (different
-versions for each participant, different versions for the cooperative and
-adversarial cases, sometimes different versions for the UI and the underlying
-server or watchtower, etc.). Writing all the versions of the code consistently
-is no small challenge, especially when Generalized State Channels are
-involved, that can include arbitrarily complex logic that must be exactly
-matched in all those different versions, and remain in sync when the software
-evolves. To keep Generalized State Channels software manageable, it is
-recommended that developers should use a Domain Specific Language (DSL) that
-can coherently generate all the different matching variants of the code from a
-single specification.
-
-In the first version of *Chenilles*, we will only write off-chain code for the
-base cases that we demonstrate: payment, payment through one intermediary,
-payment in nested channels, and the simple closed interaction we choose. We
-will not be writing more general off-chain code to handle a complete Filecoin
-Lightning Network, and especially not be writing a DSL compiler targeting
-Generalized State Channels, though these could be the topic of future
-projects.
-
 ### System Robustness
 
 #### Surviving the Devil vs Surviving Nature
 
 State Channels, like all decentralized systems, need the underlying software
-implementation to be robust.  Criminals will quickly turn any fragility into a
+implementation to be robust. Criminals will quickly turn any fragility into a
 security vulnerability that they use it to steal assets from users, or to hold
 users for ransom under threat of vandalizing them.
 
@@ -193,8 +74,6 @@ all their asset-managing processes to encrypted remote replicas *before* they
 publish signatures of that state to other participants.
 
 ## Chenilles Systems Layer
-
-### Fooey
 
 Indeed, all the participants in a State Channel have to sign each and every
 state update. Whenever one participant stops cooperating, for whatever reason
@@ -296,11 +175,6 @@ communities for *Chenilles* to support their blockchains earlier and better.
 
 -------------------------------------------------------------------------------
 
-In the very first version of *Chenilles*, we will implement State Channels by
-following the same principles as for the Bitcoin Lightning Network: we will
-demonstrate micropayments between two participants on a single “Layer 1 to 2”
-State Channel (L12).
-
 ### Path Payments with a Hub-and-Spoke Architecture
 
 In a second version of *Chenilles*, We will support conditional payments
@@ -373,15 +247,7 @@ impossible on Bitcoin.  Later on, we will develop a complete, safe and
 affordable programming environment for contracts on top of our Generalized
 State Channel infrastructure.
 
-None of this support will be developed as part of the first version of
-*Chenilles*.  However, it makes sense to develop this functionality in a
-future version of *Chenilles*—if only so that users can get better guarantees
-regarding the behavior of providers and/or members.  This support would also
-come naturally as a feature of a Mother-of-All State Channel Network that can
-connect with other State Channels on Ethereum and beyond.
-
-##
-
+-------------------------------------------------------------------------------
 
 Each of these features will be demonstrated, then productized.
 
@@ -391,6 +257,7 @@ for State Channels on Laconic.
 ## Underlying Concepts
 
 ### State Channels A State Channel works as follows:
+
 * Two participants put digital assets in a common contract that enforces the
   rules below.
 * The two participants prepare and both sign “state updates” about how who
@@ -1260,27 +1127,6 @@ contracts (e.g. auctions, futures, etc.) we should first support.
 2. Prioritize and implement whichever features they most need. (18 dvwk)
 3. Implement a service for paid-for watch towers. (18 dvwk)
 
-## Total Budget Requested
-
-We propose that to start with, Filecoin would fund the initial study and
-prototype, at a cost of $60,000.00, with a 2-month estimated duration and a
-3-month hard deadline.
-
-Assuming that the Filecoin Foundation is happy with this initial proposal, we
-would further extend or renew the proposal so that Filecoin complete phase 1
-(a further cost of $210,000.00), yielding a robust and documented
-implementation of simple State Channels well integrated with the Filecoin
-ecosystem.
-
-We would then convene to determine who would invest how much towards the
-completion of the rest of the project. Presumably, a first funding round of
-about $500K would allow us to complete Phase 2, wherein Filecoin would have
-robust and practical payment network, allowing micropayments across known
-paths, and in particular in an initial hub-and-spoke network. A second round
-of about $2M to $5M would allow us to complete the technical development of
-the network. A third round would bootstrap the liquidity on the network and
-fund its business development as a payment platform serving a lot of users.
-
 ## Roadmap
 
 ## Minimal State Channel Prototype
@@ -1342,3 +1188,35 @@ subscribe & fetch: polling vs interruption when listening
 app: main.ss, etc. The micropayment app is a simple app on top of the infrastructure
 observability: "ls" on processes, etc. (sometimes requires secret key)
 ability to write debug scripts -- including single step for message processing
+
+-------------------------------------------------------------------------------
+
+In the first version of *Chenilles*, we will include and test minimal contract
+support for closed interactions conducted over a Generalized State Channel,
+for future use. We will not implement anything beyond this minimal support,
+and a fortiori we won’t implement a mix between open and closed interactions.
+
+In the first version of *Chenilles*, we will implement and demonstrate a
+simple closed interaction over a Generalized State Channel. We will not
+implement interactions via intermediaries, which would be the topic of a
+further contract.
+
+In the first version of *Chenilles*, we will only write off-chain code for the
+base cases that we demonstrate: payment, payment through one intermediary,
+payment in nested channels, and the simple closed interaction we choose. We
+will not be writing more general off-chain code to handle a complete Filecoin
+Lightning Network, and especially not be writing a DSL compiler targeting
+Generalized State Channels, though these could be the topic of future
+projects.
+
+In the very first version of *Chenilles*, we will implement State Channels by
+following the same principles as for the Bitcoin Lightning Network: we will
+demonstrate micropayments between two participants on a single “Layer 1 to 2”
+State Channel (L12).
+
+None of this support will be developed as part of the first version of
+*Chenilles*.  However, it makes sense to develop this functionality in a
+future version of *Chenilles*—if only so that users can get better guarantees
+regarding the behavior of providers and/or members.  This support would also
+come naturally as a feature of a Mother-of-All State Channel Network that can
+connect with other State Channels on Ethereum and beyond.

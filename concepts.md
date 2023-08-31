@@ -591,38 +591,287 @@ much cheaper to add this functionality earlier than later.
 Thus we propose that any future State Channels should indeed be
 Generalized State Channels from the get go.
 
+### Concurrent Transactions
+
+Most existing State Channels only support one interaction at once.
+When the only interactions are one-way payments
+that are meant to be completed very fast,
+as in the Bitcoin Lightning Network, this might be good enough.
+Even then, it can cause a lot of liquidity to become unavailable
+when a payment suddenly fails and one or multiple channels
+undergo non-cooperative exits.
+Now, when handling transactions that are not all supposed to complete very fast
+it becomes wasteful to lock the entire channel liquidity while waiting for each
+small transaction to complete.
+
+The solution is Concurrent Transactions:
+a State Channel can handle multiple transactions at a time, each
+in a separate UTXO, as specified in the State Channel's latest state update.
+Each UTXO needs only lock the assets involved in its ongoing transaction
+with a lock script specifying the transaction logic.
+The unlocked balance can be assigned to each participant in UTXOs
+unconditionally assigned to the participant’s public key.
+
+The number of concurrent transactions specified in a state update is limited
+by the size or gas limits of the blockchain, that will constrain the total
+size or gas required to execute the state update.
+Care must be taken to reserve space for the worst case size that
+each concurrent transaction may take during its lifetime, and not just
+whether the current state of these transactions fits within the limits.
+
+And yet, by having some UTXO themselves commit to the disbursement of their
+assets to multiple further UTXOs, any number of concurrent transactions
+can be handled through nested concurrent transactions.
+There are however two limits to this nesting:
+First, the deeper a transaction is nested,
+the longer the overall delay involved in unwinding it,
+since that will require a number of consecutive transactions.
+Second, the number of supported nested transactions grows exponentially with
+the depth of the nesting, but the Layer 1 blockchain has a limited capacity
+to support those transactions.
+Therefore, there is no point in nesting transactions past a small depth limit.
+In the end, the Layer 1 scaling limitations constrain the allowed complexity
+of Layer 2 transactions.
+
+Note that Concurrent Transactions do not require the Layer 1 blockchain
+to support arbitrary smart contracts, only the ability for a transaction
+to have more than two UTXOs, which exists even on Bitcoin.
+They are nevertheless a generalization compared to what previous State Channels
+otherwise allowed:
+despite it being a conceptually simple extension, it requires more elaborate
+software architecture than that used for the simple previous State Channels.
+
+### Nested State Channels
+
+With Concurrent Transactions, a State Channel state update can specify
+many arbitrary UTXOs, including new, nested, State Channels.
+Nested State Channels allow for a subset of the State Channel's participants
+to have their own faster and more private set of transactions that the other
+participants cannot see.
+Such Nested State Channels are faster, more private, and more capital-efficient
+than starting a new State Channel directly on the Layer 1 Blockchain.
+They are only useful when the (outer) State Channel
+has more than two participants.
+
+As a downside, the non-cooperative delays of the outer and inner State Channels
+add up, since the inner State Channel’s non-cooperative exit process
+can only start after its UTXO was activated, which only happens after
+the outer State Channel’s non-cooperative exit process is complete.
+Care must be taken to account for this increased delay when using time-locks
+such as in HTLC payment routes.
+
+### Open vs Closed Interactions
+
+Smart-Contract-capable Blockchains, after Ethereum, allow for arbitrary
+“smart contracts” to be written, binding their participants to follow
+any algorithmically verifiable rules as they interact with each other.
+These “smart contracts” enable participants to interact with each other
+in a way that *aligns their interests*: they are in many ways similar to
+legal contracts, but they are cheaper, faster and more predictable,
+though also more rigid, and limited to topics that tolerate this rigidity.
+
+We can distinguish between two kinds of interactions that can be mediated by a
+smart contract: open vs closed. A closed interaction takes place between a
+small finite number of participants who are all interested in the interaction
+making progress. A payment, an asset swap, a futures contract, a multisig, an
+inheritance contract, are closed interactions. An open interaction is one that
+isn’t closed: it can involve a changing set of participants; some may become
+interested after the interaction started and join; some may leave and cease to
+be interested in the interaction. A fungible token contract, a DAO, a yield
+farming contract, an AMM, an order book, are open interactions.
+
+Often, an open interaction can be divided into many closed interactions
+connected by a part that is resolutely open. For example, an auction could be
+seen as many conditional payments by bidders in case they win in exchange for
+the auctioned goods—plus the publishing of bids that may or may not be open,
+and determination of the winner, which is resolutely open.
+An exchange order book could similarly be seen as a continuous double-auction
+that could also be divided in private payments and public matching.
+
+Generalized State Channels can help scale closed interactions, and the closed
+interaction parts of larger open interactions. They cannot directly help with
+the resolutely open part of open interactions, but they can help keep these
+parts minimal. For instance, the public part of an auction could be reduced
+to cheaply publishing on a rollup a 32-byte witness that identifies the winner,
+whereas the bids all happen privately off-chain via State Channels.
+
+### Closed Interactions over Generalized State Channels
+
+The state updates of a simple State Channel divide the assets under control
+between participants in fixed amounts known in advance. For payment routes,
+part of these amounts may be subject to a condition that ensures atomicity.
+In a Generalized State Channel, the state updates can carry arbitrary code
+and data in as many independent UTXOs as there are independent transactions.
+Some states indicate that some assets may be claimed by some participants, and
+an agreed upon algorithm validates which state transitions are allowed for
+each participant to make even without the cooperation of others.
+
+Thus, for instance, two participants may agree to a future swap contract,
+according to the price specified by some oracle.
+When the contract reaches maturity, and even if the other party fails to
+cooperate, an active participant can use the non-cooperative exit mechanism:
+
+  - He will reveal the latest state update,
+    that contains the future swap contract.
+  - After the challenge delay, the state will be validated, the State Channel
+    assets will be distributed as per the set of UTXOs specified,
+    among which one for the future swap contract that will thus be activated.
+  - He will then invoke the future swap contract with a state transition that
+    executes the swap, given the oracle-provided price at the maturity date.
+
+Or then again, hopefully the other participant gets their act together,
+resumes cooperation, and together they sign a settlement.
+
+### Generalized State Channels Embody “Code As Law”
+
+Closed interactions over Generalized State Channels embody the analogy of
+“code as law”, wherein the blockchain consensus acts like a court system,
+and a good smart contract binds its signatories but only uses the consensus
+as an expensive fallback in case something wrong happens.
+As long as the parties do as prescribed by the contract,
+the consensus is never invoked, except as a rubber stamp,
+in the beginning to bind them,
+at the end to close the contract with a settlement, and potentially
+in the middle for intermediate settlements when amendments are required.
+The adversarial part of the contract is only involved if one party
+(or more) stops cooperating, at which point the interaction becomes slow and
+onerous—and in the end it’s the party at fault who pays,
+if it can be identified.
+
+Given a Generalized State Channel Network, two participants could also interact
+with each other via a number of intermediaries, as long as there is enough
+collateral for the interaction at each step along the circuit, and each
+intermediary agrees to propagate each step of the interaction.
+Special care is required to properly handle adversarial state transitions
+and collateral in presence of intermediaries:
+each intermediary must understand the enough of rules of the interaction
+to get their assets back in case of dispute.
+
+### On-Chain and Off-Chain Code
+
+When using a Decentralized Application on top of State Channels,
+most of the interaction occurs between participants
+using their respective off-chain code that runs on their individual computers.
+In the normal expected case of sustained cooperation, no on-chain contract code
+on the Layer 1 Blockchain is ever invoked for regular Layer 2 transactions.
+That’s the entire point of a Layer 2 protocol.
+There are still Layer 1 transactions involved in normal operations, but only
+to open and close a State Channel, and possibly to deposit additional assets
+into the channel or withdraw assets from it, through partial settlements.
+
+Each participant’s off-chain code responsible for all these normal operations,
+most of them off-chain. But the off-chain code is also responsible for handling
+the abnormal case when cooperation breaks down. It must watch the blockchain
+for challenges, and post its own challenges and responses on-chain as required
+by the non-cooperative exit process.
+
+The off-chain code can be written in a single piece in a single language,
+often JavaScript (JS) or TypeScript (TS).
+But it is sometimes split into several pieces in several languages:
+for instance, the User Interface (UI) will be written in JS or TS,
+or Kotlin or Swift; but a separate semantic layer and network daemon
+will be written in a system language, such as Go, Rust or C++.
+There may be several different variants of the off-chain code, too,
+for each of the very different roles that participants may take in an interaction:
+“payer” vs “payee”, “seller” vs “buyer”, “banker” vs “depositor”,
+“auctioneer” vs “bidder”, option “putter” vs “caller”, “insurer” vs “insured”,
+etc.
+And when there are are intermediaries along a route of State Channels,
+each intermediary must also follow the actions of the end-participants
+on either State Channel and relay them onto the other State Channel,
+and possibly take action in case of non-cooperative exit.
+That too requires specialized off-chain code.
+
+Meanwhile, the on-chain code can also be written
+in a single piece in a single language, or split into several pieces;
+for instance public smart contract logic that compiles to the blockchain VM
+may be separate from a private semantic piece that compiles to zk-SNARKs.
+The public blockchain logic is usually written in Solidity (on Ethereum),
+some variant of Rust (that differs wildly between PolkaDot, Solana, or Nervos),
+Plutus (on Cardano) or some other very specialized and blockchain-specific
+language—indeed on Bitcoin, people often directly use
+its Bitcoin Script bytecode virtual machine.
+Plenty of new emerging languages specialize in compiling to zk-SNARKs
+and may or may not fit in various blockchains with
+various matching public smart contract infrastructure on various blockchains.
+If the application runs with intermediaries along a graph of State Channels
+connecting the actual end-participants, rather than directly in a single
+State Channel between these two (or more) participants,
+then several variants of the on-chain code may exist for each segment along
+the route or routes between participants; and
+if such a route crosses blockchain boundaries, then
+variants of the on-chain code must be present on different blockchains,
+using different languages and virtual machines.
+
+### The Need for Exactly Matching Code
+
+A Decentralized Application running on top of State Channels must thus contain
+many pieces of code written in two or more languages,
+in many variants both off-chain and on-chain, for many roles,
+possibly with intermediaries, possibly for many blockchains.
+Now it is of extreme importance that all these different pieces of code
+each covering some aspects of the application
+should all match each other as well as the participants’ expectations.
+And this match must cover not just the big picture during normal operations;
+it must be *exact* down to the most minute detail in every possible corner case
+of every imaginable interaction between participants and with the blockchain.
+
+Indeed, should there be a mismatch, a dedicated attacker will make sure
+to invoke whichever remote corner case exists, to break the application
+and elope with other participants’ assets, as many times as possible,
+until all participants stop using the broken application and
+replace it with a fixed one.
+Even then, if the on-chain part of the code is broken, it may be too late
+to save the assets already put into the broken application and move them
+out to a fixed application or return them to their owners.
+
+One saving grace of State Channels here is that in a Closed Interaction,
+only existing participants may cheat or break the application, and
+if all of them are honest, then things will go right anyway.
+Third party attackers may not break into existing State Channels
+(unless the State Channel infrastructure itself is seriously broken).
+Yet, if some service-providing participants have an Open Interaction
+wherein they automatically accept new service users via State Channels,
+then attackers may create new Closed Interaction wherein they may steal assets
+using the broken application.
+
 ### The Challenge of Exactly Matching Code
 
-Now, it is extremely difficult to offer a programming environment that
-makes it safe and affordable to develop contracts on top of State Channels.
+Now, getting an exact match between multiple pieces of code
+written in different language is extremely hard.
+Each language and each piece of code has its own different corner cases,
+sometimes subtle, sometimes not so subtle, that requires suitable treatment
+when reproducing the behavior in other languages, or extreme caution
+to avoid the corner case to begin with so as not to have to reproduce it.
+The combinatorics of such corner cases explodes exponentially with the number
+of pieces of code and programming languages involved.
+And the exploding number of cases to consider only gets worse when each
+participant along the way may run their own version of
+all the software infrastructure involved (compilers, virtual machines, etc.).
 
-Indeed, contracts on State Channels must be written in multiple versions,
-such that one version does the off-chain computation
-and signing of updates on Layer 2, but
-another version does the on-chain verification and enforcement on layer 1—and
-the two have to match _perfectly_,
-for any discrepancy may lead to one or both participants losing their assets.
+The difficulty is so challenging that it is impossible for programmers
+to overcome in practice, writing all that code by hand, except for the
+simplest of applications in the simplest of configurations,
+on a single blockchain, without intermediaries.
+Even when such a feat is achieved, the least modification to the application,
+eventually required to combat “bitrot” and adapt to a changing world,
+will require matching modifications in all the variants of the code;
+and one small local modification in one variant may correspond to
+large non-local modifications in other variants.
+Maintaining and evolving such code by hand is thus another great challenge.
 
-Existing State Channels require these on-chain and off-chain versions to be written
-in completely different languages:
-Solidity or some other blockchain-specific language for the on-chain part,
-JavaScript or some other client-side language for the off-chain part,
-and sometimes also Go or some other server-side language for a redundant off-chain part.
+There is also great difficulty in testing whether you got it right or not.
+Indeed, most of the on-chain code is meant never to be run
+during the normal operations of the Decentralized Application.
+Only in an exceptional situation where cooperation stops will a small bit
+of the on-chain code be invoked, a different little bit in each situation.
+Testing the on-chain code thus requires careful and systematic testing
+of every corner case at every point of partial execution of every interaction.
+This is quite unlike any testing that anyone usually writes by hand,
+and the set of all these test cases can change a lot with a small change
+in the application.
 
-Moreover most of the on-chain code is meant never to be run
-during in the normal usage of a State Channel.
-Only in exceptional situations will small bits of it be invoked,
-a different little bit in each situation.
-That code thus requires careful design and systematic testing
-quite unlike any code that anyone usually writes or tests.
-
-Finally, making contracts that can be run over a path of multiple state channels
-rather than between participants directly connected by a single state channel
-involves extra complexity and extra collateral at every step along the way;
-creating a new state channel directly connecting the participants is an option
-that can simplify away that complexity, but itself incurs some costs and limits to scaling.
-
-All these constraints combine into making the task of writing
+All these difficulties combine into making the task of writing
 Smart Contracts over State Channels an extremely complex challenge,
 that is not affordably feasible using the current technology.
 
@@ -826,44 +1075,6 @@ to hold the same token on the same network, two crossings if the participants
 want to hold different tokens on different networks neither of which supports
 arbitrary smart contracts so they have to use a smart-contract-capable
 blockchain as an intermediary, and one in the more general case.
-
-### Nested State Channels
-
-Most existing State Channels only support one interaction at once.
-When the only interactions are one-way payments
-that are meant to be completed very fast,
-as in the Bitcoin Lightning Network, this might be good enough.
-Even then, it can cause a lot of liquidity to become unavailable
-when a payment suddenly fails and one or multiple channels
-undergo non-cooperative exits.
-Now, when handling transactions that are not all supposed to complete very fast
-it becomes wasteful to lock the entire channel liquidity while waiting for each
-small transaction to complete.
-The solution is Nested State Channels.
-
-Nested State Channels allow for many simultaneous incomplete transactions:
-a State Channel can handle multiple transactions at a time; and some of
-these transactions can themselves involve nested state channels
-that can each contain more transactions and nested state channels.
-Thus, a State Channel can thus handle an arbitrary number of ongoing
-transactions, whatever the Layer 1 size limits on a single transaction.
-
-There are however two limits to Nested State Channels,
-that hit in case one party stops cooperating and unanimity breaks:
-First, the deeper a transaction is nested, the longer the overall delay
-involved in its non-cooperative exit, since each Nested State Channel must wait
-for its outer State Channel to have completed its non-cooperative exit process
-before it may start its own non-cooperative exit process.
-Second, the number of supported nested transactions grows exponentially with
-the depth of the nesting, but the Layer 1 blockchain has a limited capacity
-to support those transactions.
-Therefore, there is no point in nesting transactions past a small depth limit.
-
-Note that Nested State Channels do not require the Layer 1 blockchain
-to support arbitrary smart contracts, only the ability for a transaction
-to have more than two UTXOs, which exists even on Bitcoin.
-They are nevertheless a generalization compared to what previous State Channels
-otherwise allowed.
 
 ## System Robustness
 
