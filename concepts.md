@@ -33,6 +33,7 @@ and explain how its Generalized State Channels work.
     - [Mitigations for Route Interruptions](#mitigations-for-route-interruptions)
     - [Payment Routing](#payment-routing)
     - [Mapping the Network](#mapping-the-network)
+    - [State Channel Gossip Network](#state-channel-gossip-network)
   - [Generalized State Channels: Beyond Single-Blockchain Payments](#generalized-state-channels:-beyond-single-blockchain-payments)
     - [Extending and Embracing Previous State Channels Networks](#extending-and-embracing-previous-state-channels-networks)
     - [Smart Contracts on State Channels](#smart-contracts-on-state-channels)
@@ -54,8 +55,9 @@ and explain how its Generalized State Channels work.
     - [“Non-Functional” Aspects of Software](#“non-functional”-aspects-of-software)
     - [The Most Adversarial Environment](#the-most-adversarial-environment)
     - [Arms Race to Robustness or Bust](#arms-race-to-robustness-or-bust)
-  - [The Need for New Technologies](#the-need-for-new-technologies)
+    - [The Need for New Technologies](#the-need-for-new-technologies)
     - [System Security](#system-security)
+    - [Persistence](#persistence)
   - [Additional Links](#additional-links)
     - [The Bitcoin Lightning Network](#the-bitcoin-lightning-network)
     - [Other notable State Channel Networks](#other-notable-state-channel-networks)
@@ -207,7 +209,7 @@ A two-participant State Channel works as follows:
 
   - If the claim goes unchallenged, then after a timeout,
     the claimant can take their tokens as per the claimed state update.
-    (Timeouts are one week on the Lightning Network.)
+    (Timeouts are one week on the Bitcoin Lightning Network.)
 
   - As a response to the claim, the other participant may cooperate
     and sign a settlement that overrides the challenge, or may post
@@ -726,6 +728,10 @@ can only start after its UTXO was activated, which only happens after
 the outer State Channel’s non-cooperative exit process is complete.
 Care must be taken to account for this increased delay when using time-locks
 such as in HTLC payment routes.
+However, there is generally no need for deeply nested State Channels,
+as all subsets of participants can be cheaply included directly
+under the main State Channel, with no practically loss of privacy,
+speed or capital efficiency, and reduced overall challenge delay.
 
 ### Open vs Closed Interactions
 
@@ -1272,7 +1278,7 @@ To avoid this fate, they must forever keep fortifying their defenses;
 they can never afford to stop improving for any prolonged period;
 and can only be certain but that they have done their best—if they have.
 
-## The Need for New Technologies
+### The Need for New Technologies
 
 Many of the robustness concerns faced by DApps are shared by all software
 on the Internet. To ensure their security, DApps can then rely on
@@ -1389,6 +1395,20 @@ as some of their backups, in addition to deeply buried installations,
 to resist both asteroid strikes and solar flares.
 It is up to each participant to find what level of persistence
 and durability they will afford for the computations they care about.
+
+### Communication
+
+Decentralized communications.
+Censorship-resistance.
+Privacy. Targetting-resistance.
+Encryption.
+Onion routing or Packet Mixer.
+Firewall-Piercing.
+Spam-resistance.
+Activity-detection.
+Size. Message-shaping.
+
+
 
 ## Additional Links
 
