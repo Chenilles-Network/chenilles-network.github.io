@@ -2,9 +2,55 @@
 
 Explaining the system layer underlying the implementation of Chenilles.
 
-## Introduction: A Persistent, Distributed, Adversarial Operating System
+  - [Introduction: A Persistent, Distributed, Adversarial Operating System](#introduction:-a-persistent,-distributed,-adversarial-operating-system)
+    - [Roadmap](#roadmap)
+  - [Persistence](#persistence)
+    - [Persistence Meaning](#persistence-meaning)
+    - [Persistence Roadmap](#persistence-roadmap)
+      - [Minimal persistence to local database, for simple data only](#minimal-persistence-to-local-database,-for-simple-data-only)
+      - [Local Encrypted Persistence](#local-encrypted-persistence)
+      - [Remote Encrypted Persistence via IPFS](#remote-encrypted-persistence-via-ipfs)
+      - [Restoring from Multiple Unreliable Backups](#restoring-from-multiple-unreliable-backups)
+  - [Durability](#durability)
+    - [Durability Meaning](#durability-meaning)
+    - [Durability Roadmap](#durability-roadmap)
+      - [Manual Protocol for Resumable Computations](#manual-protocol-for-resumable-computations)
+      - [Durability of Computations via a Persistent VM](#durability-of-computations-via-a-persistent-vm)
+      - [Compiler from Scheme to the Persistent VM](#compiler-from-scheme-to-the-persistent-vm)
+      - [External Monitoring and Restarting of Computations](#external-monitoring-and-restarting-of-computations)
+  - [Off-chain Communication](#off-chain-communication)
+    - [Off-chain Communication Meaning](#off-chain-communication-meaning)
+    - [Off-chain Communication Roadmap](#off-chain-communication-roadmap)
+      - [Off-chain Communication through an Ad Hoc Centralized Proxy](#off-chain-communication-through-an-ad-hoc-centralized-proxy)
+      - [Off-chain Communication via libp2p](#off-chain-communication-via-libp2p)
+      - [Off-chain Communication through Onion Services](#off-chain-communication-through-onion-services)
+      - [Off-chain Communication through Matrix, Discord and/or Slack](#off-chain-communication-through-matrix,-discord-and/or-slack)
+  - [Testing](#testing)
+    - [Testing Meaning](#testing-meaning)
+    - [Testing Roadmap](#testing-roadmap)
+      - [Testing via Unit Tests and Positive Integration Tests](#testing-via-unit-tests-and-positive-integration-tests)
+      - [Testing of Systematic Corner Case Scenarios](#testing-of-systematic-corner-case-scenarios)
+      - [Whitebox Fuzz-testing](#whitebox-fuzz-testing)
+      - [Proving Correctness of Interaction Models](#proving-correctness-of-interaction-models)
+  - [Distributed Processes](#distributed-processes)
+    - [Proceses](#proceses)
+    - [Process Groups](#process-groups)
+    - [Replicated State Machines](#replicated-state-machines)
+    - [Consensus](#consensus)
+    - [Scheduling](#scheduling)
+    - [Testing](#testing)
+    - [Naming](#naming)
+  - [Persistence](#persistence)
+    - [Surviving Critical Events](#surviving-critical-events)
+    - [Encrypted Databases](#encrypted-databases)
+    - [Migration](#migration)
+  - [Security](#security)
+    - [Capabilities](#capabilities)
+    - [Censorship-resistance](#censorship-resistance)
+    - [Location-resistance](#location-resistance)
+    - [Optimization through Partial Trust](#optimization-through-partial-trust)
 
-### 
+## Introduction: A Persistent, Distributed, Adversarial Operating System
 
 See our [concepts](concepts.md#system-robustness) document.
 

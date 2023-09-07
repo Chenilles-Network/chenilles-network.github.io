@@ -58,6 +58,7 @@ and explain how its Generalized State Channels work.
     - [The Need for New Technologies](#the-need-for-new-technologies)
     - [System Security](#system-security)
     - [Persistence](#persistence)
+    - [Communication](#communication)
   - [Additional Links](#additional-links)
     - [The Bitcoin Lightning Network](#the-bitcoin-lightning-network)
     - [Other notable State Channel Networks](#other-notable-state-channel-networks)
