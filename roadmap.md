@@ -161,13 +161,13 @@ make them barely usable by programmers and enthusiastic end-users.
 
 #### Simple Functionality
 
-  - Simple Fast Confirmation with Rollup Service
-
   - Simple Cross-Currency Payments
 
   - Simple Cross-Chain Payments
 
   - Simple Routing on par with Lightning Network
+
+  - Simple Fast Confirmation with Rollup Service
 
 #### Interoperation
 
@@ -561,7 +561,9 @@ both blockchains are supported by *Chenilles* the buyer can pay the seller.
 2. A protocol for discovering routes that span *Chenilles* across two networks.
    (18 dvwk)
 3. A variant of the protocol that allows for faster confirmation given a
-   suitable bridge between the two Blockchains.
+   suitable bridge between the two Blockchains, such that a single event on one
+   can be observed on the other and be used as the condition for whether or not
+   the payment was confirmed.
    (18 dvwk)
 
 ### Simple Routing on par with Lightning Network
@@ -572,9 +574,9 @@ This will put *Chenilles* ahead of the Bitcoin Lightning Network,
 and prepare *Chenilles* for the next stage in routing of smart contracts.
 
 **Business case enabled**: Self-custodial payment in a decentralized network.
-Potential users would be anyone who wants more decentralization
-in the payments they make, as well as anyone ready to
-sell their services as intermediaries for such payments.
+Potential users are anyone desiring more decentralization in their payments
+sent or received, as well as anyone willing to make their liquidity available
+as intermediaries, for a fee.
 
 **Dependencies**:
     [Minimal Network Routing Prototype](#minimal-network-routing-prototype).
@@ -585,74 +587,135 @@ sell their services as intermediaries for such payments.
 
 ### Simple Fast Confirmation with Rollup Service
 
-This phase will implement a service that allows for faster and cheaper payment
-confirmation than is possible with traditional Layer 1 transactions.
+This phase will implement a service that allows for faster confirmation of
+transactions than is possible with traditional Layer 1 transactions,
+either as a rollup or on a dedicated data availability engine.
+Faster confirmation means reduced exposure to volatility in cross-currency and
+cross-chain transactions as well as faster reuptake of liquidity involved
+in transactions, leading to better capital efficiency and cheaper transactions.
+An rollup is slower and more expensive but does not require additional
+trust assumptions, unlike a dedicated data availability engine,
+that requires that all parties should trust its validation committee.
 
 **Business case enabled**: Faster cheaper cross-currency transactions.
+Everyone will benefit from such a service.
 
 **Dependencies**:
     [Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).
+
+1. Modification of the smart contract and payment protocol to use a
+   confirmation service using a rollup with a central validator.
+   (18 dvwk)
+2. Update the central validator to itself accept service payment via State Channels.
+   (18 dvwk)
+3. Build a decentralized market for services that publish confirmation.
+   (18 dvwk)
+4. Extend the decentralized market into a protocol for a dedicated
+   data availability engine with or without rollup to any specific blockchain.
+   (18 dvwk)
+5. Robustify the decentralized protocol.
+   (18 dvwk)
+6. Issue tokens for the decentralized protocol.
+   (18 dvwk)
 
 ### Interoperation with Lightning Network
 
 This phase will enable participants to discover and use intermediaries to
 effect payments across blockchains between the target Blockchain, Ethereum and Bitcoin.
 
-1. A variant of HTLC that can interoperate with the Bitcoin Lightning
-   Network—enabling *Chenilles* on the target Blockchain to connect to the liquidity
-   already available on Bitcoin, with proper handling of exchange rate
-   volatility and payment option issues whether sending or receiving Bitcoin,
-   despite Bitcoin itself having a very limited scripting language so that any
-   complex logic must be on the target Blockchain side.
-   (18 dvwk)
-3. An extension to the off-chain *Chenilles* communication protocol so
-   it can interoperate with routes on the Bitcoin Lightning Network
-   at some agreed exchange rate.
-   (18 dvwk)
-4. A demonstration of micropayments not just along a route on the *Chenilles*
-   Network on the target Blockchain, but also along a route that involves
-   State Channels on the Bitcoin Lightning Network.
-   (18 dvwk)
-5. A variant of *Chenilles* that can transmit wrapped Bitcoin or wrapped
-   Ethereum on State Channels on the target Blockchain, which can displace the exchange
-   rate issue so it’s fully handled on the target Blockchain.
-   (18 dvwk)
+**Business case enabled**: Interoperation between *Chenilles* and the Bitcoin Lightning Network.
+Everyone who wants to hold Bitcoin or has customers or suppliers who do
+will benefit from such a service.
+All the liquidity in the Bitcoin Lightning Network will be made available
+to *Chenilles* and vice versa, increasing the network effects and value
+of both networks.
 
-### Interoperation with On-Ramp / Off-Ramp Solutions
+**Dependencies**:
+    [Simple Cross-Chain Payments](#simple-cross-chain-payments),
+    [Simple Routing on par with Lightning Network](#simple-routing-on-par-with-lightning-network).
 
-1. An extension to the off-chain *Chenilles* routing protocols so it can
-   discover intermediaries and negotiate exchange rates between the target Blockchain
-   *Chenilles* Network and the Ethereum *Chenilles* Network. (18 dvwk)
-2. An extension to the off-chain *Chenilles* routing protocols so it can
-   discover intermediaries and negotiate exchange rates between the target Blockchain
-   *Chenilles* Network and the Bitcoin Lightning Network. (18 dvwk)
-3. Demonstrating payments across blockchains. (18 dvwk)
+1. Enhance the *Chenilles* cross-chain routes to interoperate work with
+   the Bitcoin Lightning Network.
+   (18 dvwk)
+1. Enhance the *Chenilles* cross-chain routing algorithm to interoperate work with
+   the Bitcoin Lightning Network.
+   (18 dvwk)
+3. Make proposals to enhance the Bitcoin Lightning Network with extensions
+   (BOLT - Basis Of Lightning Technology) that will facilitate future
+   interoperation with the *Chenilles* Network:
+   better and faster HTLCs, route payment protocol extensions,
+   routing algorithm extensions, better APIs, etc.
+   (18 dvwk)
 4. Extend the *Chenilles* Network with counterparts for each and every feature
    that the Bitcoin Lightning Network possesses, to ensure complete
    interoperability. (18 dvwk)
-5. Similarly, ensure that *Chenilles* have feature parity and interoperability
-   with Celer or any other relevant State Channel Network already
-   established. (18 dvwk)
+
+### Interoperation with On-Ramp / Off-Ramp Solutions
+
+This phase will enable participants to connect their *Chenilles* payments
+to on-ramp and off-ramp solutions enabling payment from or to fiat accounts.
+
+**Business case enabled**: Interoperation between *Chenilles* and centralized finance.
+Everyone who wants to deal with blockchain will benefit from such a service.
+
+**Dependencies**:
+    [Simple Cross-Chain Payments](#simple-cross-chain-payments).
+
+1. A protocol for *Chenilles* participant to use on-/off- ramp solutions
+   they trust as part of private yet auditable atomic operations.
+   (18 dvwk)
+2. An extension to the off-chain *Chenilles* routing protocols so it can
+   discover intermediaries, negotiate exchange rates and route payments
+   between on-chain tokens and off-chain currencies.
+   (18 dvwk)
+3. Extensions that allow to pay more for faster service, and/or
+   insure against potential delays from non-cooperating intermediaries.
+   (18 dvwk)
 
 ### Interoperation with Bridges and Oracles
 
+Allow smart contracts on *Chenilles* to query bridges and oracles in general.
+
 ### Interoperation with KYC solutions
+
+Enable operators of *Chenilles* services to easily comply
+with any applicable KYC requirements in their jurisdiction.
 
 ### Advanced Cross-Currency Payments
 
+Enable cross-currency payments that make direct use of
+existing bridges, oracles, etc.,
+to reduce volatility or enhance privacy, etc.
+
 ### Advanced Routing
+
+Route not just payments but arbitrary smart contracts.
 
 ### Advanced Smart Contracts over State Channels
 
+Implement more interesting contracts on State Channels.
+
 ### Advanced Support for Self-Custodial DEX
+
+Implement an entire DEX using State Channels and a data availability engine.
 
 ### Wallet Integration of Simple Payments
 
+Seamlessly integrate *Chenilles* payments along known routes into all relevant Wallets.
+
 ### Wallet Integration of Simple Routing
+
+Seamlessly integrate *Chenilles* routing algorithm into all relevant Wallets.
 
 ### Wallet Integration of Cross-Currency & Cross-Blockchain Payments
 
+Seamlessly integrate cross-currency and cross-chain *Chenilles* payments
+into relevant wallets that are aware of multiple blockchains.
+
 ### Wallet Integration of DApps
+
+Seamlessly integrate arbitrary DApps on top of *Chenilles*
+into relevant DApp-aware wallets.
 
 ### Privacy Enhancements
 
