@@ -4,30 +4,6 @@ Stuff cut from other documents, to include into these pages.
 
 -------------------------------------------------------------------------------
 
-# Roadmap
-
-host connected to peer network
-persistent name (for the duration of its sometimes short life)
-dapp has many end-points, in a group
-dapp description must be agreed upon in advance by many participants
-participants find each other on broadcast / gossip network
-participants negotiate exact agreement off-chain
-persistent process for a group: ?
-peer subscribe to uids of processes it owns /
-peer listens to messages sent to public keys for which it has secret keys
-virtual machines (simulated or physical) have public and private keys
-a state channel is a group with a fixed finite list of participants
-problem: be able to predict the name of the channel/process before the agreement is reached
-petnames and intentnames -- user-subjective short names to identify what process is talking to what other in a meaningful way
-globalnames and extentnames -- universal long names uniquely identifying a process
-process log -- at the socket level (bytes), channel level (data structures), high-level message (user-visible calls) level?
-subscribe & fetch: polling vs interruption when listening
-app: main.ss, etc. The micropayment app is a simple app on top of the infrastructure
-observability: "ls" on processes, etc. (sometimes requires secret key)
-ability to write debug scripts -- including single step for message processing
-
--------------------------------------------------------------------------------
-
 ## Integrate Feedback from the MINA zkignite program
 
 https://zkignite.minaprotocol.com/zkignite/dev4dev/funding/suggestion/585/detail

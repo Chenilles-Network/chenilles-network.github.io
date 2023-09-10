@@ -9,6 +9,7 @@ Explaining the system layer underlying the implementation of Chenilles.
   - [Abstract](#abstract)
     - [Table of Contents](#table-of-contents)
   - [Introduction: A Persistent, Distributed, Adversarial Operating System](#introduction:-a-persistent,-distributed,-adversarial-operating-system)
+    - [Rationale](#rationale)
     - [Roadmap](#roadmap)
   - [Persistence](#persistence)
     - [Persistence Meaning](#persistence-meaning)
@@ -62,8 +63,10 @@ Explaining the system layer underlying the implementation of Chenilles.
 
 ## Introduction: A Persistent, Distributed, Adversarial Operating System
 
-The [System Robustness section in our Concepts document](concepts.md#system-robustness)
+### Rationale
 
+The [System Robustness section in our Concepts document](concepts.md#system-robustness)
+explains why this *Chenilles* System Layer is necessary.
 
 ### Roadmap
 
