@@ -2,415 +2,9 @@
 
 Stuff cut from other documents, to include into these pages.
 
-## Other things to integrate into the website
-
-  * Feedback from the MINA zkignite program:
-    https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585
-    and
-    https://zkignite.minaprotocol.com/zkignite/dev4dev/refineproposals/suggestion/585/discussions
-
--------------------------------------------------------------------------------
-
-# Chenilles Systems Layer
-
-To demonstrate as much value as possible with as little upfront investment
-as possible, we can restrict ourselves to a solution
-that works in the simplest of cases:
-payment through a single centralized intermediary.
-The sender and recipient can simply tell each other
-which of many intermediaries they support,
-in decreasing order of preference, until they find a suitable one;
-then they initiate a payment using this single intermediary.
-A network where every participant is connected to the same intermediary
-is called a “hub and spokes” network in reference to a bicycle wheel.
-
-XXX We will start by only offering a simple hand-written demonstration of one
-simple contract on top of our infrastructure, to illustrate an application
-that is possible with (Generalized) State Channels on Filecoin, but impossible
-on Bitcoin. Later on, we will develop a complete, safe and affordable
-programming environment for contracts on top of our Generalized State Channel
-infrastructure.
-
-At that point, parties who already know each other and their intermediaries
-can make payments. To complete the *Chenilles* Network, we need a protocol
-whereby parties can find the intermediaries for their transactions. Happily,
-we can build upon the work already done by the Bitcoin Lightning
-Network. Unhappily, a lot of that work is Bitcoin-specific and will have to be
-ported or generalized, enhanced or fixed, to work with Filecoin and
-*Chenilles*. We will build:
-
-Even then, there are a lot of features that Filecoin may or may not want to
-fund as part of the third and fourth stages of development, and we will
-negotiate the precise feature set that Filecoin is willing to fund before we
-reach the point of implementing each feature.
-
-As for what Layer 1 networks to support, we will prioritize supporting the
-most liquid markets, which these days mean Ethereum and Bitcoin; but we will
-also seek funding from various blockchain foundations, companies and
-communities for *Chenilles* to support their blockchains earlier and better.
-
--------------------------------------------------------------------------------
-
-## Payment Routes with a Hub-and-Spoke Architecture
-
-In a second version of *Chenilles*, We will support conditional payments
-     through an HTLC, allowing for trustless atomic transactions from user to
-     user, with some technical Intermediary who need not be trusted for safety
-     (though indeed for liveness).
-
-  3. We will demonstrate multiple nested “Layer 2 to 3” State Channels (L23)
-     inside a single L12 State Channel, allowing for many independent
-     transactions at the same time.
-
-At that point, we will have a simple yet robust Hub-and-Spoke payment network.
-with the configured Intermediary as the Hub.
-
-### Connecting *Chenilles* and other State Channel Network
-
-But even before then, it can be used for more special purpose payments, for
-web3 utilities, for limited hub-and-spoke network with a semi-trusted
-intermediary, or network of mutually semi-trusted intermediaries between which
-routing is easier.
-
-We will not do any of that in the first version of our State Channels, but we
-will keep our desire for compatibility somewhat in mind when designing this
-initial version.
-
-### Generalized State Channels On Ethereum and other smart-contract capable
-blockchains (which does not include Bitcoin), State Channels can be used not
-merely for payments, but also for arbitrary conditional interactions between
-participants—be it a futures contract, an auction, a poker game, etc. State
-Channels with such functionality are called “Generalized State Channels”.
-
-It is quite easy on Ethereum and similar blockchains to modify the basic State
-Channel infrastructure to accept Generalized State Channels—and much cheaper
-to add this functionality earlier than later. Thus we propose that the State
-Channel we implement for *Chenilles* should indeed be Generalized State
-Channels from the get go.
-
-However, it is quite difficult to offer a programming environment that makes
-it safe and affordable to develop contracts on top of state channels: indeed,
-contracts must then be written in multiple versions in different languages,
-such that one version does the off-chain computation and signing of updates on
-layer 2, but another version does the on-chain verification and enforcement on
-layer 1—and the two have to match perfectly, or else one or both participants
-may lose their assets.
-
-We will start by only offering a simple hand-written demonstration of one
-simple contract on top of our infrastructure, to illustrate an application
-that is possible with (Generalized) State Channels on *Chenilles*, but
-impossible on Bitcoin.  Later on, we will develop a complete, safe and
-affordable programming environment for contracts on top of our Generalized
-State Channel infrastructure.
-
--------------------------------------------------------------------------------
-
-### Action Plan Step 1: Simple State Channels We will write a set of contracts
-that implement State Channels, together with a client that can use them for
-fast payment between a user and the Network—enabling micropayments.
-
-Estimated time: 1.5 months for 2 developers.  Step 2: Nested State Channels We
-will build on-chain and off-chain code that implements Nested L23 State
-Channels on top of L12 State Channels.
-
-Estimated time: 1.5 months for 2 developers.  Step 3: Payments with
-Intermediary We will build on-chain and off-chain code that implements atomic
-payment with an intermediary using HTLCs. The Network will be the intermediary
-between parties, which makes discovery and routing trivial.
-
-Estimated time: 1.5 months for 2 developers.  Step 4: Productizing the Network
-Make sure the above code is ready for prime time, not just a working demo,
-etc.
-
-Estimated time: 2.5 months for 2 developers.
-
-## Project Summary
-
-## Future Work Our proposal is for the development of an initial, working,
-production-ready version. This initial version will be optimized for
-simplicity of development and launching fast. Its code may not be the best
-code for the long run; many obvious improvements may be possible.
-
-The following steps are NOT scheduled to be completed as part of the present
-project, but as a follow up, after the completion of the present project.
-
-### Audit Our proposal does not include an independent audit of our code.
-
-We recommend that any big users and customers of *Chenilles* should conduct an
-independent audit, or have a third party conduct such an audit before blessing
-the code for production.
-
-If such an independent audit is conducted in a timely fashion, we will
-integrate feedback from this audit (including simple fixes to any security
-issue found) as part of this work.
-
-### Maintenance Our proposal does not include maintenance of the code after
-launch.
-
-Maintenance covers fixing issues, adding features, improving performance,
-reducing costs, improving usability, producing additional documentation, etc.
-
-Separate contracts will be required for that additional work, if initial
-customers are satisfied with the product being delivered.
-
-### Productization of a Decentralized Layer 2 Network
-
-We believe there is tremendous value in eventually completing and productizing
-a complete Ethereum Lightning Network.  Here are the steps required to build
-such a network, when there is enough interest in the future.
-
-  * Demonstrating the possibility of integrating Ethereum State Channels from
-    *Chenilles* with the Bitcoin Lightning network, with a simple HTLC circuit
-    across the two networks and an existing wrapped BTC contract.
-
-  * Implementing decentralized routing in a network.
-
-  * Implementing decentralized node discovery.
-
-  * Implementing negotiation with the nodes along the circuit.
-
-  * Implementing watchtowers for our Ethereum Lightning Network.
-
-  * Implementing each and every feature of the Bitcoin Lightning Network on
-    Ethereum.
-
-  * Implementing nodes that know about both Bitcoin and Ethereum Lightning
-    Networks and use some trusted data feed as an exchange rate oracle.
-
-  * Implementing routing across chains.
-
-  * Implementing strategies that optimize the liquidity for the Lightning
-    Network across chains.
-
-### Contracts on top of State Channels
-
-We strongly believe in the value of eventually developing and productizing
-support for arbitrary contracts on Generalized State Channels, if only to
-demonstrate their possibility on Ethereum as opposed to Bitcoin:
-
-  * Allowing for arbitrary contracts between two participants on a state
-    channel.
-
-  * Allowing for arbitrary contracts between two participants with many
-    intermediaries.
-
-  * Allowing for arbitrary contracts with any fixed number of participants on
-    a single channel.
-
-  * Allowing for arbitrary contracts with any fixed number of participants on
-    a circuit.
-
-  * Automatic generation of contract-and-off-chain code for two participants.
-
-  * Automatic generation of contract-and-off-chain code for any number of
-    participants.
-
-## Project Description
-
-*Chenilles* is a next-generation cross-blockchain State Channel Network.  We,
-at [*Mutual Knowledge Systems*](https://mukn.io/), a.k.a. MuKn (pronounced
-“Moon” — the K is silent), have already started building *Chenilles*, on
-Ethereum.
-
-### Benefits of State Channels in General
-
-With *Chenilles* as with all State Channels:
-
-- Two participants in a channel can send tokens to each other safely, cheaply,
-  quickly and *privately*, scaling far beyond what Layer 1 supports.
-- Participants can safely, cheaply, quickly, atomically and privately send
-  fungible tokens along a circuit of State Channels of sufficient liquidity,
-  in network such as the Bitcoin Lightning Network.
-
-### Innovative Extra Benefits of *Chenilles* Network
-
-Beyond what other State Channel networks do:
-
-- The *Chenilles* Network enables participants to send tokens *across
-  blockchains*, so you can send FIL and the recipient would get ETH, or vice
-  versa.
-- The *Chenilles* Network can potentially interoperate with any other State
-  Channel Network, including the Bitcoin Lightning Network itself.
-- *Chenilles* allows not just two participants, but tens of participants, on a
-  same State Channel, as long as they all keep cooperating in a timely manner.
-- *Chenilles* allows not just one kind of token (e.g. FIL, ETH or BTC) on a
-  State Channel, but any number of token kinds including NFTs (e.g. FIL, some
-  ERC20s and some ERC721s).
-- *Chenilles* can scale not just payments, but arbitrary contracts, between
-  its participants (e.g. swaps, futures, market making, insurance, auctions,
-  poker games, etc.)
-- *Chenilles* can multiplex many nested State Channels within an existing
-  State Channel, such that many concurrent conditional transactions can be
-  executed at the same time on a single State Channel.
-- *Chenilles* allows contracts to be written once in a single language,
-  *Glow*, that is safe, concise and portable, when other Networks require
-  contracts to be written identically in two or three unsafe languages
-  (e.g. Solidity, Go and JS for contracts on Celer) wherein any issue in any
-  of the three variants and any discrepancy between them may cause asset loss.
-- *Chenilles* with *Glow* will support compiling contracts to zk-SNARKs using
-  Lurk, such that terms of the contract remain private even in case of timeout
-  and non-cooperative exit from the State Channel.
-- *Chenilles* enables use of blockchain-specific capabilities, such that State
-  Channel contracts on Filecoin can invoke payment conditions based on the
-  data stored on network.
-
-### Value
-
-The technical capabilities of *Chenilles* set it far ahead of current State
-Channel technology. Therefore the value generated by adding liquidity to the
-*Chenilles* Network will be vastly superior to that of adding it to existing
-networks. By funding the development of *Chenilles* through a grant:
-
-1. Filecoin will increase the scalability and privacy of transactions on the
-   Filecoin network, thereby creating utility for Filecoin users, and
-   increasing the value of the network and its token.
-2. Filecoin will interoperate with other blockchains in a safe and efficient
-   way, increasing the value both of Filecoin and of those other blockchains.
-3. Filecoin will become an early adopter of the *Chenilles* network and of
-   *Glow* and capture a larger part of their mindshare than the other
-   blockchains that will only be supported later.
-4. Filecoin will create synergies with Filecoin’s Lurk platform (that we at
-   MuKn are also working on), wherein by combining a Lurk contract and a State
-   Channel, the Lurk contract interactions can be made to scale whereas the
-   contractual conditions attached to the State Channel will remain private
-   even in case of non-cooperative exit.
-
-The *Chenilles* network can be an extremely valuable addition to the Filecoin
-ecosystem. At the same time, Filecoin can better foster the appearance of such
-a network by funding this addition through a grant to a blockchain-agnostic
-entity like MuKn than by building it in-house. Indeed, an entity tied to a
-specific blockchain might cause some other blockchains to fear giving an
-advantage to whichever rival appears as the leader, whereas a
-blockchain-agnostic entity will reassure them that they will get a fair
-treatment in a cross-chain network that benefits all participants.
-
-## Deliverables
-
-### Low-hanging Fruits in a Tall Tree
-
-Our complete plan for *Chenilles* goes all the way from implementing single
-State Channels to building a payment and smart-contract network that
-interoperates with other State Channel networks such as the Bitcoin Lightning
-Network, as well as a financial settlement system that leverages this
-technical infrastructure. However, we divided this plan in shorter phases such
-that each phase produces a deliverable that noticeably enhances the value of
-the Filecoin network, with compounded effects as the deliverables build upon
-each other. Thus, however far Filecoin is willing to fund this project, it
-will reap super-linearly increasing benefits from its investment.
-
-Filecoin does not have to commit to the entire plan initially. Morever,
-however much Filecoin puts on the table, it will pay in monthly installments
-and keep the option to terminate the project at any time (with one month
-notice) should MuKn not demonstrate satisfactory progress. Nevertheless,
-earmarking funds for a larger development will allow MuKn to staff the project
-with a more stable permanent team that can be completely focused on the
-project. An even larger earmark may also allow to parallelize those efforts
-that can be parallelized, leading to earlier delivery of a complete product
-than a trickle that can only afford a smaller team at a time.
-
-Should Filecoin be only willing to fund part of the project at first, we can
-complete the project later based on further grants from Filecoin after the
-initial deliverables have been evaluated, or by finding investors who see the
-financial potential of *Chenilles* as a cross-chain payment and smart-contract
-network. However big or small the initial grant, discussions for further
-funding would ideally start early enough that development could continue
-uninterrupted, whether funded by grants or by investment.
-
-### Overview of Deliverables
-
-Here is a short description of each of the successive phases of development
-that we have planned, and what deliverables or increasing functionality will
-be built at each stage. We omit the many subphases in each phase and their
-individual deliverables:
-
-1. **Simple State Channels** This phase will create the building block of
-*Chenilles*, the simplest of State Channels, implemented on top of Filecoin’s
-FVM. The deliverable will enable scalable micropayments between two
-participants on Filecoin.
-
-2. **State Channel Paths** This phase will enable participants with a series
-of connected State Channels to build a *path* along which payments can be
-safely made from a sender to a recipient through a series of
-intermediaries. The deliverable will enable scalable routing of micropayments
-with explicit paths (a la Bitnet).
-
-3. **State Channel Network** This phase will enable participants who are not
-directly connected by a State Channel to dynamically discover and use paths of
-intermediaries to route conditional payments. The deliverable will enable
-scalable routing of micropayments with implicit paths (a la Internet).
-
-4. **Cross-Chain State Channel Paths** This phase will enable participants to
-use paths that cross blockchain boundaries to effect payments between
-Filecoin, Ethereum and Bitcoin. The deliverable will enable scalable routing
-of micropayments across blockchains with explicit chain crossings.
-
-5. **Cross-Chain State Channel Network** This phase will enable participants
-to discover and use intermediaries to effect payments across blockchains
-between Filecoin, Ethereum and Bitcoin. The deliverable will enable scalable
-routing of micropayments across blockchains with implicit chain crossings.
-
-6. **Smart Contract Enhancements** This phase will enhance the *Chenilles*
-Network so as to enable arbitrary smart contracts between a small number of
-participants to be conducted through State Channels. This will put our State
-Channel Network far ahead of existing networks, that in practice support no
-such thing, though some do in theory. At each step, we will enhance our
-language *Glow* to implement the additional features through State
-Channels. The deliverable will be a rich contract system on top of
-*Chenilles*.
-
-7. **Privacy Enhancements** This phase will enhance the *Chenilles* Network so
-as to make its transactions completely opaque to non-participants, including
-the presence of the State Channels themselves. The deliverable will reinforce
-the privacy of payments over State Channels.
-
-8. **Financial Layer** Once the technical layer is sufficiently advanced
-(which can start right after phase 2), we will contact people with liquidity
-and get them to add liquidity on *Chenilles* by prioritizing the development
-of the features they most want, including which financial contracts we should
-first support (e.g. futures, auctions, etc.). The deliverable will be a
-financial network that uses the technical infrastructure of *Chenilles*.
-
-
 -------------------------------------------------------------------------------
 
 # Roadmap
-
-## Minimal State Channel Prototype
-
-### Initial State Channel Demo
-
-  - Payments only, between two participants only.
-  - Incomplete handling of adversarial case.
-  - A minimal command-line only client.
-  - Off-chain communications through an ad hoc centralized relay.
-  - No persistence beyond logs.
-
-  2. Simplest State Channels: complete but minimal implementation.
-     - Still payments only, between two participants only.
-     - Complete handling of adversarial case.
-     - Still minimal command-line only client.
-     - Off-chain communications using libp2p or some such.
-     - Still no persistence beyond logs.
-
-  3. Simplest State Channels:
-  2. Simplest State Channels: complete but minimal implementation.
-     - Still payments only, between two participants only.
-     - Complete handling of adversarial case.
-     - Still minimal command-line only client.
-     - Off-chain communications using libp2p or some such.
-     - Still no persistence beyond logs.
-
-3. Payments with one intermediary: simple payments between two participants
-     with a single Intermediary; routing payments between many participants
-     using a hub-and-spoke network. Web interface connected to a local server.
-
-  4. Network Payments: simple payments in a network, with a simple routing
-     algorithm, and a gossip network to announce changes, following the
-     principles of the Lightning Network.
-
-  4. Smart Contracts for Token Swaps: simple token swaps as usable for Network
-     Payments, using smart contracts over Generalized State Channels.
-
 
 host connected to peer network
 persistent name (for the duration of its sometimes short life)
@@ -434,65 +28,143 @@ ability to write debug scripts -- including single step for message processing
 
 -------------------------------------------------------------------------------
 
-In the first version of *Chenilles*, we will include and test minimal contract
-support for closed interactions conducted over a Generalized State Channel,
-for future use. We will not implement anything beyond this minimal support,
-and a fortiori we won’t implement a mix between open and closed interactions.
+## Integrate Feedback from the MINA zkignite program
 
-In the first version of *Chenilles*, we will implement and demonstrate a
-simple closed interaction over a Generalized State Channel. We will not
-implement interactions via intermediaries, which would be the topic of a
-further contract.
+https://zkignite.minaprotocol.com/zkignite/dev4dev/funding/suggestion/585/detail
+https://zkignite.minaprotocol.com/zkignite/dev4dev/funding/suggestion/585/discussions
 
-In the first version of *Chenilles*, we will only write off-chain code for the
-base cases that we demonstrate: payment, payment through one intermediary,
-payment in nested channels, and the simple closed interaction we choose. We
-will not be writing more general off-chain code to handle a complete Filecoin
-Lightning Network, and especially not be writing a DSL compiler targeting
-Generalized State Channels, though these could be the topic of future
-projects.
+Brent Fitzgerald
+I was not familiar with the Chenilles project prior to seeing this proposal. Sounds like an innovative and promising network! I also understand that you're probably facing a cold start challenge in getting other chains to play with yours, and so it makes sense that you're looking to find integration points.
 
-In the very first version of *Chenilles*, we will implement State Channels by
-following the same principles as for the Bitcoin Lightning Network: we will
-demonstrate micropayments between two participants on a single “Layer 1 to 2”
-State Channel (L12).
+Since we're assessing proposals' potential for positive impact on the Mina community and dev ecosystem, I'd like to learn a bit more about Chenilles and its team. I'd love either direct replies, or links/documents that answer these questions succinctly.
 
-None of this support will be developed as part of the first version of
-*Chenilles*.  However, it makes sense to develop this functionality in a
-future version of *Chenilles*—if only so that users can get better guarantees
-regarding the behavior of providers and/or members.  This support would also
-come naturally as a feature of a Mother-of-All State Channel Network that can
-connect with other State Channels on Ethereum and beyond.
+* How is Chenilles development and upkeep funded?
+* Who are the owners and investors in MUKN? Do you have a public cap table or similar ownership info you can share?
+* Apart from the use cases enabled, who else benefits from Chenilles usage?
+* What is some compelling evidence of the value of Chenilles? Existing use cases? Milestones achieved? Celebrity endorsements? How can I comfortably and confidently agree that Chenilles compatibility is worth Mina investing $70K - $140K?
+* Who decides Chenille's development roadmap and deployments? Is it a governance process? Should Mina Foundation or some Mina working group receive governance votes as part of this grant deliverable?
+* Would you please point me to a technical overview of Chenille? The Whitepaper only covers high level proposed features.
+* How does the Chenille network operate? Is it a consensus network?
+* What is Chenille's approach to safety and security? What keeps Chenille from being exploited?
 
-*Chenilles* will eventually include a complete implementation of a
-Mother-of-All State Channel Network capable of interoperating with all the
-above.  It will involve an Ethereum variant of each of the 11 steps of the
-Bitcoin Lightning BOLT specifications, plus additional steps and further
-generalizations so as to accommodate seamless interoperation between State
-Channel networks.
+And I also have a few questions about how this project fits into Mina strategically:
 
-In the first version of *Chenilles*, we will only implement a simple
-interaction between two parties via a single generalized state channel without
-intermediaries. We will implement neither state channels with more than two
-participants nor interactions between many participants via a circuit. These
-more advanced constructions would be the matter for future projects.
+* Why does Mina need a smart contract network? Would this replace zkApps?
+* GLOW is not a well-known language. Would Mina zkApp developers need to use GLOW in order to take advantage of Chenille cross-chain interop?
+* What's your justification for Mina integration with Chenille rather than other approaches to bridging?
+* What would be an example zkApp that uses Chenille? Describe the developer experience and the user experience.
 
-In the first version of *Chenilles*, we will implement HTLC support and
-demonstrate transfer with the Network as a single intermediary. We may decide
-initially not to implement general support for transfer with many
-intermediaries, which is not conceptually harder but is more work than
-necessary for our value demonstration purposes.
+Thanks!
+08.08.2023 | 23:41
 
-In the very first version of *Chenilles*, we will only implement routing in a
-very simple hub-and-spokes network with a single centralized intermediary. We
-will implement neither decentralized discovery of a network nor general
-routing in an arbitrary network: they are neither conceptually novel nor
-specific to Filecoin, and are thus unnecessary for our value demonstration
-purposes.
+Francois-Rene Rideau1. Chenilles is new, and a prototype is still being developed, so no wonder you haven’t heard of it yet.
 
-In the first version of *Chenilles*, we will implement just the minimum amount
-of persistence required, saving data to a local database, without remote
-replication, and only for the simple interactions that we initially
-support. In further versions of *Chenilles*, we will implement more elaborate
-persistence, with remote copies (e.g. using IPFS), and for a generalized class
-of interactions supporting arbitrary smart contracts.
+2. So far, Chenilles has been funded as side effect of other contracts. We are currently seeking grants and investment to further pursue its development.
+
+3. The current owners of MuKn are the listed team; we haven’t published the cap table yet, and the formula is being changed right now as we’re spinning Chenilles off from MuKn. We haven’t taken investment yet, so it’s a matter of (re)distributing the shares between the founders. I’ve been active in crypto full-time since 2017, and previously contributed to the Tezos whitepaper, and the top members of my current team has been with me since 2019.
+
+4. We believe there are three main population targets for Chenilles: (a) end-users who would use a Chenilles state channel as a fast cross-currency debit-card account that also enables smart contracts; (b) more advanced users including defi traders who would use channels both ways for fast access to non-custodial DEXes built on top of Chenilles; (c) financial institutions and big companies that would use Chenilles as a fast non-custodial settlement solution. Of course, another case of beneficiaries are token holders and blockchain companies and foundations that see the blockchain valuations rise thanks to the new use cases and increased usage.
+
+5. Since Chenilles isn’t launched yet, I can only offer indirect evidence of its utility: (a) the fact that the Bitcoin Lightning Network, of which it will be a superset, has already demonstrated some success; (b) the fact that current Centralized Exchanges have repeatedly demonstrated their unsafety (MtGox, FTX), whereas current Decentralized Exchanges are way too slow, but Chenilles can help build *non-custodial* yet fast Decentralized Exchanges; (c) the fact that the Chenilles design unlike Lightning, allows for more than 2 participants in a same channel, allowing for more capital-efficient private settlements yet still in a non-custodial way. No celebrity endorsement yet—if you know where to find celebrities, I’m interested. There is of course a speculative aspect to any investment or grant, but we’re a solid team with a good track record, and it’s a great design with enormous potential quite unlike most of the competition.
+
+6. Currently we’re a small team with a tight budget and have been setting the roadmap according to what we believe will yield the lowest hanging fruit earliest on the way to building the entire network, and will adjust based on the feedback we receive. Our formal governance structure for now is that of our own company, but we’re in the process of spinning off Chenilles as a separate entity in which our company only has the initial shares. As we accept investment, we’ll grant shares in the governance of this new Chenilles-specific entity. Grants are not usually considered investments; they do have a great influence on the short-term roadmap, but no share of the long-term governance structure is offered in exchange. MINA is most welcome to make an investment in addition to or replacement for this grant, which will lead to governance shares being distributed---but then with no guarantee of a short-term roadmap nor fixed deadlines and deliverables attached to the money, that will go best serving the goals of Chenilles.
+
+7. We have internal roadmap documents and grant proposals to other foundations with more technical details, at various stages of being outdated. I will try to build an updated version that merges all the information from these various documents and post in a further reply.
+
+8. The whole point of Chenilles (and State Channels in general) is to NOT require any additional consensus, but instead leverage any existing (or future) consensus without adding new *safety* assumptions (though with the *liveness* assumption that the other party has the incentive to cooperate). We are not yet another competitor among validation networks, peddling yet another shitcoin. Instead we are a technology that enhances the value of all existing networks by providing a more efficient to use them, that also makes them interoperate in non-custodial ways. Each State Channel is its own unanimity-based L2 (or Ln+1) backed by a contract on a L1 (or Ln) that guarantees that assets are safe even in case unanimity breaks (but may be locked for 1 week—or however long the challenge period is for determining the latest state at the time the unanimity broke down). Unanimity ensures that no additional trust assumption is required. These State Channels themselves become the arcs of a point-to-point overlay network, that still does not require a consensus, only a gossip network to discover the routing paths (quite similar to IP packet routing, except with more cryptography)—though you can also have static paths and more efficient paths discovery algorithms between known entities (i.e. with extra liveness assumptions, though no extra safety assumptions).
+
+9. Chenilles’ approach to safety, just like the Bitcoin Lightning Network, is that everyone remains at all time in custody of all their assets, never ever ever ever EVER introducing any *new* custodian entity either centralized or decentralized. Not your keys, not your coins. Unlike the Lightning Network, pairs or groups of participants are however able to take advantage of any entity (beside or instead of the Bitcoin Network) that they all *already* mutually trust (whether centralized or decentralized, L1 networks, bridges, price oracles, stable coins, exchanges, etc.) as part of transactions involving state channels. Chenilles introduces no new attack surface (except, obviously, its own code base): only your own machine to preserve from hacking, and networks you already trust since you’re using their tokens and/or services. As for the code base, our core team is trained in formal methods, and we’ll be using techniques (functional programming, game semantics) more amenable to eventually proving correctness of our code than most people use.
+
+10. Chenilles’ approach to liveness, just like the Bitcoin Lightning Network, is that you are still responsible to choose your partners well to ensure the funds won’t be locked for a challenge period. There are indeed challenges in routing payments in a pseudonymous network despite liveness failures from bad actors. But we there are various solutions in various situations, some readily available but limited (restricting yourself to identified good actors), some less limited but still research projects (using zkSNARKs to maintain reputations without sacrificing privacy), etc. The solution at hand of behaving like the Bitcoin Lightning Network, decentralized but with occasional liveness failures, is already enough for millions of dollars of monthly payments. In the long run, we will do better.
+
+Strategic questions:
+
+11. The Chenilles network, as any State Channel network would, will increase the effective throughput of MINA and its effective privacy by moving a lot of transactions off-chain. Thanks to its contract capabilities, it will also importantly allow fast interoperation of MINA with other networks. Chenilles does NOT seek to replace zkApps--it is itself a zkApp that can interoperate with other zkApps directly on MINA, and/or can help them scale by moving all or part of them off-chain.
+
+12. Glow will not be necessary to use Chenilles or even to write apps on Chenilles. You will be able to program zkApps for Chenilles directly in SnarkyJS, though it might be involve more code than using SnarkyJS without Chenilles, and more code than using Glow (which should be oblivious of whether Chenilles is used or not). Most people will use already written apps on Chenilles and not know whether it was written in Glow, SnarkyJS, Solidity, Bitcoin Script, or anything else. There will be nice synergies between Glow and Chenilles, but the two are largely independent projects.
+
+13. Chenilles actually amplifies existing approaches to bridging, rather than replaces them. For instance, Chenilles will let you take advantage of an existing (centralized, committee-based or algorithmic) bridge to make fast payments along a circuit when a participant receives one MINA coin on MINA, and sends one bridge-wrapped MINA coin on Ethereum. Or you can use DAI-style over-collateralization with a price-oracle in a one-on-one pool, where no one has any wrapped MINA coins, but one participant holds enough Ether on Ethereum to cover the MINA amount even if the price varies wildly, and receives MINA coins on MINA to send Ethers on Ethereum. Or you can arrange a private swap at a mutually agreed upon spot price plus a fee to the liquidity provider, without need of a price oracle, but you only have a few seconds or fractions of seconds to publish a confirmation on a rollup or fast data availability engine. None of these approaches are unique to Chenilles, but Chenilles can decrease the cost, latency and risk associated to them thanks to off-chain scalability—while at the same time making them private by hiding the very existence of the transactions to any not directly involved.
+
+14. The first app that Chenilles will make available is scalable payments in the style of the Bitcoin Lightning Network: to be used for micropayment of metered digital utilities (does not require path payments, just a simple state channel), for cheaper faster and more private payment within MINA (requires path payments), or as a faster cross-currency debit-card alternative (requires both path payments and bridging options). Then we want to add auctions and order-books and all the parts of a DEX. The developer experience will be that we’ll add some persistent service that handles State Channels, timeouts and long-running interactions, data and code replication, so you don’t have to do it yourself---developers can then focus on starting interactions and waiting for the results via a hook, and the Chenilles infrastructure handles everything else.
+
+15. The user experience would be that users would configure preferences as to whom to create channels with or accept transactions from, and which bridging technologies to accept under which circumstances---by default based on some whitelist. The wallet would then autodetect whether or not a given counterparty can be reached using the gossip network, and transmission would automatically use or not use Chenilles, as appropriate. The infrastructure would take things from there, and make the state of its interactions observable by the end-user. However, this particular grant would focus on basic functionality and a CLI interface for developers, and not on implementing good end-user experience yet.
+14.08.2023 | 17:38
+Daniel Gretzke
+
+Here are my concerns about this proposal:
+
+1. The first milestone listed is "A study for how to implement the concept of State Channels on MINA". In my opinion this step needs to happen before even writing a proposal in the first place. The budget for this scope is quite high so I wouldn't want to gamble on whether this project is even possible to complete.
+
+2. There is no information on what networks participate in the state channel and what volumes are achieved using Chenilles so far. So it is really hard to estimate what value funding this proposal would bring to the MINA network.
+
+3. A comment describes that first there would be state channels between ETH and MINA and channels on the same network (and at a later point interoperability with Bitcoin Lightning). But the point is that Mina zkApps already act like state channels (but a lot more powerful). Because proofs are recursive, you can pass proofs back and forth off chain (like you would with signatures in a state channel for example) and then eventually settle on chain. This would already make the first two proposed implementations obsolete, because I can create a zkApp that will automatically settle and bridge to Ethereum and as every zkApp already has all capabilities of a state channel the second implementation doesn't even make a lot of sense to propose in the first place.
+
+07.08.2023 | 00:47
+
+Francois-Rene Rideau1. Well, it’s pretty clear to me that Chenilles is possible on MINA, since it’s possible on Bitcoin and MINA has a much more potent contract system. API changes needed—if any—should be relatively minor and shouldn’t require an upheaval of the code base. It’s hard to determine what exactly needs to be done before digging deep into the code, though. I’m ready to forfeit the rest of the grant if at the end of this first phase the report says that it can’t be done, or not in ways that MINA is willing to make accommodations for.
+
+2. Chenilles hasn’t launched yet. But Chenilles should quickly enough connect to the Bitcoin Lightning Network, which was estimated last year to be moving $20M/month and growing with a liquidity base of BTC 4000. Interconnecting MINA to this liquidity would be fantastic.
+
+3a. No, MINA and State Channels are different and complementary. zkSnarks and State Channels can both be means to privacy, along independent axes (regarding what transactions, vs how many transactions). Moreover, State Channels allow this scaling and indirect transfers between channels, that are quite difficult (on, the same chain, pointless).
+
+3b. A single State Channel is a notional two-participant (or more) L2 blockchain by unaminity, backed by a L1 blockchain. It requires a specific challenge mechanism to exit from the L2 when one of the users fails to successfully communicate. A random zkApp is no replacement for a State Channel—but a State Channel can be a great vector to scale a zkApp. The two or independent and complementary.
+14.08.2023 | 17:39
+Alysia Tech
+
+very interesting!
+
+
+
+Architecture
+
+
+
+- Can you explain more about writing smart contracts with the Glow programming language and how the Mina Ecosystem will be able to integrate with that?
+
+- How feasible is this application design in the snarkyJS ecosystem?
+
+
+
+- Why are zero knowledge proofs needed?
+
+- Can you explain more about how developers will integrate with the state channels on Chenilles?
+
+- Can you explain more about how privacy is achieved on these state channels via Mina
+
+
+
+
+03.08.2023 | 09:17
+
+Francois-Rene Rideau1. Integration with Glow is an option for Chenilles. Chenilles can be done with Glow, and Glow without Chenilles. There is synergy between the two, since Glow can automatically generate a lot of code that you’d have to write manually in SnarkyJS.
+
+2. Yes, the application design is totally possible in SnarkyJS. It’s just that with SnarkyJS you’ll have to write applications that, to handle the worst case scenario, has to handle confirmation on both L1 and L2. That’s at least twice as much code, and a style probably quite unlike that of "direct" style SnarkyJS zkApps.
+
+3. The way a State Channel works is that participants unanimously sign updated states of their private, until eventually sign a settlement—or the unanimity breaks down. The settlement case is simple enough: a multisig of the participants agrees as to what assets go where in the end. The more "interesting" case is the fallback: the state updates are the multisig of the participants agreeing to send all assets to a challenge UTXO or state where the state can be replaced by either a multisig settlement, a more recent multisig-signed state (as identified by some sequence number), until a 1-week (or other agreed upon) deadline. To write an app for the State Channel, you need to generate the SnarkyJS code that *would* be published on chain if either the settlement was published OR a state update was published then validated after timeout. None of the code needs not be actually executed while the unanimity lasts, none of the zkproofs need be generated—until a settlement or challenge is actually published. If somehow SnarkyJS makes it hard to operate in that way, we may have to modify its API a little bit to skip the unnecessary and expensive zkproofs—or in the meantime we can generate the unnecessary proofs anyway, though it’s a waste.
+
+4. zkproofs are needed to get the operations posted on MINA—at the beginning and end of the state channel, but not in the middle. The zk verifiers on the other hand must be created at every operation.
+
+5. Integration can happen off-chain for just using Chenilles with existing Chenilles apps, using the API we will provide by the end of this proposed work, or inside zkApps that want to run on top of Chenilles, using an API which will be provided later when the system is more stable and featureful. We will build a library that makes it easier to follow the protocol in 3. It may require one of writing code in continuation-passing style with reified continuations, or modifying the SnarkyJS compiler, or or using Glow as an alternative to SnarkyJS.
+
+6. Privacy is achieved in three ways: (a) the state channel normally appears as an opaque zk verifier for a multisig, such that outside observers cannot even know that it’s a state channel, they can only see that something comes in initially and out in the end; (b) while the state channel operates, the participants may commit any number of transactions including partaking in path payments, and outside observers cannot even see that transactions are happening, how many nor on what topic, all they see is the final settlement, which is a regular transaction as per (a); and (c) even in case unanimity breaks down without a settlement, the challenge exit protocol is hidden behind zk verifiers, so outside observers cannot deduce much, except for the fact that some contract necessitated a bit more input data and interaction steps than usual.
+14.08.2023 | 21:09
+Dave Autio.
+01.08.2023 | 22:14
+Mario ZitoIn your pitch you mentioned: "Chenilles could both add a scalability layer to MINA and connect MINA to a greater ecosystem of blockchain payments and contracts." and "MINA could enrich Chenilles with an extra layer of privacy."
+
+But in the Solutions or Architecture sections you don’t describe how you will achieve this or even what aspects will you integrate, just as examples: Enabling to run MINA Smart Contracts in Chenille ? Connecting MINA wallets to support opertations on Chenilles ? What else ?
+
+Also, what blockchains will you support in first phase ? Bitcoin, Ethereum, MINA, ... ?
+
+I think it would be quite good to have to ability to easily interoperate with other chains (at least starting with payments), but you need to explain how you plan to achieve it (feasibilty).
+28.07.2023 | 20:41
+
+Francois-Rene Rideau1. Yes, you will be able to write some variants of MINA smart contracts that run on top of Chenilles: thus, a state channel created on MINA will be able to make payments conditional on the outcome of an interaction specified in SnarkyJS. But also portable conditions written in Glow. === Only in scope for this grant is a simple hook that allows use of arbitrary payment conditions on Chenilles, and the simplest possible payments between two participants.
+
+2. Chenilles can help scale transactions on MINA and make their number private, just like the Bitcoin Lightning Network does on Bitcoin—and importantly, allow transfer along paths of state channels that cross blockchain boundaries. === Only in scope for this grant is the simplest case scaling transactions between two participants.
+
+3. Yes, we eventually want MINA wallets to support Chenilles out of the box for scalability and interoperability. === Only in scope for this grant is a simple command-line utility that doesn’t seek integration with wallets.
+
+4. In a first phase, we’d support Ethereum and MINA separately for single channels. Then we’d add support for payment along a path of several channels within a single network. Then we’d add payment cross-currency within a single network with a suitable SWAP contract. Then path payments with a SWAP. Then path payments across blockchain boundaries. Finally, we’d add interoperability with the Bitcoin Lightning Network. We would then have payment interoperability of MINA will all blockchains that matter (and more to come if needed). === Only in scope for this grant is MINA support of a simple state channel between two participants.
+
+In summary, Chenilles is an ambitious project that can bring a lot of value to MINA and the entire blockchain ecosystem—but the scope of this grant is to make the simplest use case work on MINA, which is enough of a challenge. We’ll build upon it once it’s working.

@@ -34,9 +34,8 @@ We will keep building along this roadmap, revising it based on market feedback.
     - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
     - [A Plan to Develop Chenilles](#a-plan-to-develop-chenilles)
-    - [Plan Overview](#plan-overview)
     - [Cost Estimates](#cost-estimates)
-    - [User-Visible Functionality Milestones](#user-visible-functionality-milestones)
+    - [Plan Overview](#plan-overview)
       - [Minimal Prototype](#minimal-prototype)
       - [Simple Functionality](#simple-functionality)
       - [Interoperation](#interoperation)
@@ -90,21 +89,14 @@ and technical means, and will focus on presenting
 a plan to implement those goals using those means, that
 maximizes earlier returns on lower investments.
 
-### Plan Overview
-
-We divide our plan in multiple parallel tracks,
-one part with the user-visible features that handle assets,
-one part with the user-invisible features that keep the system safe.
-Each track will include a series of milestones
-each enabling more business use cases.
-
 We understand that time is of the essence in launching our Network.
 Therefore, we will start by implementing the smallest necessary subset of
 the Network features, then will keep adding features to the working system.
 We also understand that the Network safety measures must increase to match
 its functionality least users fall prey to increasingly motivated attackers.
-Therefore, we will ramp up robustness features in synch
-with user-visible functionality.
+Therefore, we will ramp up [System Robustness](concepts#system-robustness) features
+in synch with user-visible functionality, which we discuss
+in our separate [Chenilles System Layer](system) document.
 
 ### Cost Estimates
 
@@ -132,13 +124,13 @@ On the other hand, given sufficient budget, some phases can be executed
 wholly in parallel with other phases by distinct developers.
 We’ll add in every phase which other phases it depends on.
 
-### User-Visible Functionality Milestones
+### Plan Overview
 
-Our development will include the following phases for each Blockchain.
-Only so much work can be saved when building for subsequent Blockchains,
-and some additional work is also required when adding new Blockchains,
+Our development will include the following phases for each target Blockchain.
+Only so much work can be saved when building for subsequent target Blockchains,
+and some additional work is also required when adding new target Blockchains,
 especially but not only for interoperation.
-Support for each Blockchain can be funded either
+Support for each target Blockchain can be funded either
 out of *Chenilles*’ own capital for the most strategic blockchains
 without governance capable of funding it, or
 out of grants from the Blockchain’s governance (Foundation, Treasury, etc.).
@@ -307,7 +299,8 @@ only two participants, only one single token kind, no conditional payment,
 no concurrent transactions, no nested channels,
 no interface beside the command-line, no wallet integration,
 no persistence of session information.
-But they will support non-cooperative as well as cooperative exit.
+They will support non-cooperative as well as cooperative exits,
+though some automation of non-cooperative exits may be stubbed out.
 As a proof of concept, the prototype will be focused on demonstrating
 feasibility, rather than making a complete product.
 Reasonable effort will be made so the prototype should be secure,
@@ -390,8 +383,12 @@ The steps are as follows:
 1. Concurrent Transactions and Generalized State Channel Infrastructure.
    This enables multiple conditional payments at a time
    over a single State Channel.
-   Also enable basic escape to general smart contracts,
-   but with minimal support for writing smart contracts if at all.
+   Also enable a basic escape to general smart contracts
+   (which is easy to add now on smart contract capable Blockchains,
+   and harder to add later),
+   but with minimal support for actually writing smart contracts if at all
+   (which would require developing a lot of infrastructure in Solidity or
+   what replaces it on the target Blockchain, or implementing *Glow*).
    (18 dvwk)
 2. The simplest Hashed TimeLock Contract (HTLC) as a payment condition.
    This enables safe payments with a timeout to unlock funds
@@ -411,6 +408,12 @@ The steps are as follows:
 6. As a useful application, a simple hub-and-spoke network can route payments
    from any participant to any other participant
    via a single common intermediary, centralized yet non-custodial.
+   The sender and recipient can simply tell each other
+   which of many intermediaries they support,
+   in decreasing order of preference, until they find a suitable one;
+   then they initiate a payment using this single intermediary.
+   A network where every participant is connected to the same intermediary
+   is called a “hub and spokes” network in reference to a bicycle wheel.
    This isn’t the desired decentralized network (built in the next phase),
    but can illustrate the technology so far,
    make it readily usable even before the full network is ready, and
@@ -581,8 +584,8 @@ as intermediaries, for a fee.
 **Dependencies**:
     [Minimal Network Routing Prototype](#minimal-network-routing-prototype).
 
-1. An update to our minimal routing prototype, that matches all the features
-   of the Bitcoin Lightning Network protocol.
+1. An update to our Minimal Network Routing Prototype, that matches all
+   the features of the Bitcoin Lightning Network protocol.
    (36 dvwk)
 
 ### Simple Fast Confirmation with Rollup Service
@@ -648,7 +651,8 @@ of both networks.
    (18 dvwk)
 4. Extend the *Chenilles* Network with counterparts for each and every feature
    that the Bitcoin Lightning Network possesses, to ensure complete
-   interoperability. (18 dvwk)
+   interoperability.
+   (18 dvwk)
 
 ### Interoperation with On-Ramp / Off-Ramp Solutions
 
@@ -694,6 +698,11 @@ Route not just payments but arbitrary smart contracts.
 ### Advanced Smart Contracts over State Channels
 
 Implement more interesting contracts on State Channels.
+Smart Contracts on Channels with more than two participants.
+Smart Contracts on a sub-network of Channels connecting more than two end-participants
+with many intermediaries.
+Better *Glow* for all the above situation.
+
 
 ### Advanced Support for Self-Custodial DEX
 
@@ -726,7 +735,9 @@ This phase could be done largely in parallel
 with anything after the Minimal State Channel Prototype.
 
 1. Use of a Schnorr or ECDSA multisig lock to protect a State Channel.
-   This enhances both the efficiency of the network and its privacy.
+   This enhances both the efficiency of the network and its privacy,
+   by making State Channels indistinguishable from regular addresses
+   as long as participants cooperate, and not cost anything more either.
    (18 dvwk)
 2. Use of zk-SNARKs (via Lurk, SnarkyJS, etc.) to add privacy
    to payment conditions even during non-cooperating exits.

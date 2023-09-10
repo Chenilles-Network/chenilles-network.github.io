@@ -2,6 +2,12 @@
 
 Explaining the system layer underlying the implementation of Chenilles.
 
+## Abstract
+
+### Table of Contents
+
+  - [Abstract](#abstract)
+    - [Table of Contents](#table-of-contents)
   - [Introduction: A Persistent, Distributed, Adversarial Operating System](#introduction:-a-persistent,-distributed,-adversarial-operating-system)
     - [Roadmap](#roadmap)
   - [Persistence](#persistence)
@@ -45,14 +51,19 @@ Explaining the system layer underlying the implementation of Chenilles.
     - [Encrypted Databases](#encrypted-databases)
     - [Migration](#migration)
   - [Security](#security)
+    - [Password Management](#password-management)
     - [Capabilities](#capabilities)
     - [Censorship-resistance](#censorship-resistance)
     - [Location-resistance](#location-resistance)
     - [Optimization through Partial Trust](#optimization-through-partial-trust)
+  - [Modelling and Audit](#modelling-and-audit)
+    - [Modelling](#modelling)
+    - [Auditing](#auditing)
 
 ## Introduction: A Persistent, Distributed, Adversarial Operating System
 
-See our [concepts](concepts.md#system-robustness) document.
+The [System Robustness section in our Concepts document](concepts.md#system-robustness)
+
 
 ### Roadmap
 
@@ -83,7 +94,20 @@ the broader the Persistence.
 
 #### Minimal persistence to local database, for simple data only
 
+In the first version of *Chenilles*, we will implement
+just the minimum amount of persistence required,
+saving data to a local database, without remote replication,
+and only for the simple interactions that we initially support.
+
+In further versions of *Chenilles*, we will implement more elaborate
+persistence, with remote copies (e.g. using IPFS), and for a generalized class
+of interactions supporting arbitrary smart contracts.
+
 #### Local Encrypted Persistence
+
+We will implement database encryption and keep all data encrypted
+in the local database, based on some master password
+(see [Password Management](#password-management)).
 
 #### Remote Encrypted Persistence via IPFS
 
@@ -174,6 +198,10 @@ Automated inference
 
 ## Security
 
+### Password Management
+
+Integration with ssh daemon or gpg daemon or yubikey or physical key, etc.
+
 ### Capabilities
 
 ### Censorship-resistance
@@ -182,3 +210,21 @@ Automated inference
 
 ### Optimization through Partial Trust
 
+## Modelling and Audit
+
+### Modelling
+
+Key parts of the system may require a formal model
+that allows for the development of proofs,
+and maybe even for the automatic extraction of correct code.
+
+### Auditing
+
+Our code will require at some point some in-house auditing,
+as well as an independent audit by reputable third-parties.
+
+The *Chenilles* steering committee shall hire competent independent auditors
+before each release for each part and every part of the system,
+whether user-visible features or user-invisible robustness work,
+with enough advance to allow for integrating feedback
+from the audit into the system itself.

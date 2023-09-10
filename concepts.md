@@ -1409,8 +1409,6 @@ Spam-resistance.
 Activity-detection.
 Size. Message-shaping.
 
-
-
 ## Additional Links
 
 ### The Bitcoin Lightning Network

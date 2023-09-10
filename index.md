@@ -7,17 +7,19 @@ Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
 ---
 # The Chenilles Network
 
-In our [**whitepaper**](whitepaper.md),
-we present the business vision for how the *Chenilles* Network
-will solve current issues with cryptocurrencies and make them
-“go to the moon”.
+Our [**whitepaper**](whitepaper) presents the business vision for
+how the *Chenilles* Network will make cryptocurrencies “go to the moon”
+by solving their blocking issues.
 
-In our [**concepts**](concepts.md) document,
-we expound the technical and economic concepts underlying *Chenilles*
-and explain how its Generalized State Channels work.
+Our [**team**](team) is the right one to make it all happen.
 
-In our [**roadmap**](roadmap.md),
-we explain our detailed plan to build and market the *Chenilles* Network
-and the new applications enabled by each milestone.
+Our [**concepts**](concepts) document expounds
+the technical and economic concepts underlying *Chenilles*,
+and explains how our Generalized State Channels work.
 
-Meet our [**team**](team.md).
+Our [**roadmap**](roadmap) details our plan to build and market
+the *Chenilles* Network and the new applications enabled by each milestone.
+
+Our [**system**](system) document describes how our Chenilles System Layer
+addresses the ever increasing Robustness challenges of our Network
+as it grows in value.

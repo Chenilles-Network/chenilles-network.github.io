@@ -1,5 +1,8 @@
 # The *Chenilles* team
 
+This document describes the team building *Chenilles*,
+the next-generation cross-blockchain State Channel Network.
+
 ## Our Company
 
 [Chenilles, LLC.](https://chenilles-network.github.io)
@@ -11,7 +14,8 @@
 - Henri Lesourd, Senior Scientist
 - Donald Fisk, Senior Scientist
 
-Incubated by [Mutual Knowledge Systems, Inc.](https://mukn.com/)
+Incubated by [Mutual Knowledge Systems, Inc.](https://mukn.com/),
+a.k.a. “MuKn” (pronounced “Moon” — the K is silent).
 
 ### Team code repositories
 
