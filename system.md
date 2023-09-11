@@ -60,6 +60,7 @@ Explaining the system layer underlying the implementation of Chenilles.
   - [Modelling and Audit](#modelling-and-audit)
     - [Modelling](#modelling)
     - [Auditing](#auditing)
+  - [Community](#community)
 
 ## Introduction: A Persistent, Distributed, Adversarial Operating System
 
@@ -231,3 +232,11 @@ before each release for each part and every part of the system,
 whether user-visible features or user-invisible robustness work,
 with enough advance to allow for integrating feedback
 from the audit into the system itself.
+
+## Community
+
+Building a healthy community is important to the enduring success
+of a project like *Chenilles*.
+
+[Symmathesy](https://norabateson.wordpress.com/2015/11/03/symmathesy-a-word-in-progress/),
+[Scenius](https://medium.com/salvo-faraday/what-is-the-scenius-15409eb6ac72)
