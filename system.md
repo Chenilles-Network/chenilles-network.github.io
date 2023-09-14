@@ -1,6 +1,10 @@
-# Chenilles System Layer
+# *Chenilles* System Layer
 
 Explaining the system layer underlying the implementation of Chenilles.
+
+ - Date: May 2023 (Latest update September 14th 2023)
+ - Author: François-René Rideau <f@mukn.com>
+ - Company: [Chenilles, LLC](https://chenilles.network)
 
 ## Abstract
 

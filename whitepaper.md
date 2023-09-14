@@ -1,21 +1,21 @@
-﻿---
-Date:	April 2023 (Latest update August 31st 2023)
-URL:	https://chenilles-network.github.io/whitepaper.html
-Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
-Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
----
-# Chenilles Glow Whitepaper
+﻿*Chenilles* Whitepaper
+----------------------
 
 This document explains the overall business vision for how *Chenilles*
 can unlock the potential of blockchains and make them go to the Moon,
 i.e. be usable by everyone, and used by everyone.
-For an in depth technical description see our [concepts](concepts.md) document.
-See also our detailed [roadmap](roadmap.md) for our plan to get there.
+
+For an in depth technical description see our [Concepts](concepts.html) document.
+See also our detailed [Roadmap](roadmap.html) for our plan to get there.
+Contact our [Team](team.html) for more details.
+
+ - Date: April 2023 (Latest update September 14th 2023)
+ - Author: François-René Rideau <f@mukn.com>
+ - Company: [Chenilles, LLC](https://chenilles.network)
 
 ## Abstract
 
-We present the [*Chenilles* Network](https://chenilles-network.github.io/), a
+We present the [*Chenilles* Network](https://chenilles.network/), a
 new payment network that can transmit value across blockchains and currencies,
 safely, at scale, with a direct connection to on-ramp and off-ramp solutions.
 *Chenilles* will remove the main hurdles that prevent cryptocurrencies
@@ -50,7 +50,7 @@ between two side-chains, to participate in auctions on the Ethereum network
 while paying in Bitcoin on the Lightning Network, or to fill the orders
 of decentralized exchanges without funds leaving self-custody.
 
-[Mutual Knowledge Systems, Inc.](https://mukn.com)
+[Chenilles, LLC](https://chenilles.network)
 is developing *Chenilles* and *Glow* as Open Source platforms,
 with an ambitious business model to become the company that
 connects all decentralized applications together.
@@ -81,7 +81,7 @@ connects all decentralized applications together.
     - [Micropayments for metered decentralized utilities](#micropayments-for-metered-decentralized-utilities)
     - [Decentralized Banking](#decentralized-banking)
     - [Private Smart Contracts](#private-smart-contracts)
-  - [Business Model For MuKn](#business-model-for-mukn)
+  - [Business Model For Chenilles LLC](#business-model-for-chenilles-llc)
     - [Big Picture: A layer above blockchains](#big-picture:-a-layer-above-blockchains)
     - [Fees on Channel Creation](#fees-on-channel-creation)
     - [Commissions on Network Payments](#commissions-on-network-payments)
@@ -152,7 +152,7 @@ despite all the difficulties.
 
 ### *Chenilles*, an Overlay Network to Solve Issues with Current Networks
 
-We at Mutual Knowledge Systems (MuKn) propose the *Chenilles* Network,
+We at *Chenilles* LLC propose the *Chenilles* Network,
 a next-generation State Channel Network that solves the above issues
 and can unblock cryptocurrencies from going to the Moon.
 
@@ -764,16 +764,16 @@ it is also possible to have the public contract enforce revelation
 of that information, if desired,
 e.g. by a clearinghouse listing the auction for a fee.
 
-## Business Model For MuKn
+## Business Model For Chenilles LLC
 
-There are many ways for MuKn to monetize the *Chenilles* Network.
+There are many ways for Chenilles LLC to monetize the *Chenilles* Network.
 
 ### Big Picture: A layer above blockchains
 
-First, let us make it clear that using or operating *Chenilles*
+First, let us make it clear that using or operating the *Chenilles* Network
 does not require introducing a new token, and that this is a great advantage.
 
-*Chenilles* is blockchain-agnostic:
+The *Chenilles* Network is blockchain-agnostic:
 it can work with any blockchain that has scripts or contracts.
 We are building a layer above existing and future blockchains and side-chains,
 rather than yet another blockchain or side-chain.
@@ -815,7 +815,7 @@ Yet by using the same contract as everyone else:
 
 Therefore, there is a strong incentive for users to use the existing contract
 rather than create their own fork.
-We at MuKn can thus enjoy a first mover advantage and levy a small fee,
+We at Chenilles LLC can thus enjoy a first mover advantage and levy a small fee,
 much smaller than the cost of creating a contract,
 each time a user creates or settles a state channel, and
 make money as the network grows in number of users.
@@ -834,10 +834,10 @@ for the “On Ramp” and “Off Ramp” parts of a payment—though these parts
 will probably be centralized and require KYC.
 
 Each of the liquidity providers along the path to a payment
-can earn a small fee, and MuKn can earn a commission on those fees
+can earn a small fee, and Chenilles LLC can earn a commission on those fees
 by connecting users to liquidity providers. Even with those fees,
 the network can be much cheaper than existing centralized payment networks.
-And even though MuKn only gets a small commission on those small fees—we can
+And even though Chenilles LLC only gets a small commission on those small fees—we can
 disrupt the market, displace the big players of today and
 expand the already trillion dollar yearly transaction volume
 by serving populations currently unbanked in the developing world.
@@ -888,9 +888,9 @@ that can be provided with new tokens:
      Based on this treasury, the management team will fund the
      development and maintenant of the Network, and if applicable
      determine how much of the remaining funds to distribute among token holders.
-     This DAO will then replace MuKn with respect to managing the Network;
-     MuKn would be dissolved and governance tokens would be distributed
-     to MuKn shareholders as proportional replacement for their shares.
+     This DAO will then replace Chenilles LLC with respect to managing the Network;
+     Chenilles LLC would be dissolved and governance tokens would be distributed
+     to Chenilles LLC shareholders as proportional replacement for their shares.
      This would be a usual network governance security token, also to be
      hosted on an existing blockchain.
 
@@ -1013,11 +1013,11 @@ Contact us at <contact@mukn.com> for further information.
 
 ## References and Bibliography
 
-*Chenilles* website: <https://chenilles-network.github.io>
+*Chenilles* website: <https://chenilles.network>
 
-*Chenilles* concepts: <https://chenilles-network.github.io/concepts.html>
+*Chenilles* concepts: <https://chenilles.network/concepts.html>
 
-*Chenilles* roadmap: <https://chenilles-network.github.io/roadmap.html>
+*Chenilles* roadmap: <https://chenilles.network/roadmap.html>
 
 *Glow* website: <https://glow-lang.org>
 

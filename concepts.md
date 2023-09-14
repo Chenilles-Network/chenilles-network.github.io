@@ -1,16 +1,16 @@
----
-Date:	May 2023 (Latest update August 31st 2023)
-URL:	https://chenilles-network.github.io/concepts.html
-Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
-Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
----
 # Concepts Underlying the *Chenilles* Network
 
 In this document, we expound the technical and economic concepts
 underlying the *Chenilles* Network,
 and explain how its Generalized State Channels work.
 
+ - Date: May 2023 (Latest update September 14th 2023)
+ - Author: François-René Rideau <f@mukn.com>
+ - Company: [Chenilles, LLC](https://chenilles.network)
+
+## Table of Contents
+
+  - [Table of Contents](#table-of-contents)
   - [State Channels: Safe, Scalable, Private Payments](#state-channels:-safe,-scalable,-private-payments)
     - [State Channels](#state-channels)
     - [Layer 2](#layer-2)
@@ -967,7 +967,7 @@ Then, we take advantage of these Smart Contracts to enable currency swaps,
 oracle-based private stable coins, and any other kind of trades,
 including across currency and across blockchains.
 
-See [our whitepaper](https://chenilles-network.github.io/whitepaper.html)
+See [our whitepaper](https://chenilles.network/whitepaper.html)
 and the earlier [Glow Whitepaper](https://bit.ly/GlowWhitepaper2020).
 
 ### Token Swaps with or without Trusted Third Parties

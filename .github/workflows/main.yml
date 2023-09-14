@@ -1,0 +1,38 @@
+name: Github Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Install Racket
+        uses: Bogdanp/setup-racket@v1.8.1
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: 'stable'
+          #dest: '"${HOME}/racketdist"'
+          local_catalogs: $GITHUB_WORKSPACE
+          sudo: never
+
+      - name: Package Installation
+        run: raco pkg install --auto --update-deps --installation markdown
+
+      - name: Build the site
+        run: make
+
+      - name: Push to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.4.0
+        with:
+          folder: public
+          branch: gh-pages

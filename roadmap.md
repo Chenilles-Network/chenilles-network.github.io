@@ -1,16 +1,14 @@
-﻿---
-Date:	May 2023 (Latest update September 1st 2023)
-URL:	https://chenilles-network.github.io/roadmap.html
-Author:	François-René Rideau <f@mukn.com>
-Company:	Mutual Knowledge Systems, Inc. <https://mukn.com>
-Address:	218 NW 24th Street, 2nd Floor, Miami FL 33127
----
-# Chenilles Roadmap: a Scalable, Interoperable and Programmable State Channel Network
+﻿*Chenilles* Roadmap: a Scalable, Interoperable and Programmable State Channel Network
+-------------------------------------------------------------------------------------
+
+ - Date: May 2023 (Latest update September 14th 2023)
+ - Author: François-René Rideau <f@mukn.com>
+ - Company: [Chenilles, LLC](https://chenilles.network)
 
 ## Abstract
 
 This is our roadmap to design, build and market
-the [*Chenilles* Network](https://chenilles-network.github.io/).
+the [*Chenilles* Network](https://chenilles.network/).
 
 *Chenilles* is a new payment network that can transmit value across blockchains
 and currencies with a direct connection to on-ramp and off-ramp solutions.
@@ -75,12 +73,12 @@ We will keep building along this roadmap, revising it based on market feedback.
 ### A Plan to Develop Chenilles
 
 We presented in the
-[Chenilles Glow whitepaper](https://chenilles-network.github.io/whitepaper.html)
+[Chenilles Glow whitepaper](https://chenilles.network/whitepaper.html)
 our cross-blockchain Network of Generalized State Channels,
 its overall vision, its capabilities, and how it will solve the main issues
 that currently block cryptocurrencies from “going to the Moon”.
 
-We also wrote a [conceptual introduction](https://chenilles-network.github.io/concepts.html)
+We also wrote a [conceptual introduction](https://chenilles.network/concepts.html)
 that expounds the concepts that underlie the design of *Chenilles*,
 and explains how our Generalized State Channels work.
 

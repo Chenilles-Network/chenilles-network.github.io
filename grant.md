@@ -149,7 +149,7 @@ the steps required to stay ahead of attackers as the system grows.
 
 ## Bibliography
 
-Refer to the [References and Bibliography section of the Whitepaper](https://chenilles-network.github.io/whitepaper#references-and-bibliography)
+Refer to the [References and Bibliography section of the Whitepaper](https://chenilles.network/whitepaper.html#references-and-bibliography)
 
 ### Previous Proposals
 
