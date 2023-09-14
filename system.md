@@ -1,4 +1,5 @@
-# *Chenilles* System Layer
+*Chenilles* System Layer
+========================
 
 Explaining the system layer underlying the implementation of Chenilles.
 

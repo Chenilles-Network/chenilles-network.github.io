@@ -1,4 +1,5 @@
-# Concepts Underlying the *Chenilles* Network
+Concepts Underlying the *Chenilles* Network
+===========================================
 
 In this document, we expound the technical and economic concepts
 underlying the *Chenilles* Network,

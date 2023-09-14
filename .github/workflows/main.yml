@@ -36,9 +36,11 @@ jobs:
         run: raco pkg install --auto --update-deps --installation commonmark
 
       - name: Build the site
-        # Somehow(!) `make public` fails with GitHub's GNU Make 4.3 complaining:
+        # Somehow (probably because of deleted dependency "info"?)
+        # `make public` would fail with GitHub's GNU Make 4.3 complaining:
         # make: *** No rule to make target 'public/index.html', needed by 'public'.  Stop.
-        run: make gh-pages
+        #run: make gh-pages
+        run: make
 
       - name: Push to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4

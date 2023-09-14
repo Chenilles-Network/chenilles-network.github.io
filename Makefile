@@ -1,6 +1,6 @@
 all: public
 
-public/%.html: %.rkt utils.rkt info $(wildcard %.md)
+public/%.html: %.rkt utils.rkt $(wildcard %.md)
 	racket $< > $@.tmp && mv $@.tmp $@ || rm $@.tmp
 
 public/%/index.html: %.rkt reveal.rkt

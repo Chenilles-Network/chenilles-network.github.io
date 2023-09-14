@@ -1,5 +1,5 @@
 ﻿*Chenilles* Roadmap: a Scalable, Interoperable and Programmable State Channel Network
--------------------------------------------------------------------------------------
+=====================================================================================
 
  - Date: May 2023 (Latest update September 14th 2023)
  - Author: François-René Rideau <f@mukn.com>

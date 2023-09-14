@@ -1,5 +1,5 @@
 ﻿*Chenilles* Whitepaper
-----------------------
+======================
 
 This document explains the overall business vision for how *Chenilles*
 can unlock the potential of blockchains and make them go to the Moon,
