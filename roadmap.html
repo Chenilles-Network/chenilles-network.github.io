@@ -1,0 +1,389 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Chenilles Roadmap</title><link rel="stylesheet" href="style.css" /></head><body><div class="contents"><h2>﻿<em>Chenilles</em> Roadmap: a Scalable, Interoperable and Programmable State Channel Network</h2><ul><li>Date: May 2023 (Latest update September 14th 2023)</li><li>Author: François-René Rideau <a href="mailto:f@mukn.com">f@mukn.com</a></li><li>Company: <a href="https://chenilles.network">Chenilles, LLC</a></li></ul><h2>Abstract</h2><p>This is our roadmap to design, build and market
+the <a href="https://chenilles.network/"><em>Chenilles</em> Network</a>.</p><p><em>Chenilles</em> is a new payment network that can transmit value across blockchains
+and currencies with a direct connection to on-ramp and off-ramp solutions.
+<em>Chenilles</em> uses next-generation Generalized State Channels
+and supports smart contracts as well as payments.
+<em>Chenilles</em> will embrace and extend the
+<a href="https://lightning.network/">Bitcoin Lightning Network</a>
+and connect it to all blockchains.
+<em>Chenilles</em> will remove the main hurdles that prevent cryptocurrencies
+from “going to the Moon”: scalability, safety and usability.</p><p>Our roadmap emphasizes the early release of
+partial but already useful and marketable products
+as “low-hanging fruits” on the road to delivering a complete working product,
+prioritizing support for the most useful blockchains.
+We will keep building along this roadmap, revising it based on market feedback.</p><h3>Table of Contents</h3><ul><li><p><a href="#abstract">Abstract</a></p><ul><li><a href="#table-of-contents">Table of Contents</a></li></ul></li><li><p><a href="#introduction">Introduction</a></p><ul><li><a href="#a-plan-to-develop-chenilles">A Plan to Develop Chenilles</a></li><li><a href="#cost-estimates">Cost Estimates</a></li><li><a href="#plan-overview">Plan Overview</a><ul><li><a href="#minimal-prototype">Minimal Prototype</a></li><li><a href="#simple-functionality">Simple Functionality</a></li><li><a href="#interoperation">Interoperation</a></li><li><a href="#advanced-functionality">Advanced Functionality</a></li><li><a href="#wallet-integration">Wallet Integration</a></li></ul></li></ul></li><li><p><a href="#development-roadmap-for-user-visible-functionality">Development Roadmap for User-Visible Functionality</a></p><ul><li><a href="#minimal-state-channel-prototype">Minimal State Channel Prototype</a><ul><li><a href="#discovery">Discovery</a></li><li><a href="#prototype">Prototype</a></li><li><a href="#robustization">Robustization</a></li><li><a href="#integration">Integration</a></li><li><a href="#documentation">Documentation</a></li></ul></li><li><a href="#minimal-payment-route-prototype">Minimal Payment Route Prototype</a></li><li><a href="#minimal-network-routing-prototype">Minimal Network Routing Prototype</a></li><li><a href="#minimal-generalized-state-channel-prototype">Minimal Generalized State Channel Prototype</a></li><li><a href="#simple-cross-currency-payments">Simple Cross-Currency Payments</a></li><li><a href="#simple-cross-chain-payments">Simple Cross-Chain Payments</a></li><li><a href="#simple-routing-on-par-with-lightning-network">Simple Routing on par with Lightning Network</a></li><li><a href="#simple-fast-confirmation-with-rollup-service">Simple Fast Confirmation with Rollup Service</a></li><li><a href="#interoperation-with-lightning-network">Interoperation with Lightning Network</a></li><li><a href="#interoperation-with-on-ramp-/-off-ramp-solutions">Interoperation with On-Ramp / Off-Ramp Solutions</a></li><li><a href="#interoperation-with-bridges-and-oracles">Interoperation with Bridges and Oracles</a></li><li><a href="#interoperation-with-kyc-solutions">Interoperation with KYC solutions</a></li><li><a href="#advanced-cross-currency-payments">Advanced Cross-Currency Payments</a></li><li><a href="#advanced-routing">Advanced Routing</a></li><li><a href="#advanced-smart-contracts-over-state-channels">Advanced Smart Contracts over State Channels</a></li><li><a href="#advanced-support-for-self-custodial-dex">Advanced Support for Self-Custodial DEX</a></li><li><a href="#wallet-integration-of-simple-payments">Wallet Integration of Simple Payments</a></li><li><a href="#wallet-integration-of-simple-routing">Wallet Integration of Simple Routing</a></li><li><a href="#wallet-integration-of-cross-currency-&amp;-cross-blockchain-payments">Wallet Integration of Cross-Currency &amp; Cross-Blockchain Payments</a></li><li><a href="#wallet-integration-of-dapps">Wallet Integration of DApps</a></li><li><a href="#privacy-enhancements">Privacy Enhancements</a></li><li><a href="#financial-layer">Financial Layer</a></li></ul></li></ul><h2>Introduction</h2><h3>A Plan to Develop Chenilles</h3><p>We presented in the
+<a href="https://chenilles.network/whitepaper.html">Chenilles Glow whitepaper</a>
+our cross-blockchain Network of Generalized State Channels,
+its overall vision, its capabilities, and how it will solve the main issues
+that currently block cryptocurrencies from “going to the Moon”.</p><p>We also wrote a <a href="https://chenilles.network/concepts.html">conceptual introduction</a>
+that expounds the concepts that underlie the design of <em>Chenilles</em>,
+and explains how our Generalized State Channels work.</p><p>In this document, we will take as granted an understanding of these end goals
+and technical means, and will focus on presenting
+a plan to implement those goals using those means, that
+maximizes earlier returns on lower investments.</p><p>We understand that time is of the essence in launching our Network.
+Therefore, we will start by implementing the smallest necessary subset of
+the Network features, then will keep adding features to the working system.
+We also understand that the Network safety measures must increase to match
+its functionality least users fall prey to increasingly motivated attackers.
+Therefore, we will ramp up <a href="concepts#system-robustness">System Robustness</a> features
+in synch with user-visible functionality, which we discuss
+in our separate <a href="system">Chenilles System Layer</a> document.</p><h3>Cost Estimates</h3><p>We estimate costs in abstract units of developer-week (or <em>dvwk</em> for short),
+which represents one week of work by one developer assigned full-time
+on the project, but which also accounts for technical leadership costs,
+management costs, administrative costs, consulting costs
+(for when the main assigned developer needs help from another expert),
+ancillary costs, amortized software and hardware costs, etc.</p><p>To account for the above,
+we estimate a monetary cost of $5000/dvwk for a short-term grant.
+This cost can decrease if a target Blockchain is willing to commit
+to a long term development grant and/or to shoulder the risk of cost overrun.
+In particular, when <em>Chenilles</em> is spending based on its own reserves
+according to its own plan with guaranteed long term support,
+the cost can be halved, by hiring and training permanent employees
+rather than temporary pre-trained expert contractors.</p><p>Actual delivery time for any step may be shorter than
+the estimated number of developer-weeks (if work is somewhat parallelizable
+between multiple developers, within the limits of Amdahl’s Law),
+but will likely longer (due to various delays, sickness, vacations, etc.).
+On the other hand, given sufficient budget, some phases can be executed
+wholly in parallel with other phases by distinct developers.
+We’ll add in every phase which other phases it depends on.</p><h3>Plan Overview</h3><p>Our development will include the following phases for each target Blockchain.
+Only so much work can be saved when building for subsequent target Blockchains,
+and some additional work is also required when adding new target Blockchains,
+especially but not only for interoperation.
+Support for each target Blockchain can be funded either
+out of <em>Chenilles</em>’ own capital for the most strategic blockchains
+without governance capable of funding it, or
+out of grants from the Blockchain’s governance (Foundation, Treasury, etc.).</p><p>The major tracks and their milestones for per-Blockchain user-visible functionality
+will be as follows:</p><h4>Minimal Prototype</h4><p>This phase implements just enough functionality to prove the concepts, and
+make them barely usable by programmers and enthusiastic end-users.</p><ul><li><p>Minimal <em>State Channel</em> prototype: our zero-to-one implementation.</p></li><li><p>Minimal <em>Payment Route</em> prototype: payments with identified intermediary.</p></li><li><p>Minimal <em>Network Routing</em> prototype: finding intermediaries for payments.</p></li><li><p>Minimal <em>Generalized</em> State Channel prototype: simple DApp atop State Channels.</p></li></ul><h4>Simple Functionality</h4><ul><li><p>Simple Cross-Currency Payments</p></li><li><p>Simple Cross-Chain Payments</p></li><li><p>Simple Routing on par with Lightning Network</p></li><li><p>Simple Fast Confirmation with Rollup Service</p></li></ul><h4>Interoperation</h4><ul><li><p>Interoperation with Lightning Network</p></li><li><p>Interoperation with On-Ramp / Off-Ramp Solutions</p></li><li><p>Interoperation with Bridges and Oracles</p></li><li><p>Interoperation with KYC solutions</p></li></ul><h4>Advanced Functionality</h4><ul><li><p>Advanced Cross-Currency Payments</p></li><li><p>Advanced Routing</p></li><li><p>Advanced Smart Contracts over State Channels</p></li><li><p>Advanced Support for Self-Custodial DEX</p></li></ul><h4>Wallet Integration</h4><ul><li><p>Wallet Integration of Simple Payments</p></li><li><p>Wallet Integration of Simple Routing</p></li><li><p>Wallet Integration of Cross-Currency &amp; Cross-Blockchain Payments</p></li><li><p>Wallet Integration of DApps</p></li></ul><h2>Development Roadmap for User-Visible Functionality</h2><p>The following roadmap will have to be repeated for every supported blockchain.</p><h3>Minimal State Channel Prototype</h3><p>This phase will create the building block of <em>Chenilles</em>,
+the simplest of State Channels, implemented on top of the target Blockchain.</p><p><strong>Business case enabled</strong>: Self-custodial payments between two participants.
+Potential users would be utilities accepting small pay-per-use micropayments,
+or large accounts looking for a fast, private and non-custodial way
+to settle trades with their peers, or anything in-between.</p><p>This stage will be subdivided in steps as follows:</p><ol><li>A study of how best to implement State Channels on the target Blockchain:
+what interfaces to use, amend or add.
+This will help better estimate development costs.
+(6 dvwk)</li><li>The simplest implementation of State Channels, including
+both a smart contract for the target Blockchain VM and
+client code capable of communicating with it—enabling micropayments.
+(6 dvwk)</li><li>A robustization of the above, making for
+State Channels that can be trusted with actual tokens,
+rather than a mere demonstration that assumes favorable conditions.
+(12 dvwk)</li><li>Integration of State Channels with the standard target Blockchain wallet.
+This will enable micropayments by regular users of the target Blockchain
+rather than merely by programmers familiar with a command-line.
+(12 dvwk)</li><li>Documentation for all the above, including a live recorded demonstration,
+and addressing issues found while documenting.
+(18 dvwk)</li></ol><p>As with every phase of our plan, it is conceivable to
+stop at the end of any step and have made measurable progress
+towards improving the value of the target Blockchain.
+But we recommend going all the way to the end of a phase for this progress
+to generate tangible value to end-users of the target Blockchain.
+Thus for 6 dvwk we could stop at the study;
+for 12 dvwk we could have a working demo;
+for 24 dvwk we could have a robust prototype;
+for 36 dvwk we can integrate the prototype with a target Blockchain wallet;
+and for 54 dvwk the entire thing can be documented and debugged
+such that regular users can use it.</p><p>Furthermore, if payment of each step is made conditional on the previous step,
+then development will take an entire year by a single developer.
+However, if the entire phase is authorized in advance
+and paid in larger monthly installments,
+2 to 3 developers can work together in parallel and
+make it happen in 6 to 9 months.</p><p>Below are details on each of the steps.</p><h4>Discovery</h4><p>We will start with a study in which we will examine in depth
+how our existing <em>Chenilles</em> technology does or doesn’t fit
+in the target Blockchain ecosystem:
+what facilities we can reuse of <em>Chenilles</em> and of the target Blockchain,
+what functionality we must custom-build for the target Blockchain
+vs other blockchains, which interfaces we must hook into (e.g. wallets),
+what features the interested parties in the target Blockchain community
+deem more important, etc.</p><p>Detailed plans will be written to determine exactly which features
+will be implemented in each of the subsequent phases.
+While this step limits its deliverable to specifications, documentation,
+and requirements for future steps and phases,
+it is fundamental to a successful phased roll-out of the system.
+Questions we will answer will include:</p><ul><li>What will the target Blockchain smart contract generally look like?
+What implementation strategies will we follow?</li><li>Does the target Blockchain presently have all the capabilities required
+to efficiently implement State Channels?
+Either way, how precisely will which of its capabilities be used or amended?</li><li>Same questions for the target Blockchain client (or server) APIs
+we will use or amend.</li><li>Which multisignature algorithm(s) should we support at first
+for the “happy” consensual case? (e.g. naive counting, ECDSA, Schnorr, BLS).</li><li>Which parts of our Ethereum contract and client infrastructure can we reuse
+as is, versus which must be generalized, and
+which must be reimplemented in the new particular setting?</li><li>How should the client persistent storage fit with the target Blockchain ecosystem?</li><li>How should or shouldn’t we integrate with authentication systems or
+“wallets” commonly used within the target Blockchain community,
+to handle participant identities and funds under automatic management of DApps?</li><li>Do our designs as pertain to the target Blockchain ecosystem pass a preliminary
+review from a competent cryptographer?</li></ul><p>We estimate this initial study to cost about 5 dvwk.
+From the study will also come a better estimate for the costs
+of the following steps and phases.</p><h4>Prototype</h4><p>We will implement the simplest kind of State Channels for
+the target Blockchain, according to the plan established during Discovery,
+reusing as much as possible of our previous State Channels for Ethereum.
+These State Channels may have a minimal set of features:
+only two participants, only one single token kind, no conditional payment,
+no concurrent transactions, no nested channels,
+no interface beside the command-line, no wallet integration,
+no persistence of session information.
+They will support non-cooperative as well as cooperative exits,
+though some automation of non-cooperative exits may be stubbed out.
+As a proof of concept, the prototype will be focused on demonstrating
+feasibility, rather than making a complete product.
+Reasonable effort will be made so the prototype should be secure,
+but corners may be cut as long as they are well-documented.</p><h4>Robustization</h4><p>Once the prototype establishes the feasability of the endeavor,
+we will turn it into a robust product.
+We will add all the missing security checks and handle all the corner cases.
+However, we will not add any feature beside what is required for security.
+In particular, we will stick to a developer-friendly
+but end-user-unfriendly command-line interface, and
+we will not attempt to integrate with existing the target Blockchain wallets
+(which we will do in the following step).
+We will not add support for more than two participants, or
+more than one token kind (e.g. ETH, ERC20, etc.), or any other functionality.
+We will just turn the prototype into something robust.</p><h4>Integration</h4><p>After we have a robust implementation of those minimal State Channels
+for the target Blockchain, we will integrate them
+with the most relevant the target Blockchain wallet, so that
+end-users of the target Blockchain may actually use them for micropayments.
+As above, we will otherwise stick to a minimal set of features.</p><h4>Documentation</h4><p>We will write a tutorial explaining on how to use our State Channels,
+as well as some internal architectural description of how they work underneath.
+We will record a demonstration and a tutorial for opening a State Channel
+on the target Blockchain, making back and forth micropayments, and
+closing the Channel cooperatively, or closing it non-cooperatively.
+Together with documentation come some additional debugging and simplifications
+for issues that only become apparent as we actively try to
+make the product user-friendly.</p><p>Note that emphatically not included in the above is
+an independent security audit of the product,
+that must be conducted by a third party.
+We can help connect the target Blockchain with such auditors if desired.
+On strategic Blockchains that we support without grant,
+we will cover the cost of the audit ourselves, hiring external auditors.</p><h3>Minimal Payment Route Prototype</h3><p>This phase will enable participants with a series of connected State Channels
+to build a <em>route</em> along which payments can be safely made from a sender to a
+recipient through a series of intermediaries.</p><p><strong>Business case enabled</strong>: Self-custodial payments in a centralized network.
+In the simplest case, a single hub will enable payments between users
+having State Channels open with the hub.
+In a more elaborate case, a fixed core of interconnected hubs
+enables payment from any user to any user with a centralized routing algorithm.
+Still, all payments remain self-custodial.
+The worst that the central participants can do is censor trades long enough
+for the users to close their State Channels and find better intermediaries
+to trade through, or directly use the Layer 1 without intermediaries.
+Target users would be anyone as end-users, and crypto businesses as intermediaries.</p><p><strong>Dependencies</strong>: <a href="#minimal-state-channel-prototype">Minimal State Channel Prototype</a>.</p><p>This phase can be divided in the following steps,
+each with its own value-adding deliverable.
+In turn each of these steps could be divided into sub-steps of
+study, prototype, robustization, user-interface and documentation,
+though with a quicker development cycle thanks to building on previous code.
+Once again, development can be achieved cheaper and/or faster
+if committing in advance to larger phases or steps
+rather than smaller steps or sub-steps,
+hiring larger teams working in parallel
+(though with increasing communication overhead as the teams grow), and
+starting each phase or step as soon as the strictly necessary previous steps
+are working without waiting for all previous steps to be complete and reviewed.</p><p>The steps are as follows:</p><ol><li>Concurrent Transactions and Generalized State Channel Infrastructure.
+This enables multiple conditional payments at a time
+over a single State Channel.
+Also enable a basic escape to general smart contracts
+(which is easy to add now on smart contract capable Blockchains,
+and harder to add later),
+but with minimal support for actually writing smart contracts if at all
+(which would require developing a lot of infrastructure in Solidity or
+what replaces it on the target Blockchain, or implementing <em>Glow</em>).
+(18 dvwk)</li><li>The simplest Hashed TimeLock Contract (HTLC) as a payment condition.
+This enables safe payments with a timeout to unlock funds
+in case one party fails to cooperate to the end.
+(12 dvwk)</li><li>An off-chain communication protocol based on libp2p, so
+network participants who already know each other and their intermediaries
+can coordinate their multi-hop transactions.
+(18 dvwk)</li><li>The combination of the above, so a sender may drive a series of payments,
+along a route of State Channels, through identified intermediaries,
+to a recipient.
+(12 dvwk)</li><li>A demonstration of micropayments along a route of multiple State Channels on
+the target Blockchain.
+(6 dvwk)</li><li>As a useful application, a simple hub-and-spoke network can route payments
+from any participant to any other participant
+via a single common intermediary, centralized yet non-custodial.
+The sender and recipient can simply tell each other
+which of many intermediaries they support,
+in decreasing order of preference, until they find a suitable one;
+then they initiate a payment using this single intermediary.
+A network where every participant is connected to the same intermediary
+is called a “hub and spokes” network in reference to a bicycle wheel.
+This isn’t the desired decentralized network (built in the next phase),
+but can illustrate the technology so far,
+make it readily usable even before the full network is ready, and
+can serve as the financial seed to the decentralized network to come.
+(18 dvwk)</li></ol><h3>Minimal Network Routing Prototype</h3><p>This phase will enable participants who are not already connected
+through a known route of State Channels to dynamically discover and use
+routes of intermediaries for payments.</p><p><strong>Business case enabled</strong>: Self-custodial payments in a decentralized network.
+The discovery and use of network routes can happen in a decentralized fashion
+using a gossip network both spam-resistant and censorship-resistant.
+Target users would be anyone as end-users, and anyone who can afford keeping
+a server online as an intermediary.</p><p><strong>Dependencies</strong>: <a href="#minimal-payment-route-prototype">Minimal Payment Route Prototype</a>.</p><p>Note: our estimates for this phase and the subsequent phases
+are not fleshed out, and could be 2x or 3x too large or too small, but
+we believe remain of the correct indication of the order of magnitude.
+The time required also depends on the team we will be able to hire
+which depends on the budget allotted and whether it is committed in advance.</p><ol><li>An off-chain protocol to announce and discover the nodes
+in a State Channel Network.
+(18 dvwk)</li><li>An algorithm to discover routes for payments in a known graph of nodes.
+(18 dvwk)</li><li>A protocol to negotiate payment along a planned route.
+(18 dvwk)</li><li>A protocol combining the above to route payments on the Network.
+(18 dvwk)</li><li>A protocol to rate and blacklist uncooperative nodes
+in the State Channel Network.
+(18 dvwk)</li><li>A protocol to split a payment along several routes.
+(18 dvwk)</li></ol><h3>Minimal Generalized State Channel Prototype</h3><p>This phase will enhance the <em>Chenilles</em> Network so as to enable arbitrary
+smart contracts between a small number of participants to be conducted through
+State Channels.</p><p><strong>Business case enabled</strong>: Fast private scalable DeFi over state channels.
+Instead of merely payments, State Channels will accelerate arbitrary smart
+contracts between participants in a decentralized network:
+Atomic swaps, NFT auctions, online games, etc.
+Target users would be anyone interested in DeFi.</p><p><strong>Dependencies</strong>: <a href="#minimal-state-channel-prototype">Minimal State Channel Prototype</a>.</p><p>This ability will put our State Channel Network far ahead of existing networks,
+that in practice support no such thing, though some do in theory.
+At each step, we will enhance our language <em>Glow</em> to implement
+the additional features through State Channels.</p><p>The features below are largely independent and could be developed in parallel
+by several people at the same time.</p><ol><li>State Channels that can transfer more than one kind of asset.
+Example: ETH and ERC20s including wrapped Bitcoin and
+wrapped (via bridge) tokens from target Blockchain.
+(18 dvwk)</li><li>State Channels with a complex interaction but without external data sources.
+Example: rock paper scissors.
+(18 dvwk)</li><li>State Channels with a complex interaction using external data sources.
+Example: a futures contract that relies on a price oracle.
+(18 dvwk)</li><li>State Channels with more than two participants.
+Example: a four-way card game.
+(18 dvwk)</li><li>Using State Channels as conditional payment for a public contract.
+Example: an auction with private bids over State Channels.
+(18 dvwk)</li><li>Using State Channel routes for exchange between more than two parties.
+Example: a three-way atomic swap between three assets across
+triangular payment routes.
+(18 dvwk)</li></ol><h3>Simple Cross-Currency Payments</h3><p>This phase will enable one participant to pay in one currency and another to
+receive in another currency, using suitable intermediate State Channels.</p><p><strong>Business case enabled</strong>: Self-custodial payment from one currency to another.
+Potential users would be anyone who wants to trade <em>on the same blockchain</em>,
+though they may not want to hold the same token as the users they trade with.
+Some may prefer native tokens, others may prefer a stable coin,
+yet others some specific ERC20, etc.</p><p><strong>Dependencies</strong>:
+<a href="#minimal-payment-route-prototype">Minimal Payment Route Prototype</a>,
+[Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).</p><ol><li>A microeconomic study of the proper pricing of the <em>option</em> implicit
+in any asynchronous currency swap protocol,
+as applied to cross-currency payments.
+Design and implementation of a suitable microeconomic mechanism for
+determining rates and fees in the network depending on confirmation delay,
+expected volatility and non-cooperative exit costs.
+(18 dvwk)</li><li>A modification to the Bitcoin HTLC contract that allows for shorter delays
+by enabling early resolution of the Hash part of HTLC while still waiting
+for the Time-Lock part of the State Channel exit process, thus drastically
+lowering the total volatility exposure and accompanying exchange fees.
+(18 dvwk).</li><li>An extension to the off-chain <em>Chenilles</em> communication protocols
+so payments can be made along a route that involves a change in currency,
+at some agreed exchange rate,
+properly compensating the party doing the exchange,
+if a suitable event happens within a deadline.
+(18 dvwk)</li><li>As a further way to reduce delay, an extension to the <em>Chenilles</em> on-chain
+contract and payment route protocol on the target Blockchain,
+that relies on publication of a single witness within a deadline
+to trigger a series of transfers.
+(18 dvwk)</li></ol><h3>Simple Cross-Chain Payments</h3><p>This phase will enable participants to use routes that cross blockchain
+boundaries to effect payments between the target Blockchain and Ethereum.</p><p><strong>Business case enabled</strong>: Self-custodial payment between blockchains.
+Potential users would be anyone who wants to trade on any supported blockchain.
+They may not want to hold the same token as the users they trade with, and
+they may not even want to use the same blockchain. But as long as
+both blockchains are supported by <em>Chenilles</em> the buyer can pay the seller.</p><p><strong>Dependencies</strong>:
+<a href="#minimal-network-routing-prototype">Minimal Network Routing Prototype</a>,
+<a href="#simple-cross-currency-payments">Simple Cross-Currency Payments</a>.</p><ol><li>An extension to the off-chain <em>Chenilles</em> communication protocols
+so payments can be made along a route that involves State Channels
+on both target Blockchains (Bitcoin and Ethereum if not otherwise funded,
+or either with a funded target Blockchain if funded), at some agreed
+exchange rate, properly compensating the party doing the exchange,
+using the Lightning Network HTLC (or modified variant above).
+Note that unmodified Lightning Network HTLC might not allow for affordable
+exchange fees unless using wBTC as wrapped by a mutually trusted bridge.
+(18 dvwk)</li><li>A protocol for discovering routes that span <em>Chenilles</em> across two networks.
+(18 dvwk)</li><li>A variant of the protocol that allows for faster confirmation given a
+suitable bridge between the two Blockchains, such that a single event on one
+can be observed on the other and be used as the condition for whether or not
+the payment was confirmed.
+(18 dvwk)</li></ol><h3>Simple Routing on par with Lightning Network</h3><p>This phase will bring <em>Chenilles</em> on par with the Bitcoin Lightning Network,
+when the previous stage was minimal in terms of functionality.
+This will put <em>Chenilles</em> ahead of the Bitcoin Lightning Network,
+and prepare <em>Chenilles</em> for the next stage in routing of smart contracts.</p><p><strong>Business case enabled</strong>: Self-custodial payment in a decentralized network.
+Potential users are anyone desiring more decentralization in their payments
+sent or received, as well as anyone willing to make their liquidity available
+as intermediaries, for a fee.</p><p><strong>Dependencies</strong>:
+<a href="#minimal-network-routing-prototype">Minimal Network Routing Prototype</a>.</p><ol><li>An update to our Minimal Network Routing Prototype, that matches all
+the features of the Bitcoin Lightning Network protocol.
+(36 dvwk)</li></ol><h3>Simple Fast Confirmation with Rollup Service</h3><p>This phase will implement a service that allows for faster confirmation of
+transactions than is possible with traditional Layer 1 transactions,
+either as a rollup or on a dedicated data availability engine.
+Faster confirmation means reduced exposure to volatility in cross-currency and
+cross-chain transactions as well as faster reuptake of liquidity involved
+in transactions, leading to better capital efficiency and cheaper transactions.
+An rollup is slower and more expensive but does not require additional
+trust assumptions, unlike a dedicated data availability engine,
+that requires that all parties should trust its validation committee.</p><p><strong>Business case enabled</strong>: Faster cheaper cross-currency transactions.
+Everyone will benefit from such a service.</p><p><strong>Dependencies</strong>:
+[Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).</p><ol><li>Modification of the smart contract and payment protocol to use a
+confirmation service using a rollup with a central validator.
+(18 dvwk)</li><li>Update the central validator to itself accept service payment via State Channels.
+(18 dvwk)</li><li>Build a decentralized market for services that publish confirmation.
+(18 dvwk)</li><li>Extend the decentralized market into a protocol for a dedicated
+data availability engine with or without rollup to any specific blockchain.
+(18 dvwk)</li><li>Robustify the decentralized protocol.
+(18 dvwk)</li><li>Issue tokens for the decentralized protocol.
+(18 dvwk)</li></ol><h3>Interoperation with Lightning Network</h3><p>This phase will enable participants to discover and use intermediaries to
+effect payments across blockchains between the target Blockchain, Ethereum and Bitcoin.</p><p><strong>Business case enabled</strong>: Interoperation between <em>Chenilles</em> and the Bitcoin Lightning Network.
+Everyone who wants to hold Bitcoin or has customers or suppliers who do
+will benefit from such a service.
+All the liquidity in the Bitcoin Lightning Network will be made available
+to <em>Chenilles</em> and vice versa, increasing the network effects and value
+of both networks.</p><p><strong>Dependencies</strong>:
+<a href="#simple-cross-chain-payments">Simple Cross-Chain Payments</a>,
+<a href="#simple-routing-on-par-with-lightning-network">Simple Routing on par with Lightning Network</a>.</p><ol><li>Enhance the <em>Chenilles</em> cross-chain routes to interoperate work with
+the Bitcoin Lightning Network.
+(18 dvwk)</li><li>Enhance the <em>Chenilles</em> cross-chain routing algorithm to interoperate work with
+the Bitcoin Lightning Network.
+(18 dvwk)</li><li>Make proposals to enhance the Bitcoin Lightning Network with extensions
+(BOLT - Basis Of Lightning Technology) that will facilitate future
+interoperation with the <em>Chenilles</em> Network:
+better and faster HTLCs, route payment protocol extensions,
+routing algorithm extensions, better APIs, etc.
+(18 dvwk)</li><li>Extend the <em>Chenilles</em> Network with counterparts for each and every feature
+that the Bitcoin Lightning Network possesses, to ensure complete
+interoperability.
+(18 dvwk)</li></ol><h3>Interoperation with On-Ramp / Off-Ramp Solutions</h3><p>This phase will enable participants to connect their <em>Chenilles</em> payments
+to on-ramp and off-ramp solutions enabling payment from or to fiat accounts.</p><p><strong>Business case enabled</strong>: Interoperation between <em>Chenilles</em> and centralized finance.
+Everyone who wants to deal with blockchain will benefit from such a service.</p><p><strong>Dependencies</strong>:
+<a href="#simple-cross-chain-payments">Simple Cross-Chain Payments</a>.</p><ol><li>A protocol for <em>Chenilles</em> participant to use on-/off- ramp solutions
+they trust as part of private yet auditable atomic operations.
+(18 dvwk)</li><li>An extension to the off-chain <em>Chenilles</em> routing protocols so it can
+discover intermediaries, negotiate exchange rates and route payments
+between on-chain tokens and off-chain currencies.
+(18 dvwk)</li><li>Extensions that allow to pay more for faster service, and/or
+insure against potential delays from non-cooperating intermediaries.
+(18 dvwk)</li></ol><h3>Interoperation with Bridges and Oracles</h3><p>Allow smart contracts on <em>Chenilles</em> to query bridges and oracles in general.</p><h3>Interoperation with KYC solutions</h3><p>Enable operators of <em>Chenilles</em> services to easily comply
+with any applicable KYC requirements in their jurisdiction.</p><h3>Advanced Cross-Currency Payments</h3><p>Enable cross-currency payments that make direct use of
+existing bridges, oracles, etc.,
+to reduce volatility or enhance privacy, etc.</p><h3>Advanced Routing</h3><p>Route not just payments but arbitrary smart contracts.</p><h3>Advanced Smart Contracts over State Channels</h3><p>Implement more interesting contracts on State Channels.
+Smart Contracts on Channels with more than two participants.
+Smart Contracts on a sub-network of Channels connecting more than two end-participants
+with many intermediaries.
+Better <em>Glow</em> for all the above situation.</p><h3>Advanced Support for Self-Custodial DEX</h3><p>Implement an entire DEX using State Channels and a data availability engine.</p><h3>Wallet Integration of Simple Payments</h3><p>Seamlessly integrate <em>Chenilles</em> payments along known routes into all relevant Wallets.</p><h3>Wallet Integration of Simple Routing</h3><p>Seamlessly integrate <em>Chenilles</em> routing algorithm into all relevant Wallets.</p><h3>Wallet Integration of Cross-Currency &amp; Cross-Blockchain Payments</h3><p>Seamlessly integrate cross-currency and cross-chain <em>Chenilles</em> payments
+into relevant wallets that are aware of multiple blockchains.</p><h3>Wallet Integration of DApps</h3><p>Seamlessly integrate arbitrary DApps on top of <em>Chenilles</em>
+into relevant DApp-aware wallets.</p><h3>Privacy Enhancements</h3><p>Enhance the <em>Chenilles</em> Network so as to make its transactions completely
+opaque to non-participants, including
+the presence of the State Channels themselves.
+This phase could be done largely in parallel
+with anything after the Minimal State Channel Prototype.</p><ol><li>Use of a Schnorr or ECDSA multisig lock to protect a State Channel.
+This enhances both the efficiency of the network and its privacy,
+by making State Channels indistinguishable from regular addresses
+as long as participants cooperate, and not cost anything more either.
+(18 dvwk)</li><li>Use of zk-SNARKs (via Lurk, SnarkyJS, etc.) to add privacy
+to payment conditions even during non-cooperating exits.
+(18 dvwk)</li><li>Modification of the off-chain communication protocols to allow for
+private State Channels.
+(18 dvwk)</li><li>Add a store-and-forward relay service to the off-chain communication network
+for asynchronous communications between parties, and/or
+support encrypted email (e.g. via protonmail or tutanota)
+as a medium for exchanging messages.
+(18 dvwk)</li><li>Demonstration of completely opaque State Channel payments
+on the target Blockchain.
+(18 dvwk)</li></ol><h3>Financial Layer</h3><p>Once the technical layer is sufficiently advanced
+(which can start right after the Minimal State Channel Prototype),
+contact people with liquidity and convince them to make some available
+on <em>Chenilles</em>, and/or ask them which features we should prioritize
+to get them to add liquidity on <em>Chenilles</em>, including which financial
+contracts (e.g. auctions, futures, etc.) we should first support.</p><ol><li>Contact liquidity providers, starting as early as we have a working system,
+and increasing exponentially as we ramp up the features.
+(18 dvwk)</li><li>Prioritize and implement whichever features they most need.
+(18 dvwk)</li><li>Implement a service for paid-for watch towers.
+(18 dvwk)</li></ol></div></body></html>
