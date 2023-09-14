@@ -10,10 +10,7 @@ public/%/index.html: %.rkt reveal.rkt
 # whitepaper
 docs = index whitepaper team concepts roadmap system
 
-public: info $(addprefix public/, $(addsuffix .html, $(docs)))
-
-info:
-	echo PWD=$$PWD HOME=$$HOME GITHUB_WORKSPACE=$$GITHUB_WORKSPACE ; ls -l
+public: $(addprefix public/, $(addsuffix .html, $(docs)))
 
 clean:
 	rm -f public/index.html
@@ -22,6 +19,10 @@ mrproper:
 	git clean -xfd
 
 prerequisites:
-	raco pkg install --auto --update-deps markdown
+	raco pkg install --auto --update-deps commonmark
 
-.PHONY: public all clean mrproper info prerequisites
+gh-pages:
+	for i in $(docs) ; do racket $$i.rkt > $$i.tmp && \
+	mv $$i.tmp public/$$i.html || rm $$i.tmp ; done
+
+.PHONY: public all clean mrproper prerequisites gh-pags
