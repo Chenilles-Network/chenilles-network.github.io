@@ -1,5 +1,5 @@
-﻿*Chenilles* Roadmap: a Scalable, Interoperable and Programmable State Channel Network
-=====================================================================================
+﻿The *Chenilles* Roadmap
+=======================
 
  - Date: May 2023 (Latest update September 14th 2023)
  - Author: François-René Rideau <f@mukn.com>
@@ -8,7 +8,9 @@
 ## Abstract
 
 This is our roadmap to design, build and market
-the [*Chenilles* Network](https://chenilles.network/).
+[*Chenilles*](https://chenilles.network/),
+the next-generation State Channel Network,
+scalable, interoperable and programmable.
 
 *Chenilles* is a new payment network that can transmit value across blockchains
 and currencies with a direct connection to on-ramp and off-ramp solutions.

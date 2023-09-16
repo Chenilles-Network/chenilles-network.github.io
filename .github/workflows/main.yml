@@ -17,10 +17,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      #- name: Some introspection
-      #  run: echo PATH=$PATH HOME=$HOME GITHUB_WORKSPACE=$GITHUB_WORKSPACE PWD=$PWD ;
-      #       pwd ; ls -l ; make -v
-
       - name: Install Racket
         uses: Bogdanp/setup-racket@v1.8.1
         with:
@@ -33,13 +29,9 @@ jobs:
           sudo: never
 
       - name: Package Installation
-        run: raco pkg install --auto --update-deps --installation commonmark
+        run: raco pkg install --auto --update-deps --installation markdown
 
       - name: Build the site
-        # Somehow (probably because of deleted dependency "info"?)
-        # `make public` would fail with GitHub's GNU Make 4.3 complaining:
-        # make: *** No rule to make target 'public/index.html', needed by 'public'.  Stop.
-        #run: make gh-pages
         run: make
 
       - name: Push to Github Pages

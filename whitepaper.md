@@ -1,5 +1,5 @@
-﻿*Chenilles* Whitepaper
-======================
+﻿The *Chenilles* Whitepaper
+==========================
 
 This document explains the overall business vision for how *Chenilles*
 can unlock the potential of blockchains and make them go to the Moon,
@@ -62,13 +62,13 @@ connects all decentralized applications together.
   - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
     - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
     - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)
-    - [*Chenilles*, an Overlay Network to Solve Issues with Current Networks](#*chenilles*,-an-overlay-network-to-solve-issues-with-current-networks)
+    - [*Chenilles*, an Overlay Network to Solve Issues with Current Networks](#chenilles,-an-overlay-network-to-solve-issues-with-current-networks)
   - [Existing Issues with Decentralized Networks](#existing-issues-with-decentralized-networks)
     - [Layer 1 Blockchains](#layer-1-blockchains)
     - [Layer 2 Side-Chains](#layer-2-side-chains)
     - [Layer 2 State Channels](#layer-2-state-channels)
-  - [*Chenilles*: Next Generation State Channels with Unique Capabilities](#*chenilles*:-next-generation-state-channels-with-unique-capabilities)
-    - [Smart Contracts using *Glow*](#smart-contracts-using-*glow*)
+  - [*Chenilles*: Next Generation State Channels with Unique Capabilities](#chenilles:-next-generation-state-channels-with-unique-capabilities)
+    - [Smart Contracts using *Glow*](#smart-contracts-using-glow)
     - [Multi-Token](#multi-token)
     - [Multi-Chain](#multi-chain)
     - [Multi-Participant](#multi-participant)
@@ -76,7 +76,7 @@ connects all decentralized applications together.
     - [Further Improved Privacy with zk-SNARKs](#further-improved-privacy-with-zk-snarks)
     - [Nestability](#nestability)
     - [Advanced Smart Contracts](#advanced-smart-contracts)
-  - [Applications enabled by *Chenilles*](#applications-enabled-by-*chenilles*)
+  - [Applications enabled by *Chenilles*](#applications-enabled-by-chenilles)
     - [Payments with automatic currency conversion](#payments-with-automatic-currency-conversion)
     - [Micropayments for metered decentralized utilities](#micropayments-for-metered-decentralized-utilities)
     - [Decentralized Banking](#decentralized-banking)

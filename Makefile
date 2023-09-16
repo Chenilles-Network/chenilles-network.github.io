@@ -1,16 +1,23 @@
 all: public
 
-public/%.html: %.rkt utils.rkt $(wildcard %.md)
-	racket $< > $@.tmp && mv $@.tmp $@ || rm $@.tmp
+RECIPE = racket $< > $@.tmp && mv $@.tmp $@ || rm $@.tmp
+
+public/%.html: %.rkt utils.rkt
+	$(RECIPE)
 
 public/%/index.html: %.rkt reveal.rkt
 	mkdir -p public/$*
-	racket $< > $@.tmp && mv $@.tmp $@ || rm $@.tmp
+	$(RECIPE)
 
 # whitepaper
 docs = index whitepaper team concepts roadmap system
 
 public: $(addprefix public/, $(addsuffix .html, $(docs)))
+
+public/whitepaper.html:: whitepaper.md
+public/concepts.html:: concepts.md
+public/roadmap.html:: roadmap.md
+public/system.html:: system.md
 
 clean:
 	rm -f public/index.html
@@ -19,10 +26,6 @@ mrproper:
 	git clean -xfd
 
 prerequisites:
-	raco pkg install --auto --update-deps commonmark
+	raco pkg install --auto --update-deps markdown
 
-gh-pages:
-	for i in $(docs) ; do racket $$i.rkt > $$i.tmp && \
-	mv $$i.tmp public/$$i.html || rm $$i.tmp ; done
-
-.PHONY: public all clean mrproper prerequisites gh-pags
+.PHONY: public all clean mrproper prerequisites

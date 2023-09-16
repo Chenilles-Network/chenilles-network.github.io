@@ -5,7 +5,8 @@
  scribble/html
  net/url
  (for-syntax syntax/parse)
- commonmark)
+ #;commonmark
+ markdown markdown/display-xexpr)
 
 (provide (all-defined-out))
 
@@ -41,10 +42,18 @@
   (define file (if (equal? name "home") "index.html" (string-append name ".html")))
   (href file Name))
 
-(define (markdown-file->html file)
+#;
+(define (markdown-file->html file) ;; commonmark variant, fails to add anchors for toc
   (define contents (file->string file))
   (define document (string->document contents))
   (document->html document))
+
+(define (markdown-file->html file) ;; markdown variant
+  (define xexprs (parse-markdown (string->path file)))
+  (call-with-output-string
+   (lambda (port)
+     (parameterize ((current-output-port port))
+       (for-each display-xexpr xexprs)))))
 
 (define (page-head title-text)
   (head
