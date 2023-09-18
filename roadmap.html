@@ -39,7 +39,7 @@
    <li><a href="#simple-routing-on-par-with-lightning-network">Simple Routing on par with Lightning Network</a></li>
    <li><a href="#simple-fast-confirmation-with-rollup-service">Simple Fast Confirmation with Rollup Service</a></li>
    <li><a href="#interoperation-with-lightning-network">Interoperation with Lightning Network</a></li>
-   <li><a href="#interoperation-with-on-ramp-/-off-ramp-solutions">Interoperation with On-Ramp / Off-Ramp Solutions</a></li>
+   <li><a href="#interoperation-with-on-ramp--off-ramp-solutions">Interoperation with On-Ramp / Off-Ramp Solutions</a></li>
    <li><a href="#interoperation-with-bridges-and-oracles">Interoperation with Bridges and Oracles</a></li>
    <li><a href="#interoperation-with-kyc-solutions">Interoperation with KYC solutions</a></li>
    <li><a href="#advanced-cross-currency-payments">Advanced Cross-Currency Payments</a></li>
@@ -48,7 +48,7 @@
    <li><a href="#advanced-support-for-self-custodial-dex">Advanced Support for Self-Custodial DEX</a></li>
    <li><a href="#wallet-integration-of-simple-payments">Wallet Integration of Simple Payments</a></li>
    <li><a href="#wallet-integration-of-simple-routing">Wallet Integration of Simple Routing</a></li>
-   <li><a href="#wallet-integration-of-cross-currency-&amp;-cross-blockchain-payments">Wallet Integration of Cross-Currency &amp; Cross-Blockchain Payments</a></li>
+   <li><a href="#wallet-integration-of-cross-currency--cross-blockchain-payments">Wallet Integration of Cross-Currency &amp; Cross-Blockchain Payments</a></li>
    <li><a href="#wallet-integration-of-dapps">Wallet Integration of DApps</a></li>
    <li><a href="#privacy-enhancements">Privacy Enhancements</a></li>
    <li><a href="#financial-layer">Financial Layer</a></li></ul></li></ul>
@@ -194,7 +194,7 @@
 <h3 id="simple-cross-currency-payments">Simple Cross-Currency Payments</h3>
 <p>This phase will enable one participant to pay in one currency and another to receive in another currency, using suitable intermediate State Channels.</p>
 <p><strong>Business case enabled</strong>: Self-custodial payment from one currency to another. Potential users would be anyone who wants to trade <em>on the same blockchain</em>, though they may not want to hold the same token as the users they trade with. Some may prefer native tokens, others may prefer a stable coin, yet others some specific ERC20, etc.</p>
-<p><strong>Dependencies</strong>:  <a href="#minimal-payment-route-prototype">Minimal Payment Route Prototype</a>,  [Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).</p>
+<p><strong>Dependencies</strong>:  <a href="#minimal-payment-route-prototype">Minimal Payment Route Prototype</a>,  <a href="#minimal-generalized-state-channel-prototype">Minimal Generalized State Channel Prototype</a>.</p>
 <ol>
  <li>A microeconomic study of the proper pricing of the <em>option</em> implicit  in any asynchronous currency swap protocol,  as applied to cross-currency payments.  Design and implementation of a suitable microeconomic mechanism for  determining rates and fees in the network depending on confirmation delay,  expected volatility and non-cooperative exit costs.  (18 dvwk)</li>
  <li>A modification to the Bitcoin HTLC contract that allows for shorter delays  by enabling early resolution of the Hash part of HTLC while still waiting  for the Time-Lock part of the State Channel exit process, thus drastically  lowering the total volatility exposure and accompanying exchange fees.  (18 dvwk).</li>
@@ -217,7 +217,7 @@
 <h3 id="simple-fast-confirmation-with-rollup-service">Simple Fast Confirmation with Rollup Service</h3>
 <p>This phase will implement a service that allows for faster confirmation of transactions than is possible with traditional Layer 1 transactions, either as a rollup or on a dedicated data availability engine. Faster confirmation means reduced exposure to volatility in cross-currency and cross-chain transactions as well as faster reuptake of liquidity involved in transactions, leading to better capital efficiency and cheaper transactions. An rollup is slower and more expensive but does not require additional trust assumptions, unlike a dedicated data availability engine, that requires that all parties should trust its validation committee.</p>
 <p><strong>Business case enabled</strong>: Faster cheaper cross-currency transactions. Everyone will benefit from such a service.</p>
-<p><strong>Dependencies</strong>:  [Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).</p>
+<p><strong>Dependencies</strong>:  <a href="#minimal-generalized-state-channel-prototype">Minimal Generalized State Channel Prototype</a>.</p>
 <ol>
  <li>Modification of the smart contract and payment protocol to use a  confirmation service using a rollup with a central validator.  (18 dvwk)</li>
  <li>Update the central validator to itself accept service payment via State Channels.  (18 dvwk)</li>
