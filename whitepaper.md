@@ -59,15 +59,15 @@ connects all decentralized applications together.
 
   - [Abstract](#abstract)
     - [Table of Contents](#table-of-contents)
-  - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation:-unlocking-cross-chain-defi-&-deco)
+  - [Motivation: Unlocking Cross-Chain DeFi & DeCo](#motivation-unlocking-cross-chain-defi--deco)
     - [Cryptocurrencies and their Promise](#cryptocurrencies-and-their-promise)
     - [Current Limitations of Cryptocurrencies](#current-limitations-of-cryptocurrencies)
-    - [*Chenilles*, an Overlay Network to Solve Issues with Current Networks](#chenilles,-an-overlay-network-to-solve-issues-with-current-networks)
+    - [*Chenilles*, an Overlay Network to Solve Issues with Current Networks](#chenilles-an-overlay-network-to-solve-issues-with-current-networks)
   - [Existing Issues with Decentralized Networks](#existing-issues-with-decentralized-networks)
     - [Layer 1 Blockchains](#layer-1-blockchains)
     - [Layer 2 Side-Chains](#layer-2-side-chains)
     - [Layer 2 State Channels](#layer-2-state-channels)
-  - [*Chenilles*: Next Generation State Channels with Unique Capabilities](#chenilles:-next-generation-state-channels-with-unique-capabilities)
+  - [*Chenilles*: Next Generation State Channels with Unique Capabilities](#chenilles-next-generation-state-channels-with-unique-capabilities)
     - [Smart Contracts using *Glow*](#smart-contracts-using-glow)
     - [Multi-Token](#multi-token)
     - [Multi-Chain](#multi-chain)
@@ -82,7 +82,7 @@ connects all decentralized applications together.
     - [Decentralized Banking](#decentralized-banking)
     - [Private Smart Contracts](#private-smart-contracts)
   - [Business Model For Chenilles LLC](#business-model-for-chenilles-llc)
-    - [Big Picture: A layer above blockchains](#big-picture:-a-layer-above-blockchains)
+    - [Big Picture: A layer above blockchains](#big-picture-a-layer-above-blockchains)
     - [Fees on Channel Creation](#fees-on-channel-creation)
     - [Commissions on Network Payments](#commissions-on-network-payments)
     - [Issuing Value Add Tokens](#issuing-value-add-tokens)
@@ -90,7 +90,7 @@ connects all decentralized applications together.
     - [Decentralized Application Development](#decentralized-application-development)
     - [Steering an Ecosystem](#steering-an-ecosystem)
     - [Bootstrapping the Business](#bootstrapping-the-business)
-  - [Conclusion: Invest in the Future of DeFi and DeCo](#conclusion:-invest-in-the-future-of-defi-and-deco)
+  - [Conclusion: Invest in the Future of DeFi and DeCo](#conclusion-invest-in-the-future-of-defi-and-deco)
   - [References and Bibliography](#references-and-bibliography)
 
 ## Motivation: Unlocking Cross-Chain DeFi & DeCo
@@ -181,7 +181,7 @@ across all blockchains.
 This section explains the advantages and limitations
 of existing blockchain networks.
 You can skip to the next section
-[*Chenilles*: Next Generation State Channels with Unique Capabilities](#Chenilles: Next Generation State Channels with Unique Capabilities)
+[*Chenilles*: Next Generation State Channels with Unique Capabilities](#chenilles-next-generation-state-channels-with-unique-capabilities)
 if you are already familiar with them.
 
 ### Layer 1 Blockchains
@@ -344,9 +344,9 @@ It also shares two essential limitations of State Channels:
 However, it lifts away the limitations of
 *Only One Chain*, *Only One Token*, *Payments Only* and *Two Participants Only*.
 Instead, *Chenilles* is
-[**Multi-Chain**](#Multi-Chain),
-[**Multi-Token**](#Multi-Token), and
-[**Multi-Participant**](#Multi-Participant)
+[**Multi-Chain**](#multi-chain),
+[**Multi-Token**](#multi-token), and
+[**Multi-Participant**](#multi-participant)
 all thanks to enabling **Smart Contracts** in addition to Payments.
 It also supports **Improved Privacy with Hidden Channels**, and
 **Further Improved Privacy with zk-SNARKs**.
@@ -356,7 +356,7 @@ some more **Advanced Smart Contracts**.
 The rest of this section explains in more detail
 these superior features of *Chenilles* over existing State Channel networks.
 You can skip to the next section
-[Applications enabled by *Chenilles*](#Applications enabled by *Chenilles*)
+[Applications enabled by *Chenilles*](#applications-enabled-by-chenilles)
 if you’re only interested in the applications that these features make possible.
 
 ### Smart Contracts using *Glow*

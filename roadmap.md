@@ -56,7 +56,7 @@ We will keep building along this roadmap, revising it based on market feedback.
     - [Simple Routing on par with Lightning Network](#simple-routing-on-par-with-lightning-network)
     - [Simple Fast Confirmation with Rollup Service](#simple-fast-confirmation-with-rollup-service)
     - [Interoperation with Lightning Network](#interoperation-with-lightning-network)
-    - [Interoperation with On-Ramp / Off-Ramp Solutions](#interoperation-with-on-ramp-/-off-ramp-solutions)
+    - [Interoperation with On-Ramp / Off-Ramp Solutions](#interoperation-with-on-ramp--off-ramp-solutions)
     - [Interoperation with Bridges and Oracles](#interoperation-with-bridges-and-oracles)
     - [Interoperation with KYC solutions](#interoperation-with-kyc-solutions)
     - [Advanced Cross-Currency Payments](#advanced-cross-currency-payments)
@@ -65,7 +65,7 @@ We will keep building along this roadmap, revising it based on market feedback.
     - [Advanced Support for Self-Custodial DEX](#advanced-support-for-self-custodial-dex)
     - [Wallet Integration of Simple Payments](#wallet-integration-of-simple-payments)
     - [Wallet Integration of Simple Routing](#wallet-integration-of-simple-routing)
-    - [Wallet Integration of Cross-Currency & Cross-Blockchain Payments](#wallet-integration-of-cross-currency-&-cross-blockchain-payments)
+    - [Wallet Integration of Cross-Currency & Cross-Blockchain Payments](#wallet-integration-of-cross-currency--cross-blockchain-payments)
     - [Wallet Integration of DApps](#wallet-integration-of-dapps)
     - [Privacy Enhancements](#privacy-enhancements)
     - [Financial Layer](#financial-layer)
@@ -511,7 +511,7 @@ yet others some specific ERC20, etc.
 
 **Dependencies**:
     [Minimal Payment Route Prototype](#minimal-payment-route-prototype),
-    [Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).
+    [Minimal Generalized State Channel Prototype](#minimal-generalized-state-channel-prototype).
 
 1. A microeconomic study of the proper pricing of the *option* implicit
    in any asynchronous currency swap protocol,
@@ -604,7 +604,7 @@ that requires that all parties should trust its validation committee.
 Everyone will benefit from such a service.
 
 **Dependencies**:
-    [Minimal Generalized State Channel Prototype](#Minimal Generalized State Channel Prototype).
+    [Minimal Generalized State Channel Prototype](#minimal-generalized-state-channel-prototype).
 
 1. Modification of the smart contract and payment protocol to use a
    confirmation service using a rollup with a central validator.
