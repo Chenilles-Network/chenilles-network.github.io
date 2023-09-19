@@ -60,5 +60,5 @@ the Wiki for our @(Glow) language, section
 }
 @h2{Contact us!}
 @p{
-@(url "mailto:contact@mukn.com" "contact@mukn.com")
+@(url "mailto:contact@chenilles.network" "contact@chenilles.network")
 }}})

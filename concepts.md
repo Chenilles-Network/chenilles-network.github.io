@@ -6,7 +6,7 @@ underlying the *Chenilles* Network,
 and explain how its Generalized State Channels work.
 
  - Date: May 2023 (Latest update September 14th 2023)
- - Author: François-René Rideau <f@mukn.com>
+ - Author: François-René Rideau <f@chenilles.network>
  - Company: [Chenilles, LLC](https://chenilles.network)
 
 ## Table of Contents

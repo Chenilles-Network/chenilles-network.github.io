@@ -10,7 +10,7 @@ See also our detailed [Roadmap](roadmap.html) for our plan to get there.
 Contact our [Team](team.html) for more details.
 
  - Date: April 2023 (Latest update September 14th 2023)
- - Author: François-René Rideau <f@mukn.com>
+ - Author: François-René Rideau <f@chenilles.network>
  - Company: [Chenilles, LLC](https://chenilles.network)
 
 ## Abstract
@@ -675,7 +675,8 @@ instead only having to trust the overall network.
 This automated decentralized intermediation can be used to pay
 for any service that can be verifiably provided over the Internet,
 including but not limited to:
-storage, search, computation, advertisement, gaming, etc.
+storage, search, computation, advertisement, gaming, but also
+AI, zk proofs, etc.
 Companies and individuals can then sell the “spare cycles” of their hardware,
 optimizing global resource utilization.
 In the future, even physical utility providers could also be paid this way
@@ -1009,7 +1010,7 @@ an everyday payment and contracting tool for everyone.
 
 MuKn is seeking investment to bring *Chenilles* to market
 and grow it to its full potential in the shortest possible delays.
-Contact us at <contact@mukn.com> for further information.
+Contact us at <contact@chenilles.network> for further information.
 
 ## References and Bibliography
 
