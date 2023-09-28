@@ -1175,7 +1175,7 @@ Non-functional aspects, that for most software are often
 for Decentralized systems quickly become essential features that
 must be provided on a must-always-work-or-else basis.
 
-We explain in more details in our [Chenilles System Layer](system.md) document
+We explain in more details in our [Chenilles System Layer](system) document
 the system architecture that enables the robustness of our systems
 against entire classes of issues that we can anticipate to be experienced
 due to natural or artificial stress.

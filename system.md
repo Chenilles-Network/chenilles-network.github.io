@@ -71,7 +71,7 @@ Explaining the system layer underlying the implementation of Chenilles.
 
 ### Rationale
 
-The [System Robustness section in our Concepts document](concepts.md#system-robustness)
+The [System Robustness section in our Concepts document](concepts#system-robustness)
 explains why this *Chenilles* System Layer is necessary.
 
 ### Roadmap
