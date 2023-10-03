@@ -464,7 +464,7 @@ They can set and follow their own rules for transaction fees or lack thereof.
 
 ### Payment Atomicity
 
-To prevent intermediaries either cheating or being cheated,
+To prevent intermediaries from either cheating or being cheated,
 each intermediate transaction along the route will be made conditional
 on some triggering event, such that either all transfers happen,
 or none of them do—a property known as “atomicity”.
