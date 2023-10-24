@@ -14,6 +14,11 @@
       (div-contents
         (p nbsp)
 @p{
+@(Chenilles) is a fast self-custodial payment network for cryptocurrencies and stablecoins.
+It is cross-chain, cross-currency, private, smart-contract- and zk- capable —
+and connects to on-ramp and off-ramp solutions.
+}
+@p{
 Our @Doc{Whitepaper} presents the business vision for
 how the @(Chenilles) Network will make cryptocurrencies “go to the moon”.
 }
@@ -32,4 +37,7 @@ the @(Chenilles) Network and the new applications enabled by each milestone.
 @p{
 Our @Doc{System} document describes how we will address
 the ever increasing Robustness challenges of our Network as it grows in value.
+}
+@p{
+@href["mailto:contact@chenilles.network"]{Contact us} for our Pitch Deck.
 }))))
