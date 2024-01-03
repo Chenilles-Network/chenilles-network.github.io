@@ -1,9 +1,9 @@
-﻿The *Chenilles* Roadmap
+﻿The *Chenilles* Roadmaphttps://chenilles.network/roadmap.html
 =======================
 
  - Date: May 2023 (Latest update September 14th 2023)
  - Author: François-René Rideau <f@chenilles.network>
- - Company: [Chenilles, LLC](https://chenilles.network)
+ - Company: [Chenilles, LLC.](https://chenilles.network)
 
 ## Abstract
 
