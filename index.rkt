@@ -14,9 +14,10 @@
       (div-contents
         (p nbsp)
 @p{
-@(Chenilles) is a fast self-custodial payment network for cryptocurrencies and stablecoins.
-It is cross-chain, cross-currency, private, smart-contract- and zk- capable —
-and connects to on-ramp and off-ramp solutions.
+@(Chenilles) is a complete interoperability solution to transmit value
+across currencies and assets, across blockchains and centralized networks,
+supporting not just instant payments but also elaborate DApps,
+safely, privately, and at scale, with or without zk encryption.
 }
 @p{
 Our @Doc{Whitepaper} presents the business vision for
